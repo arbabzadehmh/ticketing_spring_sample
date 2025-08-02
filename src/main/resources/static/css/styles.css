@@ -1,0 +1,186 @@
+:root {
+    --sidebar-width: 250px;
+    --navbar-height: 56px;
+    --footer-height: 60px;
+    --bs-body-bg: #ffffff;
+    --bs-body-color: #212529;
+    --bs-primary: #0d6efd;
+    --bs-border-color: #dee2e6;
+    --icon-color: #212529;
+    --validation-error-color: #dc3545;
+}
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: #1a1a1a;
+    --bs-body-color: #ffffff;
+    --bs-border-color: #444444;
+    --icon-color: #ffffff;
+    --validation-error-color: #ff7d8a;
+
+
+    .sidebar {
+        background: #2d2d2d !important;
+        border-right: 1px solid var(--bs-border-color);
+    }
+
+    .card {
+        background-color: #2d2d2d;
+    }
+}
+
+/* تنظیمات اصلی */
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* نوار بالایی */
+.navbar {
+    height: var(--navbar-height);
+    z-index: 1030;
+}
+
+/* سایدبار */
+.sidebar {
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--navbar-height));
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    background: #f8f9fa;
+    transition: transform 0.3s;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+/* محتوای اصلی */
+.main-content {
+    margin-left: var(--sidebar-width);
+    height: calc(100vh - var(--navbar-height) - var(--footer-height));
+    overflow-y: auto;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+/* فوتر */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: var(--footer-height);
+    z-index: 1020;
+}
+
+/* راست‌چین */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+
+    body{
+        font-family: "B Yekan", serif;
+        font-size: 1.2em;
+    }
+
+    .sidebar {
+        left: auto !important;
+        right: 0 !important;
+        border-left: 1px solid var(--bs-border-color);
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        margin-right: var(--sidebar-width);
+    }
+
+    .dropdown-menu {
+        text-align: right;
+    }
+
+    .nav-link i {
+        margin-left: 0.5rem !important;
+        margin-right: 0 !important;
+    }
+
+    .footer .text-end {
+        text-align: left !important;
+    }
+}
+
+/* موبایل */
+@media (max-width: 1000px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    [dir="rtl"] .sidebar {
+        transform: translateX(100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* آیکون‌ها */
+.fa-icon {
+    color: var(--icon-color);
+    transition: color 0.3s;
+}
+
+/* دراپ‌داون محصولات */
+.nav-item.dropdown .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    margin-left: 2rem;
+    border: none;
+    box-shadow: none;
+}
+
+[dir="rtl"] .nav-item.dropdown .dropdown-menu {
+    margin-left: 0;
+    margin-right: 2rem;
+}
+
+/* بهبود نمایش فرگمنت‌ها */
+.fragment-content {
+    padding: 20px;
+    background-color: var(--bs-body-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* بهبود نمایش مودال */
+.modal-content {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.modal-header, .modal-footer {
+    border-color: var(--bs-border-color);
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.language-icon {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+td{
+    color: var(--bs-body-color);
+}
+
+.val-err{
+    color: var(--validation-error-color);
+}

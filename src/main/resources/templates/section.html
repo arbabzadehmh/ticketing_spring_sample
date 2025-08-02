@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Section</title>
+</head>
+<body>
+<h1>Section</h1>
+<form th:action="@{/section}" th:method="post" th:object="${section}">
+    <label>Title</label>
+    <input type="text" name="title" id="title">
+    <label for="parentSection">Parent Section Id</label>
+    <input type="number" name="parentSection" id="parentSection" >
+
+
+    <input type="submit" value="save" >
+</form>
+<h2 th:dir="ltr" th:if="${sectionList.isEmpty()}">No Content</h2>
+<table th:if="${not sectionList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Parent Section</th>
+
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s: ${sectionList}">
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.title}"></td>
+        <td th:text="${s.parentSection}"></td>
+<!--        <td th:text="${s.childSectionList.forEach(String)}"></td>-->
+        <td>
+            <button th:data-name="${section.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${section.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

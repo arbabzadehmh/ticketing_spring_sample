@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>attachment</title>
+</head>
+<body>
+
+<h1>Attachment</h1>
+
+<form th:action="@{/attachment}" th:method="post" th:object="${attachment}">
+    <label>File Name</label>
+    <input type="text" name="fileName" id="fileName">
+    <label for="fileType">File Type</label>
+    <select name="fileType" id="fileType" >
+        <option th:value="JPG">JPG</option>
+        <option th:value="PNG">PNG</option>
+        <option th:value="BMP">BMP</option>
+        <option th:value="PDF">PDF</option>
+        <option th:value="TXT">TXT</option>
+    </select>
+    <label>fileSize</label>
+    <input type="number" name="fileSize" id="fileSize">
+    <label>Description</label>
+    <input type="text" name="description" id="description">
+<!--    <label>User</label>-->
+<!--    <input type="text" name="user" id="user">-->
+<!--    <label>Ticket</label>-->
+<!--    <input type="number" name="ticket" id="ticket">-->
+
+    <input type="submit" value="save" >
+</form>
+
+
+</form>
+
+<h2 th:dir="ltr" th:if="${attachmentList.isEmpty()}">No Content</h2>
+<table th:if="${not attachmentList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>fileName</th>
+        <th>fileType</th>
+        <th>fileSize</th>
+        <th>attachTime</th>
+        <th>description</th>
+        <th>User</th>
+        <th>Ticket</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${attachmentList}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.fileName}"></td>
+        <td th:text="${a.fileType}"></td>
+        <td th:text="${a.fileSize}"></td>
+        <td th:text="${a.attachTime}"></td>
+        <td th:text="${a.description}"></td>
+        <td th:text="${a.user}"></td>
+        <td th:text="${a.ticket}"></td>
+
+        <td>
+            <button th:data-name="${attachment.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${attachment.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

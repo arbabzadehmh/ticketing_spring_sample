@@ -1,0 +1,19 @@
+<div th:fragment="profile-card">
+    <div class="card shadow p-3">
+        <h5 th:text="${profile.firstName + ' ' + profile.lastName}"></h5>
+        <h6 th:text="#{users.username} + ' : ' + ${profile.user.username}"></h6>
+        <h6 th:text="#{users.password} + ' : ******' "></h6>
+        <h6 th:text="#{profiles.email} + ' : ' + ${profile.email}"></h6>
+        <h6 th:text="#{profiles.phone} + ' : ' + ${profile.phone}"></h6>
+        <button class="btn btn-warning card-edit" data-bs-toggle="modal" data-bs-target="#profileEditModal"
+                th:data-id="${profile.id}"
+                th:data-firstname="${profile.firstName}"
+                th:data-lastname="${profile.lastName}"
+                th:data-email="${profile.email}"
+                th:data-phone="${profile.phone}"
+                th:data-username="${profile.user.username}">
+            <i class="fas fa-edit" th:text="#{profiles.edit}"></i>
+        </button>
+    </div>
+</div>
+

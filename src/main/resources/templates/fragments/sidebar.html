@@ -1,0 +1,59 @@
+<aside th:fragment="sidebar"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    class="sidebar">
+    <div class="sidebar-inner p-3">
+        <nav class="nav flex-column">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/icons/mftlogo.png}" width="80%" height="80%" class="d-inline-block justify-content-center" alt="">
+            </a>
+
+            <a class="nav-link" href="#">
+                <i class="fa fa-home me-2"></i>
+                <span th:text="#{navbar.home}"></span>
+            </a>
+
+
+            <!-- فقط برای ADMIN -->
+            <a class="nav-link" href="/profiles" sec:authorize="hasRole('ADMIN')">
+                <i class="fa fa-users me-2"></i>
+                <span th:text="#{navbar.profiles}"></span>
+            </a>
+
+            <a class="nav-link" href="/tickets" sec:authorize="hasRole('ADMIN')">
+                <i class="fa fa-ticket me-2"></i>
+                <span th:text="#{navbar.tickets}"></span>
+            </a>
+
+            <a class="nav-link" href="/sections" sec:authorize="hasRole('ADMIN')">
+                <i class="fa fa-section me-2"></i>
+                <span th:text="#{navbar.sections}"></span>
+            </a>
+
+            <!-- فقط برای CUSTOMER -->
+            <div class="nav-item dropdown" sec:authorize="hasRole('CUSTOMER')">
+                <a class="nav-link dropdown-toggle d-flex align-items-center"
+                   href="#"
+                   data-bs-toggle="dropdown"
+                   data-bs-auto-close="outside">
+                    <i class="fa fa-ticket me-2"></i>
+                    <span th:text="#{navbar.tickets}"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="/my-tickets" th:text="#{navbar.my_tickets}"></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/my-tickets/new" th:text="#{navbar.add_ticket}"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <a class="nav-link" href="/my-profile" sec:authorize="hasRole('CUSTOMER')">
+                <i class="fa fa-users me-2"></i>
+                <span th:text="#{navbar.my_profile}"></span>
+            </a>
+
+        </nav>
+    </div>
+</aside>

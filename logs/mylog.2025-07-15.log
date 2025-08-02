@@ -1,0 +1,540 @@
+11:54:05.778 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+11:54:05.815 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 10120 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+11:54:05.817 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+11:54:05.858 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+11:54:05.858 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+11:54:06.369 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+11:54:06.429 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 6 JPA repository interfaces.
+11:54:07.274 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+11:54:07.283 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:07.285 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:54:07.285 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+11:54:07.322 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:54:07.322 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1464 ms
+11:54:07.437 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+11:54:07.583 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+11:54:07.584 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+11:54:07.592 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+11:54:07.672 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+11:54:07.673 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+11:54:07.739 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+11:54:07.775 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+11:54:07.801 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+11:54:07.994 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+11:54:08.057 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+11:54:08.862 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+11:54:08.910 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:54:09.281 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+11:54:09.345 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+11:54:09.361 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+11:54:09.379 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+11:54:09.414 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+11:54:09.477 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+11:54:09.533 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+11:54:09.749 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+11:54:09.831 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+11:54:09.842 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:09.842 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]
+11:54:09.842 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/'], Ant [pattern='/']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:09.842 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/'], Ant [pattern='/']]
+11:54:09.842 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:09.842 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]
+11:54:10.174 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+11:54:10.223 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:10.236 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+11:54:10.248 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 4.692 seconds (process running for 5.387)
+11:54:10.253 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+11:54:10.324 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+11:54:10.507 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+11:54:10.897 [RMI TCP Connection(3)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:54:10.897 [RMI TCP Connection(3)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+11:54:10.897 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+11:54:10.898 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+11:54:10.898 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+11:54:10.899 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6d43d30a
+11:54:10.899 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@73dbf715
+11:54:10.899 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+11:54:10.899 [RMI TCP Connection(3)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+11:54:37.119 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (0 additions, 66 deletions, 1 modification)
+11:54:37.124 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+11:54:37.126 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:37.494 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+11:54:37.494 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:37.499 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+11:54:37.512 [Thread-5] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+11:54:37.513 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+11:54:37.516 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+11:54:37.597 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 10120 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+11:54:37.597 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+11:54:37.615 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+java.lang.NoClassDefFoundError: ir/service/RoleService
+	at java.base/java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredConstructors(Class.java:3473)
+	at java.base/java.lang.Class.getDeclaredConstructors(Class.java:2652)
+	at org.springframework.boot.BeanDefinitionLoader.hasNoConstructors(BeanDefinitionLoader.java:293)
+	at org.springframework.boot.BeanDefinitionLoader.isEligible(BeanDefinitionLoader.java:285)
+	at org.springframework.boot.BeanDefinitionLoader.load(BeanDefinitionLoader.java:160)
+	at org.springframework.boot.BeanDefinitionLoader.load(BeanDefinitionLoader.java:136)
+	at org.springframework.boot.BeanDefinitionLoader.load(BeanDefinitionLoader.java:129)
+	at org.springframework.boot.SpringApplication.load(SpringApplication.java:697)
+	at org.springframework.boot.SpringApplication.prepareContext(SpringApplication.java:414)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:317)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at ir.TicketingSpringSample.main(Spring03Application.java:35)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.ClassNotFoundException: ir.service.RoleService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	... 17 common frames omitted
+11:54:40.090 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 10120 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+11:54:40.090 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+11:54:40.334 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+11:54:40.367 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 6 JPA repository interfaces.
+11:54:40.599 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+11:54:40.599 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:40.599 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:54:40.599 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+11:54:40.616 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:54:40.616 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 522 ms
+11:54:40.670 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+11:54:40.672 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:mft_db user=SA
+11:54:40.672 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+11:54:40.672 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+11:54:40.703 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+11:54:40.704 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+11:54:40.728 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+11:54:40.730 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+11:54:40.737 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+11:54:40.738 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+11:54:40.855 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+11:54:40.869 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:54:41.030 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+11:54:41.056 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+11:54:41.072 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+11:54:41.082 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+11:54:41.099 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+11:54:41.122 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+11:54:41.141 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+11:54:41.230 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+11:54:41.281 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+11:54:41.289 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:41.289 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]
+11:54:41.289 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/'], Ant [pattern='/']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:41.289 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/'], Ant [pattern='/']]
+11:54:41.289 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+11:54:41.289 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]
+11:54:41.475 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+11:54:41.495 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+11:54:41.498 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+11:54:41.506 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 1.448 seconds (process running for 36.645)
+11:54:41.508 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+11:54:41.508 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+11:54:41.512 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+11:54:41.606 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+11:54:41.691 [http-nio-0.0.0.0-80-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:54:41.691 [http-nio-0.0.0.0-80-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+11:54:41.691 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+11:54:41.691 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+11:54:41.691 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+11:54:41.692 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@617e99e3
+11:54:41.692 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1b929d04
+11:54:41.692 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+11:54:41.692 [http-nio-0.0.0.0-80-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+11:54:41.715 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+11:54:41.717 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="index"]
+11:54:41.879 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:41.911 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+11:54:41.925 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /favicon.ico
+11:54:41.926 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+11:54:41.928 [http-nio-0.0.0.0-80-exec-4] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+11:54:41.932 [http-nio-0.0.0.0-80-exec-4] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /favicon.ico.
+11:54:41.933 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.]
+11:54:41.933 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+11:54:41.934 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:41.940 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+11:54:41.941 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:41.975 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost/error?continue to session
+11:54:41.978 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost/login;jsessionid=CFFFDAD8259A1A7B543C09BAF0B9D770
+11:54:41.981 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.f.HttpStatusRequestRejectedHandler - Rejecting request due to: The request was rejected because the URL contained a potentially malicious String ";"
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL contained a potentially malicious String ";"
+	at org.springframework.security.web.firewall.StrictHttpFirewall.rejectedBlocklistedUrls(StrictHttpFirewall.java:548)
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:518)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:114)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+11:54:41.983 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+11:54:41.984 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:41.985 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost/error?continue to session
+11:54:41.985 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost/login
+11:54:41.987 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+11:54:41.988 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+11:54:41.988 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+11:54:41.989 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+11:54:42.009 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:42.009 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:43.120 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+11:54:43.121 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+11:54:43.121 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+11:54:43.121 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+11:54:43.124 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:43.124 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:43.143 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+11:54:43.144 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /favicon.ico
+11:54:43.144 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+11:54:43.144 [http-nio-0.0.0.0-80-exec-10] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+11:54:43.145 [http-nio-0.0.0.0-80-exec-10] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /favicon.ico.
+11:54:43.145 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.]
+11:54:43.145 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+11:54:43.145 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:43.146 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+11:54:43.147 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:43.147 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost/error?continue to session
+11:54:43.148 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost/login
+11:54:43.151 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+11:54:43.151 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+11:54:43.151 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+11:54:43.152 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+11:54:43.153 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:43.153 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+11:54:46.714 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /login
+11:54:46.870 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+11:54:46.871 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.w.a.s.ChangeSessionIdAuthenticationStrategy - Changed session id from CFFFDAD8259A1A7B543C09BAF0B9D770
+11:54:46.872 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]] to HttpSession [org.apache.catalina.session.StandardSessionFacade@726f3cd5]
+11:54:46.872 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.w.a.UsernamePasswordAuthenticationFilter - Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]
+11:54:46.872 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to /panel
+11:54:46.875 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /panel
+11:54:46.876 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /panel
+11:54:46.876 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/panel", parameters={}
+11:54:46.876 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.PanelController#redirectToPanel(Model, Principal)
+11:54:46.884 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:46.897 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+11:54:46.898 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+11:54:46.901 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /admins
+11:54:46.901 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:46.903 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /admins
+11:54:46.903 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admins", parameters={}
+11:54:46.903 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.AdminController#loadAdminPage(Model, Principal)
+11:54:46.907 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:46.923 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+11:54:46.924 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /favicon.ico
+11:54:46.925 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+11:54:46.925 [http-nio-0.0.0.0-80-exec-1] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+11:54:46.926 [http-nio-0.0.0.0-80-exec-1] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /favicon.ico.
+11:54:46.926 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.]
+11:54:46.926 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+11:54:46.926 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:46.927 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+11:54:46.928 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:46.928 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /error
+11:54:46.928 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+11:54:46.928 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+11:54:46.932 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
+11:54:46.933 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Tue Jul 15 11:54:46 GMT+03:30 2025, status=404, error=Not Found, trace=org.springframewor (truncated)...]
+11:54:46.943 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+11:54:48.233 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /users
+11:54:48.233 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:48.233 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /users
+11:54:48.234 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/users", parameters={}
+11:54:48.234 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.UserController#showForm(Model)
+11:54:48.249 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:48.967 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+11:54:48.968 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=CFFFDAD8259A1A7B543C09BAF0B9D770], Granted Authorities=[ROLE_ADMIN]]]
+11:54:48.968 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+11:54:48.968 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+11:54:48.968 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAllUsers()
+11:54:48.974 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+11:54:48.974 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$DzzAVx4ZTXdc3ifw7U5RV.N6QEV3ZagTwo4Mywbh9i.3hMxFchM.i, loc (truncated)...]
+11:54:48.978 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+11:54:56.549 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+11:54:56.880 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+11:54:56.883 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+11:54:56.886 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+11:54:56.886 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+11:54:56.887 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+17:12:47.439 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+17:12:47.491 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 1456 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+17:12:47.492 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+17:12:47.534 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:12:47.534 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:12:48.215 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:12:48.301 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78 ms. Found 6 JPA repository interfaces.
+17:12:49.386 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+17:12:49.436 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1901 ms
+17:12:49.579 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:12:49.721 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+17:12:49.722 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:12:49.730 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+17:12:49.822 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+17:12:49.824 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+17:12:49.918 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:12:49.962 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+17:12:49.987 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+17:12:50.195 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+17:12:50.250 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+17:12:53.769 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+17:12:53.806 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 7816 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+17:12:53.806 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+17:12:53.844 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:12:53.844 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:12:54.363 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:12:54.428 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 6 JPA repository interfaces.
+17:12:55.338 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+17:12:55.346 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:12:55.347 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+17:12:55.347 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+17:12:55.384 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:12:55.384 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1540 ms
+17:12:55.526 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:12:55.658 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+17:12:55.659 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:12:55.666 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+17:12:55.764 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+17:12:55.765 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+17:12:55.845 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:12:55.883 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+17:12:55.909 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+17:12:56.102 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+17:12:56.156 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+17:12:56.980 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+17:12:57.032 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:12:57.561 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:12:57.653 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+17:12:57.684 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+17:12:57.712 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+17:12:57.754 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+17:12:57.836 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+17:12:57.906 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+17:12:57.906 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+17:12:58.171 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+17:12:58.325 [restartedMain] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+17:12:58.328 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, ChannelProcessingFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+17:12:58.781 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+17:12:58.832 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:12:58.844 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+17:12:58.856 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 5.31 seconds (process running for 5.948)
+17:12:58.861 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+17:12:58.933 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+17:12:59.160 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+17:12:59.233 [RMI TCP Connection(6)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:12:59.235 [RMI TCP Connection(6)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+17:12:59.235 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+17:12:59.236 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+17:12:59.236 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+17:12:59.238 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1d1133e8
+17:12:59.238 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4c75e620
+17:12:59.238 [RMI TCP Connection(6)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+17:12:59.238 [RMI TCP Connection(6)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+17:13:13.500 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+17:13:13.505 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.a.c.ChannelProcessingFilter - Request: filter invocation [GET /]; ConfigAttributes: [REQUIRES_SECURE_CHANNEL]
+17:13:13.505 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.a.c.RetryWithHttpsEntryPoint - Redirecting to: https://localhost/
+17:13:13.505 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to https://localhost/
+17:14:02.844 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+17:14:03.221 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+17:14:03.227 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:14:03.238 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+17:14:03.239 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+17:14:03.242 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+17:29:59.250 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+17:29:59.288 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 8940 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+17:29:59.289 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+17:29:59.331 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:29:59.331 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:29:59.858 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:29:59.931 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 6 JPA repository interfaces.
+17:30:00.862 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+17:30:00.871 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:30:00.872 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+17:30:00.872 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+17:30:00.910 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:30:00.910 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1579 ms
+17:30:01.052 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:30:01.184 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+17:30:01.185 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:30:01.193 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+17:30:01.276 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+17:30:01.277 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+17:30:01.357 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:30:01.395 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+17:30:01.426 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+17:30:01.615 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+17:30:01.668 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+17:30:02.474 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+17:30:02.521 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:30:03.006 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:30:03.080 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+17:30:03.104 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+17:30:03.130 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+17:30:03.171 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+17:30:03.259 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+17:30:03.318 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+17:30:03.319 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+17:30:03.572 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+17:30:03.709 [restartedMain] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+17:30:03.712 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, ChannelProcessingFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+17:30:04.155 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+17:30:04.203 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:30:04.215 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+17:30:04.227 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 5.199 seconds (process running for 5.867)
+17:30:04.232 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+17:30:04.304 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+17:30:04.305 [restartedMain] INFO  ir.service.UserService - Saving user: ali
+17:30:04.631 [RMI TCP Connection(3)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:30:04.632 [RMI TCP Connection(3)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+17:30:04.632 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+17:30:04.632 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+17:30:04.632 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+17:30:04.634 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3715742d
+17:30:04.635 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4f26c058
+17:30:04.635 [RMI TCP Connection(3)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+17:30:04.636 [RMI TCP Connection(3)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+17:30:04.777 [restartedMain] INFO  ir.service.UserService - User saved with ID: ali
+17:30:04.791 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+17:31:11.139 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /h2-console/
+17:31:11.144 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.a.c.ChannelProcessingFilter - Request: filter invocation [GET /h2-console/]; ConfigAttributes: [REQUIRES_SECURE_CHANNEL]
+17:31:11.144 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.a.c.RetryWithHttpsEntryPoint - Redirecting to: https://localhost/h2-console/
+17:31:11.144 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to https://localhost/h2-console/
+17:32:06.774 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+17:32:07.158 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+17:32:07.164 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:32:07.174 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+17:32:07.174 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+17:32:07.177 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+17:33:16.174 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+17:33:16.212 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 14304 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+17:33:16.212 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+17:33:16.255 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+17:33:16.255 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+17:33:16.785 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:33:16.856 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 63 ms. Found 6 JPA repository interfaces.
+17:33:17.759 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+17:33:17.767 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:33:17.768 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+17:33:17.769 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+17:33:17.810 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:33:17.811 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1554 ms
+17:33:17.949 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:33:18.082 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+17:33:18.083 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:33:18.090 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+17:33:18.180 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+17:33:18.181 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+17:33:18.260 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:33:18.298 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+17:33:18.324 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+17:33:18.507 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+17:33:18.560 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+17:33:19.363 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+17:33:19.412 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:33:19.889 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:33:19.965 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+17:33:19.989 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+17:33:20.016 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+17:33:20.059 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+17:33:20.144 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+17:33:20.201 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+17:33:20.202 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+17:33:20.451 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+17:33:20.584 [restartedMain] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+17:33:20.587 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, ChannelProcessingFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+17:33:21.017 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+17:33:21.065 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+17:33:21.077 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+17:33:21.089 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 5.136 seconds (process running for 5.861)
+17:33:21.094 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+17:33:21.165 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+17:33:21.165 [restartedMain] INFO  ir.service.UserService - Saving user: ali
+17:33:21.543 [RMI TCP Connection(1)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:33:21.543 [RMI TCP Connection(1)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+17:33:21.543 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+17:33:21.543 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+17:33:21.543 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+17:33:21.545 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@655ea860
+17:33:21.559 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@531727fa
+17:33:21.560 [RMI TCP Connection(1)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+17:33:21.561 [RMI TCP Connection(1)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 17 ms
+17:33:21.710 [restartedMain] INFO  ir.service.UserService - User saved with ID: ali
+17:33:21.723 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+17:33:40.835 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+17:33:41.183 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+17:33:41.189 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:33:41.198 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+17:33:41.198 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+17:33:41.200 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

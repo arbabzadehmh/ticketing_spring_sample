@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Message</title>
+</head>
+<body>
+
+<h1>Message</h1>
+<form th:action="@{/messages}" th:method="post" th:object="${message}">
+    <input type="text" th:id="message" th:name="message" th:field="*{content}">
+
+    <input type="text" name="ticketId" id="ticketId" th:value="${ticketId}" hidden="hidden">
+
+    <input type="submit" value="Save">
+</form>
+
+
+<h2 th:dir="ltr" th:if="${messageList.isEmpty()}">No Content</h2>
+<table th:if="${not messageList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Content</th>
+        <th>DateTime</th>
+        <th>Ticket</th>
+        <th>User</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message:${messageList}">
+        <td th:text="${message.id}"></td>
+        <td th:text="${message.content}"></td>
+        <td th:text="${message.dateTime}"></td>
+        <td th:text="${message.ticket.title}"></td>
+        <td th:text="${message.user.username}"></td>
+        <td>
+            <button th:data-name="${message.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/panel}">Panel</a>
+
+
+<script>
+    function remove(id) {
+        fetch("/messages/" + id, {
+            method: "DELETE"
+        });
+        window.location.replace("/tickets");
+    }
+</script>
+
+</body>
+</html>

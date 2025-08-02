@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/submit-form.js" defer></script>
+    <title>User Management</title>
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<form id="userForm" action="/rest/users">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="submit" value="Save">
+</form>
+
+<button id="refresh-table">Refresh Table</button>
+<table id="dataTable">
+    <thead>
+    <tr id="tableHeader"></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Modal for Editing -->
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <form id="editForm">
+            <label for="editUsername">Username:</label>
+            <input type="text" id="editUsername" name="username" required>
+            <br>
+            <label for="editPassword">Password:</label>
+            <input type="password" id="editPassword" name="password" required>
+            <br>
+            <label for="editLocked">Locked:</label>
+            <select id="editLocked" name="locked">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <br>
+            <label for="editRoles">Roles:</label>
+            <input type="text" id="editRoles" name="roleSet" required>
+            <br>
+            <input type="hidden" id="editUserId" name="id">
+            <button type="button" id="saveChanges">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        submitForm("userForm", "POST", callback, "submit");
+        submitForm("refresh-table", "GET", callback, "click", "/rest/users");
+
+        function displayTable(jsonArray, fieldList) {
+            const tableHeader = document.getElementById('tableHeader');
+            const tableBody = document.getElementById('tableBody');
+            tableHeader.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            // Create table headers
+            fieldList.forEach(field => {
+                const th = document.createElement('th');
+                th.textContent = field.charAt(0).toUpperCase() + field.slice(1);
+                tableHeader.appendChild(th);
+            });
+
+            const actionTh = document.createElement('th');
+            actionTh.textContent = 'Actions';
+            tableHeader.appendChild(actionTh);
+
+            jsonArray.forEach(item => {
+                const tr = document.createElement('tr');
+                fieldList.forEach(field => {
+                    const td = document.createElement('td');
+                    td.textContent = field === 'locked' ? (item[field] ? 'Yes' : 'No') : item[field] || '';
+                    tr.appendChild(td);
+                });
+
+                const actionTd = document.createElement('td');
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.onclick = () => removeUser(item.username);
+
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.onclick = () => openEditModal(item);
+
+                actionTd.appendChild(removeBtn);
+                actionTd.appendChild(editBtn);
+                tr.appendChild(actionTd);
+                tableBody.appendChild(tr);
+            });
+        }
+
+
+        function removeUser(username) {
+            fetch(`/rest/users/${username}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    showToast("info", data.message);
+                    document.getElementById('refresh-table').click();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function openEditModal(user) {
+            document.getElementById('editUsername').value = user.username;
+            document.getElementById('editPassword').value = user.password;
+            document.getElementById('editLocked').value = user.locked.toString();
+            document.getElementById('editRoles').value = user.roleSet.join(', ');
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        document.getElementById('closeModal').onclick = () => {
+            document.getElementById('editModal').style.display = 'none';
+        };
+
+        document.getElementById('saveChanges').onclick = () => saveChanges();
+
+
+        async function saveChanges() {
+            const username = document.getElementById('editUsername').value;
+            const updatedData = {
+                username,
+                password: document.getElementById('editPassword').value,
+                locked: document.getElementById('editLocked').value === 'true',
+                roleSet: document.getElementById('editRoles').value.split(',').map(role => role.trim())
+            };
+
+            try {
+                const response = await fetch(`/rest/users/${username}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData)
+                });
+                const data = await response.json();
+                showToast("info", data.message);
+                document.getElementById('editModal').style.display = 'none';
+                document.getElementById('refresh-table').click();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+
+
+        async function callback(jsonResponse) {
+            if (!Array.isArray(jsonResponse)) {
+                console.error("Invalid response format:", jsonResponse);
+                return;
+            }
+
+            const users = jsonResponse;
+            users.forEach(user => {
+                user.roleSet = user.roleSet ? user.roleSet.map(role => role.name || role) : []; // بررسی نقش‌ها اگر وجود دارند
+            });
+
+            displayTable(users, ["username", "locked", "roleSet"]);
+            console.log("Done");
+        }
+
+
+
+    });
+</script>
+
+</body>
+</html>

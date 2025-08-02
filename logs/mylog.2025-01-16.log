@@ -1,0 +1,558 @@
+15:37:07.210 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+15:37:07.256 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 151472 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring)
+15:37:07.256 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+15:37:07.309 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:37:07.309 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:37:08.015 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+15:37:08.078 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 6 JPA repository interfaces.
+15:37:08.979 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+15:37:08.987 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+15:37:08.988 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+15:37:08.989 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+15:37:09.027 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+15:37:09.027 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1712 ms
+15:37:09.173 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+15:37:09.317 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+15:37:09.318 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+15:37:09.326 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+15:37:09.398 [restartedMain] INFO  ir.aop.ExceptionHandler - corsFilterTry/Catch -------> ok
+15:37:09.427 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+15:37:09.430 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+15:37:09.544 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+15:37:09.680 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+15:37:09.718 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+15:37:09.928 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+15:37:09.989 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+15:37:10.813 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:37:10.859 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+15:37:11.336 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+15:37:11.410 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+15:37:11.434 [restartedMain] INFO  ir.aop.ExceptionHandler - addViewControllersTry/Catch -------> ok
+15:37:11.436 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+15:37:11.461 [restartedMain] INFO  ir.aop.ExceptionHandler - addResourceHandlersTry/Catch -------> ok
+15:37:11.464 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+15:37:11.511 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+15:37:11.606 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+15:37:11.652 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+15:37:11.892 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+15:37:11.988 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+15:37:11.988 [restartedMain] INFO  ir.aop.ExceptionHandler - securityFilterChainTry/Catch -------> ok
+15:37:11.990 [restartedMain] INFO  ir.aop.ExceptionHandler - webSecurityCustomizerTry/Catch -------> ok
+15:37:12.001 [restartedMain] INFO  ir.aop.ExceptionHandler - customizeTry/Catch -------> ok
+15:37:12.001 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+15:37:12.001 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]
+15:37:12.001 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/'], Ant [pattern='/']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+15:37:12.001 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/'], Ant [pattern='/']]
+15:37:12.001 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+15:37:12.001 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]
+15:37:12.418 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+15:37:12.472 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+15:37:12.485 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+15:37:12.497 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 5.503 seconds (process running for 6.272)
+15:37:12.503 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+15:37:12.586 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:37:12.586 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:37:12.586 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+15:37:12.671 [restartedMain] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+15:37:12.765 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:37:12.765 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:37:12.765 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+15:37:12.936 [RMI TCP Connection(2)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:37:12.936 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+15:37:12.937 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+15:37:12.937 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+15:37:12.937 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+15:37:12.947 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6f126bfb
+15:37:12.948 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4c5ed70f
+15:37:12.949 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+15:37:12.949 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 12 ms
+15:37:20.167 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+15:37:20.169 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="index"]
+15:37:20.365 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:20.417 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+15:37:20.428 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /favicon.ico
+15:37:20.428 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+15:37:20.429 [http-nio-0.0.0.0-80-exec-2] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+15:37:20.439 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler ir.controller.MyControllerAdvice#handleNoHandlerFoundException(NoHandlerFoundException)
+15:37:20.440 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - handleNoHandlerFoundExceptionTry/Catch -------> ok
+15:37:20.444 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'image/avif', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [text/plain, */*, application/json, application/*+json]
+15:37:20.445 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["صفحه درخواستی وجود ندارد !!!"]
+15:37:20.449 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.]
+15:37:20.449 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+15:37:20.450 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+15:37:22.928 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+15:37:22.929 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+15:37:22.930 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+15:37:22.932 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+15:37:22.956 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:22.956 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+15:37:30.456 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /login
+15:37:30.543 [http-nio-0.0.0.0-80-exec-7] INFO  ir.aop.ExceptionHandler - findByUsernameTry/Catch -------> ok
+15:37:30.545 [http-nio-0.0.0.0-80-exec-7] INFO  ir.aop.ExceptionHandler - loadUserByUsernameTry/Catch -------> ok
+15:37:30.618 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+15:37:30.647 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]] to HttpSession [org.apache.catalina.session.StandardSessionFacade@565c5a26]
+15:37:30.647 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.w.a.UsernamePasswordAuthenticationFilter - Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+15:37:30.647 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to /panel
+15:37:30.654 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /panel
+15:37:30.654 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /panel
+15:37:30.655 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/panel", parameters={}
+15:37:30.655 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.PanelController#redirectToPanel(Model, Principal)
+15:37:30.661 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:37:30.666 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - findByIdTry/Catch -------> ok
+15:37:30.666 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - findByUsernameTry/Catch -------> ok
+15:37:30.666 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - redirectToPanelTry/Catch -------> ok
+15:37:30.681 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+15:37:30.681 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+15:37:30.686 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /admins
+15:37:30.687 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:37:30.689 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /admins
+15:37:30.690 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admins", parameters={}
+15:37:30.690 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.AdminController#loadAdminPage(Model, Principal)
+15:37:30.691 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - loadAdminPageTry/Catch -------> ok
+15:37:30.698 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:32.356 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /users
+15:37:32.358 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:37:32.358 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /users
+15:37:32.358 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/users", parameters={}
+15:37:32.359 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.UserController#showForm(Model)
+15:37:32.366 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:32.366 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:32.369 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:32.369 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:32.369 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - showFormTry/Catch -------> ok
+15:37:32.389 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:32.405 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/styles.css", parameters={}
+15:37:32.405 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/submit-form.js", parameters={}
+15:37:32.405 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+15:37:32.405 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+15:37:32.406 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+15:37:32.406 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+15:37:32.411 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:32.414 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:32.414 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:34.811 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+15:37:34.812 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:37:34.812 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+15:37:34.812 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+15:37:34.813 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+15:37:34.815 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:34.815 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:34.815 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:34.816 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+15:37:34.816 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$cFMcUyFMdkRCwk3zK/Q3X.aLPt1yt.ydUPlH0BgZ3zH8tFtTyT8yu, loc (truncated)...]
+15:37:34.826 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:37:41.192 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+15:37:41.192 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:37:41.192 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+15:37:41.192 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+15:37:41.192 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+15:37:41.197 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:41.197 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:41.197 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:37:41.197 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+15:37:41.197 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$cFMcUyFMdkRCwk3zK/Q3X.aLPt1yt.ydUPlH0BgZ3zH8tFtTyT8yu, loc (truncated)...]
+15:37:41.198 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$cFMcUyFMdkRCwk3zK/Q3X.aLPt1yt.ydUPlH0BgZ3zH8tFtTyT8yu, loc (truncated)...]
+15:38:14.972 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:39:32.677 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /rest/users
+15:39:32.679 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+15:39:32.679 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /rest/users
+15:39:32.686 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/rest/users", parameters={}
+15:39:32.686 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#saveUser(User)
+15:39:32.705 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=reza, password=1213456, locked=false, roleSet=null)]
+15:39:32.705 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveUserTry/Catch -------> ok
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$cFMcUyFMdkRCwk3zK/Q3X.aLPt1yt.ydUPlH0BgZ3zH8tFtTyT8yu, loc (truncated)...]
+15:39:32.772 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+15:40:28.584 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+15:40:28.847 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+15:40:28.863 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+15:40:28.874 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+15:40:28.874 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+15:40:28.874 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+16:06:21.905 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+16:06:21.941 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 153256 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring)
+16:06:21.941 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+16:06:21.993 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:06:21.993 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:06:22.499 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:06:22.555 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 6 JPA repository interfaces.
+16:06:23.398 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+16:06:23.406 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+16:06:23.407 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+16:06:23.407 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+16:06:23.442 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+16:06:23.442 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1449 ms
+16:06:23.577 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+16:06:23.708 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+16:06:23.709 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+16:06:23.716 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+16:06:23.792 [restartedMain] INFO  ir.aop.ExceptionHandler - corsFilterTry/Catch -------> ok
+16:06:23.837 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+16:06:23.838 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+16:06:23.906 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:06:23.944 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+16:06:23.968 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:06:24.154 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:06:24.207 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:06:24.974 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:06:25.022 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:06:25.505 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+16:06:25.580 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+16:06:25.603 [restartedMain] INFO  ir.aop.ExceptionHandler - addViewControllersTry/Catch -------> ok
+16:06:25.605 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+16:06:25.628 [restartedMain] INFO  ir.aop.ExceptionHandler - addResourceHandlersTry/Catch -------> ok
+16:06:25.631 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+16:06:25.675 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+16:06:25.765 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+16:06:25.809 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+16:06:26.034 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+16:06:26.128 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+16:06:26.128 [restartedMain] INFO  ir.aop.ExceptionHandler - securityFilterChainTry/Catch -------> ok
+16:06:26.130 [restartedMain] INFO  ir.aop.ExceptionHandler - webSecurityCustomizerTry/Catch -------> ok
+16:06:26.141 [restartedMain] INFO  ir.aop.ExceptionHandler - customizeTry/Catch -------> ok
+16:06:26.141 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:06:26.141 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]
+16:06:26.142 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/'], Ant [pattern='/']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:06:26.142 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/'], Ant [pattern='/']]
+16:06:26.142 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:06:26.142 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]
+16:06:26.539 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+16:06:26.585 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+16:06:26.597 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+16:06:26.609 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 4.925 seconds (process running for 5.54)
+16:06:26.614 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+16:06:26.691 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:06:26.691 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:06:26.692 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+16:06:26.772 [restartedMain] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+16:06:26.960 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:06:26.960 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:06:26.960 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+16:06:27.015 [RMI TCP Connection(2)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:06:27.016 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+16:06:27.016 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+16:06:27.016 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+16:06:27.016 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+16:06:27.019 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@199e21cc
+16:06:27.021 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@16d32231
+16:06:27.022 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+16:06:27.022 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+16:06:39.977 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+16:06:39.979 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="index"]
+16:06:40.150 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:06:41.296 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+16:06:41.307 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+16:06:41.307 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+16:06:41.308 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+16:06:41.327 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:06:41.328 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]]
+16:06:44.704 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /login
+16:06:44.784 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - findByUsernameTry/Catch -------> ok
+16:06:44.784 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - loadUserByUsernameTry/Catch -------> ok
+16:06:44.860 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+16:06:44.885 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.a.s.ChangeSessionIdAuthenticationStrategy - Changed session id from D7446DEEF16B9C620BB2726BE0625224
+16:06:44.886 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]] to HttpSession [org.apache.catalina.session.StandardSessionFacade@53e53143]
+16:06:44.886 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.a.UsernamePasswordAuthenticationFilter - Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]
+16:06:44.886 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to /panel
+16:06:44.887 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /panel
+16:06:44.887 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /panel
+16:06:44.887 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/panel", parameters={}
+16:06:44.887 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.PanelController#redirectToPanel(Model, Principal)
+16:06:44.901 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:06:44.902 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findByIdTry/Catch -------> ok
+16:06:44.902 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findByUsernameTry/Catch -------> ok
+16:06:44.902 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - redirectToPanelTry/Catch -------> ok
+16:06:44.921 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+16:06:44.921 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+16:06:44.925 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /admins
+16:06:44.926 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:06:44.928 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /admins
+16:06:44.928 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admins", parameters={}
+16:06:44.928 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.AdminController#loadAdminPage(Model, Principal)
+16:06:44.929 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - loadAdminPageTry/Catch -------> ok
+16:06:44.930 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:06:47.980 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /users
+16:06:47.981 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:06:47.981 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /users
+16:06:47.981 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/users", parameters={}
+16:06:47.982 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.UserController#showForm(Model)
+16:06:47.987 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:47.987 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:47.989 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:47.989 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:47.989 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - showFormTry/Catch -------> ok
+16:06:48.006 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:06:48.023 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/submit-form.js", parameters={}
+16:06:48.023 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+16:06:48.025 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:06:48.722 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:06:48.735 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$HdVyS2GUJJ0iIbtcPFZhWeizAIyiv7fSIjK/sJL/nxTK.WCT0CxsO, loc (truncated)...]
+16:06:48.747 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:14:30.228 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+16:14:30.438 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+16:14:30.438 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:14:30.454 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+16:14:30.454 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+16:14:30.454 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+16:14:32.725 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+16:14:32.772 [restartedMain] INFO  ir.TicketingSpringSample - Starting Spring03Application using Java 20.0.2 with PID 152908 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring)
+16:14:32.772 [restartedMain] INFO  ir.TicketingSpringSample - No active profile set, falling back to 1 default profile: "default"
+16:14:32.813 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:14:32.813 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:14:33.307 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:14:33.362 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 6 JPA repository interfaces.
+16:14:34.210 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 80 (http)
+16:14:34.218 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-80"]
+16:14:34.218 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+16:14:34.218 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+16:14:34.254 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+16:14:34.255 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1442 ms
+16:14:34.390 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+16:14:34.515 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:mft_db user=SA
+16:14:34.516 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+16:14:34.524 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mft_db'
+16:14:34.593 [restartedMain] INFO  ir.aop.ExceptionHandler - corsFilterTry/Catch -------> ok
+16:14:34.633 [restartedMain] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+16:14:34.634 [restartedMain] DEBUG o.s.web.filter.CorsFilter - Filter 'corsFilter' configured for use
+16:14:34.702 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:14:34.739 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+16:14:34.763 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:14:34.947 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:14:34.998 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:14:35.755 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:14:35.803 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:14:36.288 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+16:14:36.361 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 28 mappings in 'requestMappingHandlerMapping'
+16:14:36.385 [restartedMain] INFO  ir.aop.ExceptionHandler - addViewControllersTry/Catch -------> ok
+16:14:36.387 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/, /login, /home, /error] in 'viewControllerHandlerMapping'
+16:14:36.403 [restartedMain] INFO  ir.aop.ExceptionHandler - addResourceHandlersTry/Catch -------> ok
+16:14:36.407 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/assets/**] in 'resourceHandlerMapping'
+16:14:36.447 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+16:14:36.527 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+16:14:36.581 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+16:14:36.801 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/monitoring'
+16:14:36.895 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+16:14:36.895 [restartedMain] INFO  ir.aop.ExceptionHandler - securityFilterChainTry/Catch -------> ok
+16:14:36.897 [restartedMain] INFO  ir.aop.ExceptionHandler - webSecurityCustomizerTry/Catch -------> ok
+16:14:36.908 [restartedMain] INFO  ir.aop.ExceptionHandler - customizeTry/Catch -------> ok
+16:14:36.909 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:14:36.909 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/h2-console/**'], Ant [pattern='/h2-console/**']]
+16:14:36.909 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/'], Ant [pattern='/']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:14:36.909 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/'], Ant [pattern='/']]
+16:14:36.909 [restartedMain] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+16:14:36.909 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will not secure Deferred [Mvc [pattern='/assets/**'], Ant [pattern='/assets/**']]
+16:14:37.325 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+16:14:37.369 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-80"]
+16:14:37.382 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 80 (http) with context path '/'
+16:14:37.394 [restartedMain] INFO  ir.TicketingSpringSample - Started Spring03Application in 4.886 seconds (process running for 5.679)
+16:14:37.399 [restartedMain] INFO  ir.TicketingSpringSample - Spring Boot Application Started
+16:14:37.469 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:14:37.469 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:14:37.469 [restartedMain] INFO  ir.TicketingSpringSample - Admin Role Saved
+16:14:37.546 [restartedMain] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+16:14:37.640 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:14:37.640 [restartedMain] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:14:37.640 [restartedMain] INFO  ir.TicketingSpringSample - Admin User Saved
+16:14:38.025 [RMI TCP Connection(2)-192.168.1.152] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:14:38.025 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+16:14:38.025 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+16:14:38.026 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+16:14:38.026 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+16:14:38.028 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4d2896ff
+16:14:38.029 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@68bc04c3
+16:14:38.029 [RMI TCP Connection(2)-192.168.1.152] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+16:14:38.029 [RMI TCP Connection(2)-192.168.1.152] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+16:14:43.680 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /users
+16:14:43.692 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:14:43.697 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /users
+16:14:43.700 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/users", parameters={}
+16:14:43.703 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.UserController#showForm(Model)
+16:14:43.724 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:43.724 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:43.727 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:43.727 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:43.727 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - showFormTry/Catch -------> ok
+16:14:43.858 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:14:43.872 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/submit-form.js", parameters={}
+16:14:43.873 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+16:14:43.886 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:14:45.620 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+16:14:45.621 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:14:45.621 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+16:14:45.622 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+16:14:45.622 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+16:14:45.624 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:45.624 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:45.625 [http-nio-0.0.0.0-80-exec-3] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:14:45.627 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:14:45.629 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:14:45.639 [http-nio-0.0.0.0-80-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:00.837 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /rest/users
+16:15:00.838 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:00.838 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /rest/users
+16:15:00.845 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/rest/users", parameters={}
+16:15:00.846 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#saveUser(User)
+16:15:00.864 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=reza, password=123456, locked=false, roleSet=null)]
+16:15:00.866 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+16:15:00.941 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:00.941 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:00.943 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:00.943 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:00.943 [http-nio-0.0.0.0-80-exec-4] INFO  ir.aop.ExceptionHandler - saveUserTry/Catch -------> ok
+16:15:00.943 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:00.943 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:00.944 [http-nio-0.0.0.0-80-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:10.690 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /rest/users
+16:15:10.691 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:10.691 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /rest/users
+16:15:10.691 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/rest/users", parameters={}
+16:15:10.692 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#saveUser(User)
+16:15:10.692 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=hassan, password=123456, locked=false, roleSet=null)]
+16:15:10.694 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+16:15:10.766 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:10.766 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:10.768 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:10.768 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:10.768 [http-nio-0.0.0.0-80-exec-8] INFO  ir.aop.ExceptionHandler - saveUserTry/Catch -------> ok
+16:15:10.768 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:10.768 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:10.769 [http-nio-0.0.0.0-80-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:18.331 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing PUT /rest/users/hassann
+16:15:18.332 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:18.332 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured PUT /rest/users/hassann
+16:15:18.333 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - PUT "/rest/users/hassann", parameters={}
+16:15:18.333 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#updateUser(String, User)
+16:15:18.337 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=hassann, password=$2a$10$l5qLISUl2mZLUWYm.rAKUe3gEkrMvXv.15QpVJEhKIqD1qoEgW6E2, locked (truncated)...]
+16:15:18.409 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:18.410 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - updateTry/Catch -------> ok
+16:15:18.412 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:18.412 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:18.412 [http-nio-0.0.0.0-80-exec-6] INFO  ir.aop.ExceptionHandler - updateUserTry/Catch -------> ok
+16:15:18.412 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:18.412 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:18.413 [http-nio-0.0.0.0-80-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:18.417 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+16:15:18.418 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:18.418 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+16:15:18.418 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+16:15:18.419 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+16:15:18.421 [http-nio-0.0.0.0-80-exec-7] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:18.421 [http-nio-0.0.0.0-80-exec-7] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:18.421 [http-nio-0.0.0.0-80-exec-7] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:18.421 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:18.421 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:18.422 [http-nio-0.0.0.0-80-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:31.426 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing PUT /rest/users/hassann
+16:15:31.427 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:31.427 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured PUT /rest/users/hassann
+16:15:31.427 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - PUT "/rest/users/hassann", parameters={}
+16:15:31.427 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#updateUser(String, User)
+16:15:31.428 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=hassann, password=$2a$10$OMqgxQGqoop8Vr533tzN2u2ppXNC062PL.HocOz8gSdd.X71Sl7iC, locked (truncated)...]
+16:15:31.503 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:31.503 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - updateTry/Catch -------> ok
+16:15:31.505 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:31.505 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:31.506 [http-nio-0.0.0.0-80-exec-5] INFO  ir.aop.ExceptionHandler - updateUserTry/Catch -------> ok
+16:15:31.506 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:31.506 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:31.506 [http-nio-0.0.0.0-80-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:31.510 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+16:15:31.511 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:31.511 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+16:15:31.511 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+16:15:31.511 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+16:15:31.514 [http-nio-0.0.0.0-80-exec-9] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:31.514 [http-nio-0.0.0.0-80-exec-9] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:31.514 [http-nio-0.0.0.0-80-exec-9] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:31.514 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:31.514 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:31.515 [http-nio-0.0.0.0-80-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:37.603 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing DELETE /rest/users/hassann
+16:15:37.603 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:37.603 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured DELETE /rest/users/hassann
+16:15:37.604 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - DELETE "/rest/users/hassann", parameters={}
+16:15:37.604 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#deleteUser(String)
+16:15:37.612 [http-nio-0.0.0.0-80-exec-10] INFO  ir.aop.ExceptionHandler - deleteByIdTry/Catch -------> ok
+16:15:37.612 [http-nio-0.0.0.0-80-exec-10] INFO  ir.aop.ExceptionHandler - deleteTry/Catch -------> ok
+16:15:37.614 [http-nio-0.0.0.0-80-exec-10] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:37.614 [http-nio-0.0.0.0-80-exec-10] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:37.614 [http-nio-0.0.0.0-80-exec-10] INFO  ir.aop.ExceptionHandler - deleteUserTry/Catch -------> ok
+16:15:37.614 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:37.615 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:37.615 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:37.618 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /rest/users
+16:15:37.619 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:37.619 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /rest/users
+16:15:37.619 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/rest/users", parameters={}
+16:15:37.619 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#findAll()
+16:15:37.622 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:37.622 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:37.622 [http-nio-0.0.0.0-80-exec-1] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:37.622 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:37.622 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:37.628 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:15:49.220 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /rest/users
+16:15:49.220 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ali, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=D7446DEEF16B9C620BB2726BE0625224], Granted Authorities=[ROLE_ADMIN]]]
+16:15:49.221 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /rest/users
+16:15:49.221 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/rest/users", parameters={}
+16:15:49.221 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to ir.controller.api.UserApi#saveUser(User)
+16:15:49.222 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [User(username=akbar, password=123456, locked=false, roleSet=null)]
+16:15:49.223 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - existsUserByUsernameTry/Catch -------> ok
+16:15:49.299 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:49.299 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - saveTry/Catch -------> ok
+16:15:49.301 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:49.301 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - findAllTry/Catch -------> ok
+16:15:49.301 [http-nio-0.0.0.0-80-exec-2] INFO  ir.aop.ExceptionHandler - saveUserTry/Catch -------> ok
+16:15:49.302 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+16:15:49.302 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=[User(username=ali, password=$2a$10$Fz8yUoH/DwbfPzlc1Phhweb/oNV6UBPxfiAixJRr5hQdzg.LJtj36, loc (truncated)...]
+16:15:49.303 [http-nio-0.0.0.0-80-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+16:18:47.154 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+16:18:47.357 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+16:18:47.357 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:18:47.373 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+16:18:47.373 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+16:18:47.373 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

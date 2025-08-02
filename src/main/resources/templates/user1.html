@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Users</h1>
+
+<form th:action="@{/users}" th:method="post" th:object="${user}">
+  <input type="text" th:id="username" th:name="username" th:field="*{username}">
+  <input type="password" th:id="password" th:name="password" th:field="*{password}">
+    <select name="roleName" id="roleName">
+        <option th:each="role : ${roleList}" th:value="${role.name}" th:text="${role.name}"></option>
+    </select>
+
+  <input type="submit" value="Save">
+
+</form>
+
+<h2 th:dir="ltr" th:if="${userList.isEmpty()}">No Content</h2>
+
+<table th:if="${not userList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Locked</th>
+        <th> Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${userList}">
+        <td th:text="${user.username}"></td>
+        <td>******</td>
+        <td th:text="${user.roleSet.size()}"></td>
+        <td th:text="${user.locked}"></td>
+        <td>
+            <button th:data-name="${user.username}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/panel}">Panel</a>
+
+
+
+<script>
+    function remove(username){
+        fetch("/users/"+username,{
+            method:"DELETE"
+        });
+        window.location.replace("/users");
+    }
+</script>
+
+</body>
+</html>

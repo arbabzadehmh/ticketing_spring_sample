@@ -1,0 +1,67 @@
+<div th:fragment="profile-create-modal">
+    <div class="modal fade" id="profileCreateModal" tabindex="-1" aria-labelledby="profileCreateModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileCreateModalLabel" th:text="#{profiles.modal.create.title}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="profileCreateForm">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="createUsername" class="form-label" th:text="#{users.username}"></label>
+                            <input type="text" class="form-control" id="createUsername" name="username">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createPassword" class="form-label" th:text="#{users.password}"></label>
+                            <input type="password" class="form-control" id="createPassword" name="password">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createFirstName" class="form-label" th:text="#{profiles.firstName}"></label>
+                            <input type="text" class="form-control" id="createFirstName" name="firstName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createLastName" class="form-label" th:text="#{profiles.lastName}"></label>
+                            <input type="text" class="form-control" id="createLastName" name="lastName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createEmail" class="form-label" th:text="#{profiles.email}"></label>
+                            <input type="text" class="form-control" id="createEmail" name="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createPhone" class="form-label" th:text="#{profiles.phone}"></label>
+                            <input type="tel" class="form-control" id="createPhone" name="phone">
+                        </div>
+
+                        <div class="mb-3" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <label th:text="#{users.roles}"></label>
+                            <div class="dropdown w-100">
+                                <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button"
+                                        id="rolesDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                                th:text="#{users.roles.select}">
+                                </button>
+                                <ul class="dropdown-menu w-100 p-2" id="rolesDropdownMenu"
+                                    style="max-height: 200px; overflow-y: auto;">
+                                    <!-- نقش‌ها به صورت داینامیک اینجا اضافه می‌شوند -->
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{profiles.save}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

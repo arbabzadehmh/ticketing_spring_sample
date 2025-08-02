@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/submit-form.js"></script>
+    <title>user</title>
+</head>
+<body>
+
+<form id="userForm" action="/rest/users">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit" value="Save">
+</form>
+
+<button id="refresh-table">Refresh Table</button>
+<table id="dataTable">
+    <thead>
+    <tr id="tableHeader"></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<div id="toast-container"></div>
+
+<script src="/assets/js/submit-form.js"></script>
+<script src="/assets/js/script.js"></script>
+
+<script>
+    submitForm("userForm", "POST",  callback, "submit");
+    submitForm("refresh-table", "GET", callback,"click", "/rest/users");
+
+    function displayTable(jsonArray, fieldList) {
+        // Clear the table
+        const tableHeader = document.getElementById('tableHeader');
+        const tableBody = document.getElementById('tableBody');
+        tableHeader.innerHTML = '';
+        tableBody.innerHTML = '';
+
+        // Create table headers
+        fieldList.forEach(field => {
+            const th = document.createElement('th');
+            th.textContent = field;
+            tableHeader.appendChild(th);
+        });
+
+        // Create table rows
+        jsonArray.forEach(item => {
+            const tr = document.createElement('tr');
+            fieldList.forEach(field => {
+                const td = document.createElement('td');
+                // Check for 'locked' field specifically and render "Yes"/"No"
+                if (field === 'locked') {
+                    td.textContent = item[field] === true ? 'Yes' : 'No'; // Display Yes/No for boolean fields
+                } else {
+                    td.textContent = item[field] || ''; // Default rendering for other fields
+                }
+                tr.appendChild(td);
+            });
+            tableBody.appendChild(tr);
+        });
+    }
+
+
+    // function displayTable(jsonArray, fieldList) {
+    //     // Clear the table
+    //     const tableHeader = document.getElementById('tableHeader');
+    //     const tableBody = document.getElementById('tableBody');
+    //     tableHeader.innerHTML = '';
+    //     tableBody.innerHTML = '';
+    //
+    //     // if (fields.length === 0) return [];
+    //
+    //     // Retrieve keys from the first object in the array
+    //
+    //     fieldList.forEach(field => {
+    //         const th = document.createElement('th');
+    //         th.textContent = field;
+    //         tableHeader.appendChild(th);
+    //     });
+    //
+    //     // Create table rows
+    //     jsonArray.forEach(item => {
+    //         const tr = document.createElement('tr');
+    //         fieldList.forEach(field => {
+    //             const td = document.createElement('td');
+    //             td.textContent = item[field] || '';
+    //             tr.appendChild(td);
+    //         });
+    //         tableBody.appendChild(tr);
+    //     });
+    // }
+
+
+    async function callback(jsonText) {
+        console.log("Received data:", jsonText);
+
+        //  simplify 'roleSet'
+        jsonText.forEach(user => {
+            user.roleSet = user.roleSet.map(role => role.name); // Flatten roles (adjust according to your data)
+        });
+
+        displayTable(jsonText, ["username", "locked", "roleSet"]);
+        console.log("Done");
+    }
+
+
+
+
+    // async function callback(jsonText) {
+    //     displayTable(jsonText, ["username", "locked", "roleSet"]);
+    //     console.log("Done")
+    // }
+
+</script>
+
+
+</body>
+</html>

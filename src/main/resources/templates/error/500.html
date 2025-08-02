@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>خطای داخلی سرور</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            display: inline-block;
+            padding: 40px;
+        }
+        h1 {
+            color: #d9534f;
+            font-size: 48px;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+        a {
+            color: #0275d8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1>خطای ۵۰۰</h1>
+    <p>مشکلی در پردازش درخواست شما به وجود آمده است.</p>
+    <p>لطفاً بعداً دوباره تلاش کنید.</p>
+    <p><a th:href="@{/}">بازگشت به صفحه اصلی</a></p>
+</div>
+</body>
+</html>

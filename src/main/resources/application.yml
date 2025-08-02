@@ -1,0 +1,183 @@
+# Common application settings
+spring:
+  application:
+    name: ticketing_spring_sample
+  profiles:
+    active: dev  # Default profile (can be overridden with --spring.profiles.active)
+
+  docker:                     # in development (dev profile) --> docker:compose:enabled:false
+    compose:                  # unless the database and settings will be prod profile database and settings
+      enabled: false
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+
+  messages:
+    basename: messages/messages
+    encoding: utf-8
+
+  main:
+    allow-bean-definition-overriding: true
+
+# Production profile (PostgreSQL)
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://postgres:5432/spring_db
+    username: mft
+    password: mft123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5        # Max connections in pool
+      connection-timeout: 30000    # 30 seconds timeout
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      initialization-fail-timeout: 0  # No fail on init
+  jpa:
+    hibernate:
+      ddl-auto: update           # Update schema in production
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 50          # Batch size for performance
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: spring_db_photos
+    redis:
+      host: redis
+      port: 6379
+  cache:
+    type: redis
+
+server:
+  port: 8443                     # HTTPS port
+  ssl:
+     enabled: true
+     key-store: classpath:ticketingssl.jks
+     key-store-password: mha123
+     key-alias: ticketingkey
+     key-store-type: JKS
+  servlet:
+      session:
+        timeout: 15m               # Session timeout after 15 minutes
+        cookie:
+          http-only: true          # Prevent JS access to cookies
+          secure: true             # Only over HTTPS
+          same-site: strict        # Prevent CSRF via cross-site requests
+
+# Development/Testing profile (H2)
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:                                           # for H2 database--> comment lines 85-99
+    url: jdbc:oracle:thin:@localhost:1521:xe            # and uncomment lines 101-114, 125-128
+    username: ticketing_spring
+    password: mha123
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: true
+        use_sql_comments: true
+
+#  datasource:
+#    url: jdbc:h2:mem:spring_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#    username: sa
+#    password: ""
+#    driver-class-name: org.h2.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop      # Recreate schema for dev/testing
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
+#        format_sql: true
+#        use_sql_comments: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: spring_db_photos
+    redis:
+      host: localhost
+      port: 6379
+  cache:
+    type: simple
+#  h2:
+#    console:
+#      enabled: true              # Enable H2 console for dev
+#      path: /h2-console
+
+server:
+  port: 8443                     # HTTPS port
+  ssl:
+    enabled: true
+    key-store: classpath:ticketingssl.jks
+    key-store-password: mha123
+    key-alias: ticketingkey
+    key-store-type: JKS
+  servlet:
+    session:
+      timeout: 15m               # Session timeout after 15 minutes
+      cookie:
+        http-only: true          # Prevent JS access to cookies
+        secure: true             # Only over HTTPS
+        same-site: strict        # Prevent CSRF via cross-site requests
+
+# Management endpoints (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus  # Expose useful endpoints
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.spring_jpa_cache: DEBUG
+    org.springframework.security: DEBUG  # Debug Spring Security
+    org.hibernate.SQL: DEBUG            # Show SQL queries
+    org.hibernate.orm.jdbc.bind: TRACE  # Show parameter binding
+    org.hibernate.orm.jdbc.extract: TRACE  # Show result extraction
+    org.springframework.transaction: DEBUG  # Transaction management
+    org.hibernate.engine.transaction: DEBUG  # Transaction details
+#    com.zaxxer.hikari: DEBUG           # HikariCP pool details
+#    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
+    org.springframework.jdbc: DEBUG    # JDBC operations
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+  file:
+    name: logs/application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket</title>
+</head>
+<body>
+<h1>Ticket</h1>
+<form th:action="@{/tickets}" th:method="post" th:object="${ticket}">
+    <input type="text" th:id="title" th:name="title" th:field="*{title}">
+    <select name="status" id="status">
+        <option>NotSeen</option>
+        <option>Seen</option>
+        <option>Responsed</option>
+        <option>Closed</option>
+    </select>
+    <input type="datetime-local" name="dateTime" id="dateTime" th:field="*{dateTime}">
+
+<!--    <select name="user" id="user">-->
+<!--        <option th:each="u : ${allUsers}" th:value="${u.username}" th:text="${u.username}"></option>-->
+<!--    </select>-->
+
+    <input type="submit" value="Save">
+
+</form>
+
+<h2 th:dir="ltr" th:if="${tickets.isEmpty()}">No Content</h2>
+<table th:if="${not tickets.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>DateTime</th>
+        <th>User</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.title}"></td>
+        <td th:text="${ticket.status}"></td>
+        <td th:text="${ticket.dateTime}"></td>
+        <td th:text="${ticket.user.getUsername()}"></td>
+        <td>
+            <button th:data-name="${ticket.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${ticket.id}" th:onclick="|openMessages(this.getAttribute('data-name'))|">Open</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/panel}">Panel</a>
+
+
+<script>
+    function remove(id){
+        fetch("/tickets/"+id,{
+            method:"DELETE"
+        });
+        window.location.replace("/tickets");
+    }
+    function openMessages(id){
+
+        window.location.replace("/tickets/messages/" + id);
+    }
+
+</script>
+</body>
+</html>

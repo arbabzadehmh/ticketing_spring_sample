@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  ticketing_spring_sample:
+    build:
+      context: .
+      dockerfile: Dockerfile             # فرض بر اینه که Dockerfile دارید
+    ports:
+      - "8443:8443"
+    depends_on:
+      postgres:
+        condition: service_started
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/spring_db
+      - SPRING_DATASOURCE_USERNAME=mft
+      - SPRING_DATASOURCE_PASSWORD=mft123
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_DATA_REDIS_HOST=redis
+    volumes:
+      - app-logs:/app/logs                # ولوم جدا برای لاگ‌های اپلیکیشن
+    entrypoint: [ "/bin/sh", "-c", "sleep 30 && exec java -jar ticketing_spring_sample.jar" ]
+    restart: on-failure
+
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=spring_db
+      - POSTGRES_USER=mft
+      - POSTGRES_PASSWORD=mft123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mft -d spring_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  mongodb-data:
+  redis-data:
+  app-logs:

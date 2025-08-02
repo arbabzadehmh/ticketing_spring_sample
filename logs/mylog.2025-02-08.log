@@ -1,0 +1,12 @@
+07:51:06.159 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14h22m39s812ms265µs200ns).
+07:51:08.077 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /rest/users
+07:51:08.078 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+07:51:08.080 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost/rest/users?continue to session
+07:51:08.080 [http-nio-0.0.0.0-80-exec-10] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost/login
+07:51:08.086 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+07:51:08.086 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+07:51:08.087 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+07:51:08.087 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ParameterizableViewController [view="login"]
+07:51:08.112 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+07:51:08.112 [http-nio-0.0.0.0-80-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+07:52:16.315 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s361ms741µs700ns).

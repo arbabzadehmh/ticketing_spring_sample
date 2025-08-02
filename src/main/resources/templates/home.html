@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+<h2>Welcome</h2>
+<p th:text="'Hello, ' + ${#authentication.name} + '!'" />
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <a href="/admin">Admin Page</a>
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    <a href="/user">User Page</a>
+</div>
+<div sec:authorize="hasAuthority('WRITE_DATA')">
+    <a href="/api/test/write-data">Write Data</a>
+</div>
+<div sec:authorize="hasAuthority('READ_DATA')">
+    <a href="/api/test/read-data">Read Data</a>
+</div>
+<a href="/login?logout">Logout</a>
+
+</body>
+</html>
