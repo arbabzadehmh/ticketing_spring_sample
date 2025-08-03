@@ -30,12 +30,12 @@ public class Profile extends Base {
     private Long id;
 
     @NotBlank(message = "{validation.firstName}")
-    @Pattern(regexp = "^[A-Za-z\\s'-]*$", message = "{validation.namePattern}")
+    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
     @NotBlank(message = "{validation.lastName}")
-    @Pattern(regexp = "^[A-Za-z\\s'-]*$", message = "{validation.namePattern}")
+    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 

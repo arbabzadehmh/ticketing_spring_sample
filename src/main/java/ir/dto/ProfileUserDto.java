@@ -19,11 +19,11 @@ public class ProfileUserDto {
     private Long id;
 
     @NotBlank(message = "{validation.firstName}")
-    @Pattern(regexp = "^[A-Za-z\\s'-]*$", message = "{validation.namePattern}")
+    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}", message = "{validation.namePattern}")
     private String firstName;
 
     @NotBlank(message = "{validation.lastName}")
-    @Pattern(regexp = "^[A-Za-z\\s'-]*$", message = "{validation.namePattern}")
+    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}", message = "{validation.namePattern}")
     private String lastName;
 
     @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "{validation.email}")
@@ -34,8 +34,14 @@ public class ProfileUserDto {
 
 
     // User fields
+    @NotBlank(message = "{validation.username}")
+    @Pattern(regexp = "^$|^[a-zA-Z\\\\d._-]{3,30}$", message = "{validation.usernamePattern}")
     private String username;
+
+    @NotBlank(message = "{validation.password}")
+    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}")
     private String password;
+
     private Set<String> roles;
     private boolean accountNonExpired;
     private boolean accountNonLocked;

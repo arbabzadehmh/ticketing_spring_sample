@@ -1,6 +1,8 @@
 package ir.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
@@ -20,6 +22,8 @@ import java.util.Set;
 @Where(clause = "deleted = false")
 public class Role extends Base {
     @Id
+    @NotBlank(message = "{validation.role}")
+    @Pattern(regexp = "^$|^[A-Za-z0-9_\\s-]{2,50}$", message = "{validation.rolePattern}")
     @Column(name = "name", length = 30)
     private String name;
 
