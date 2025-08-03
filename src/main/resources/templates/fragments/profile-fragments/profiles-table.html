@@ -64,7 +64,8 @@
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
-                                        th:data-id="${profile.id}">
+                                        th:data-id="${profile.id}"
+                                        th:data-confirm-text="#{profiles.delete.confirm}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>

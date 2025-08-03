@@ -1,7 +1,6 @@
 package ir.config;
 
 
-
 import ir.service.impl.CustomUserDetailsService;
 
 import jakarta.servlet.http.Cookie;
@@ -20,7 +19,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 
 
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -126,10 +124,11 @@ public class SecurityConfig {
                 // 5. Authorization Rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/","/login","/h2-console/**", "/public/**", "/api/test/public/**").permitAll()
+                        .requestMatchers("/", "/login", "/h2-console/**", "/public/**", "/api/test/public/**").permitAll()
                         .requestMatchers("/profiles/register").permitAll()
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/admins/**", "/profiles/**").hasAnyRole("ADMIN", "CUSTOMER")
+                        .requestMatchers("/admins/**").hasRole("ADMIN")
+                        .requestMatchers("/roles/**").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers("/profiles/**").hasAnyRole("ADMIN", "CUSTOMER")
                         .requestMatchers("/api/data").hasAuthority("READ_DATA")
                         .anyRequest().authenticated()
                 )

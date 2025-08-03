@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
 <head>
-    <meta charset="UTF-8">
-    <title>Role</title>
+    <title th:text="#{roles.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body>
-<h1>Roles</h1>
-<form th:action="@{/roles}" th:method="post" th:object="${role}">
-    <input type="text" th:id="name" th:name="name" th:field="*{name}">
-    <input type="submit" value="Save">
-</form>
+<body data-bs-theme="light">
 
-<h2 th:dir="ltr" th:if="${roleList.isEmpty()}">No Content</h2>
-<table th:if="${not roleList.isEmpty()}">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th> Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="role:${roleList}">
-        <td th:text="${role.name}"></td>
-        <td>
-            <button th:data-name="${role.name}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<a th:href="@{/panel}">Panel</a>
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container-fluid p-2">
+        <!-- در بخشی از صفحه که همیشه وجود دارد -->
+        <div id="deleteConfirmText" style="display: none;" th:text="#{roles.delete.confirm}"></div>
+        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+        <div id="roles-table-container">
+            <div th:replace="~{fragments/role-fragments/roles-table :: roles-table}"></div>
+        </div>
+    </div>
+</main>
 
-<script>
-    function remove(name){
-        fetch("/roles/"+name,{
-            method:"DELETE"
-        });
-        window.location.replace("/roles");
-    }
-</script>
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- مودال افزودن/ویرایش مشتری -->
+<div th:replace="~{fragments/role-fragments/role-create-modal :: role-create-modal}"></div>
+<div th:replace="~{fragments/role-fragments/role-edit-modal :: role-edit-modal}"></div>
+
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<script th:src="@{/js/roles.js}"></script>
 </body>
 </html>

@@ -34,8 +34,7 @@ function toggleSidebar() {
     }
 }
 
-// ==================== مدیریت مشتریان ====================
-
+// ==================== مدیریت زبان ====================
 
 function initLanguageSwitcher() {
     const languageSwitcher = document.getElementById('languageSwitcher');

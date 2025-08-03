@@ -5,12 +5,11 @@ import ir.controller.exception.ValidationException;
 import ir.dto.ProfileUserDto;
 import ir.dto.mapper.ProfileMapper;
 import ir.model.entity.Profile;
-import ir.model.entity.Role;
-import ir.model.entity.User;
 import ir.service.RoleService;
 import ir.service.UserService;
 import ir.service.ProfileService;
 import jakarta.validation.Valid;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/profiles")
@@ -32,14 +31,12 @@ public class ProfileController {
 
     private final ProfileService profileService;
     private final UserService userService;
-    private final RoleService roleService;
-    private final ProfileMapper profileMapper;
+    private final MessageSource messageSource;
 
-    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper) {
+    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper, MessageSource messageSource) {
         this.profileService = profileService;
         this.userService = userService;
-        this.roleService = roleService;
-        this.profileMapper = profileMapper;
+        this.messageSource = messageSource;
     }
 
     @GetMapping
@@ -63,7 +60,7 @@ public class ProfileController {
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> isAdmin: " + isAdmin);
+
         model.addAttribute("isAdmin", isAdmin);
 
         if (isAdmin) {
@@ -89,9 +86,33 @@ public class ProfileController {
     @ResponseBody
     public ResponseEntity<?> saveProfile(
             @Valid @RequestBody ProfileUserDto profileDto,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            Locale locale
     ) {
 
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error ->
+                    errors.put(error.getField(), error.getDefaultMessage())
+            );
+            throw new ValidationException(errors);
+        }
+
+        profileService.createProfileByCustomer(profileDto);
+
+        String message = messageSource.getMessage("profiles.create.success", null, locale);
+
+        return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PostMapping("/admin/create-profile")
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createProfileByAdmin(
+            @Valid @RequestBody ProfileUserDto profileDto,
+            BindingResult bindingResult,
+            Locale locale
+    ) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error ->
@@ -104,57 +125,11 @@ public class ProfileController {
             throw new RuntimeException("شبیه‌سازی خطای سرور!");
         }
 
-        Role customerRole = roleService.findByName("ROLE_CUSTOMER");
-        User user =
-                User
-                        .builder()
-                        .username(profileDto.getUsername())
-                        .password(profileDto.getPassword())
-                        .roleSet(Set.of(customerRole))
-                        .build();
+        profileService.createProfileByAdmin(profileDto);
 
-        userService.save(user);
+        String message = messageSource.getMessage("profiles.create.success", null, locale);
 
-        Profile profile = profileMapper.toEntity(profileDto);
-
-        profile.setUser(user);
-        profileService.save(profile);
-
-        return ResponseEntity.ok(profile);
-    }
-
-    @PostMapping("/admin/create-profile")
-    @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createProfileByAdmin(
-            @Valid @RequestBody ProfileUserDto profileDto,
-            BindingResult bindingResult
-    ) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getFieldErrors().forEach(error ->
-                    errors.put(error.getField(), error.getDefaultMessage())
-            );
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        Set<Role> roles = profileDto.getRoles().stream()
-                .map(roleService::findByName)
-                .collect(Collectors.toSet());
-
-        User user = User.builder()
-                .username(profileDto.getUsername())
-                .password(profileDto.getPassword())
-                .roleSet(roles)
-                .build();
-
-        userService.save(user);
-
-        Profile profile = profileMapper.toEntity(profileDto);
-        profile.setUser(user);
-        profileService.save(profile);
-
-        return ResponseEntity.ok(Map.of("message", "پروفایل با نقش‌های انتخابی ایجاد شد"));
+        return ResponseEntity.ok(Map.of("message", message));
     }
 
     @PutMapping("/{id}")
@@ -163,7 +138,8 @@ public class ProfileController {
             @PathVariable Long id,
             @Valid @RequestBody ProfileUserDto profileUserDto,
             BindingResult bindingResult,
-            Authentication authentication
+            Authentication authentication,
+            Locale locale
     ) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
@@ -179,17 +155,19 @@ public class ProfileController {
 
         profileService.updateProfile(profileUserDto, id, isAdmin);
 
-        return ResponseEntity.ok(Map.of("message", "پروفایل با موفقیت ویرایش شد"));
+        String message = messageSource.getMessage("profiles.edit.success", null, locale);
+        return ResponseEntity.ok(Map.of("message", message));
     }
 
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteProfile(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProfile(@PathVariable Long id, Locale locale) {
         Profile profile = profileService.findById(id);
         profileService.deleteById(id);
         userService.deleteByUsername(profile.getUser().getUsername());
-        return ResponseEntity.ok().build();
+        String message = messageSource.getMessage("profiles.delete.success", null, locale);
+        return ResponseEntity.ok(Map.of("message", message));
     }
 
 }

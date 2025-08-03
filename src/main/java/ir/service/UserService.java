@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
     User save(User user);
-//    User update(User user);
+    User edit(User user);
     void deleteByUsername(String username);
     User findByUsername(String username);
     boolean existsByUsername(String username);

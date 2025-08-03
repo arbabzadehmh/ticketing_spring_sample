@@ -1,0 +1,77 @@
+<div th:fragment="roles-table">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" th:text="#{roles.title}"></h3>
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#roleCreateModal">
+                <i class="fas fa-plus me-2"></i>
+                <span th:text="#{roles.add}"></span>
+            </button>
+        </div>
+
+        <div class="card-body">
+            <!-- کنترل‌های صفحه‌بندی و مرتب‌سازی -->
+            <div class="row mb-4 g-3">
+                <div class="col-12 col-md-4">
+                    <select class="form-select" id="pageSize" aria-label="تعداد در صفحه">
+                        <option value="10" th:text="#{profiles.pageSize.10}"
+                                th:selected="${param.size == 10}"></option>
+                        <option value="20" th:text="#{profiles.pageSize.20}"
+                                th:selected="${param.size == 20}"></option>
+
+                    </select>
+                </div>
+                <!--                <div class="col-12 col-md-4">-->
+                <!--                    <select class="form-select" id="sortBy" aria-label="مرتب‌سازی">-->
+                <!--                        <option value="firstName" th:text="#{roles.sort.name}"-->
+                <!--                                th:selected="${param.sortBy == 'name'}"></option>-->
+                <!--                    </select>-->
+                <!--                </div>-->
+            </div>
+
+            <!-- جدول نقش ها -->
+            <div class="table-responsive" id="roles-table">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th th:text="#{roles.name}"></th>
+                        <th th:text="#{profiles.actions}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="role : ${roles.content}">
+                        <td th:text="${role.name}"></td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-warning btn-edit"
+                                        th:data-id="${role.name}"
+                                        th:data-roles="${#strings.listJoin(role.permissionSet.?[permissionName != null].![permissionName], ',')}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger"
+                                        th:data-id="${role.name}"
+                                        th:data-confirm-text="#{roles.delete.confirm}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- صفحه‌بندی -->
+            <nav class="mt-4" aria-label="صفحه‌بندی">
+                <ul class="pagination justify-content-center">
+                    <li th:each="page : ${#numbers.sequence(0, (totalPages - 1))}"
+                        class="page-item"
+                        th:classappend="${page == roles.number} ? 'active'">
+                        <a class="page-link"
+                           th:text="${page + 1}"
+                           th:data-page="${page}"
+                           role="button"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

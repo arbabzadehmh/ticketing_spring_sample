@@ -44,7 +44,7 @@ function loadProfiles(page = 0) {
 // -------------------- Create Profile --------------------
 const isAdmin = document.body.dataset.isAdmin === 'true';
 
-function handleCreateProfileSubmit(e) {
+async function handleCreateProfileSubmit(e) {
     e.preventDefault();
     clearValidationErrors();
 
@@ -65,27 +65,33 @@ function handleCreateProfileSubmit(e) {
         url = '/profiles/admin/create-profile';
         profile.roles = selectedRoles;
     }
-    
-    fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(profile)
-    })
-        .then(response => handleResponse(response, 'create'))
-        .then(() => {
-            bootstrap.Modal.getInstance(document.getElementById('profileCreateModal')).hide();
-            showToast('success', 'پروفایل با موفقیت ثبت شد');
-            loadProfiles();
-        })
-        .catch(error => {
-            if (error.message !== 'Validation errors')
-                showToast('danger', error.message || 'خطا در ثبت پروفایل');
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(profile)
         });
+
+        const data = await handleResponse(response, 'create'); // مدیریت پاسخ با متد استاندارد
+
+        // موفقیت
+        bootstrap.Modal.getInstance(document.getElementById('profileCreateModal')).hide();
+        showToast('success', data.message || 'پروفایل با موفقیت ثبت شد');
+        loadProfiles();
+
+    } catch (error) {
+        // خطاهای اعتبارسنجی قبلاً در handleResponse نمایش داده شدند
+        if (error.message !== 'Validation errors') {
+            console.error('Profile creation error:', error);
+            showToast('danger', error.message || 'خطا در ثبت پروفایل');
+        }
+    }
 }
 
 
 // -------------------- Edit Profile --------------------
-function handleEditProfileSubmit(e) {
+async function handleEditProfileSubmit(e) {
     e.preventDefault();
     clearValidationErrors();
 
@@ -113,38 +119,49 @@ function handleEditProfileSubmit(e) {
         profile.enabled = document.getElementById('editEnabled').value === 'true';
     }
 
-    fetch(`/profiles/${id}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(profile)
-    })
-        .then(response => handleResponse(response, 'edit'))
-        .then(() => {
-            bootstrap.Modal.getInstance(document.getElementById('profileEditModal')).hide();
-            showToast('success', 'پروفایل با موفقیت ویرایش شد');
-            loadProfiles();
-        })
-        .catch(error => {
-            if (error.message !== 'Validation errors')
-                showToast('danger', error.message || 'خطا در ویرایش پروفایل');
+    try {
+        const response = await fetch(`/profiles/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(profile)
         });
+
+        const data = await handleResponse(response, 'edit');
+
+        bootstrap.Modal.getInstance(document.getElementById('profileEditModal')).hide();
+        showToast('success', data.message || 'پروفایل با موفقیت ویرایش شد');
+        loadProfiles();
+
+    } catch (error) {
+        if (error.message !== 'Validation errors') {
+            console.error('Profile edition error:', error);
+            showToast('danger', error.message || 'خطا در ویرایش پروفایل');
+        }
+    }
 }
 
+
 // -------------------- Handle Server Response --------------------
-function handleResponse(response, mode) {
+async function handleResponse(response, mode) {
+    const data = await response.json();
+
     if (!response.ok) {
-        return response.json().then(errorResponse => {
-            if (response.status === 400) {
-                displayValidationErrors(errorResponse, mode);
-                throw new Error('Validation errors');
-            } else {
-                showToast('danger', errorResponse.error || 'خطای ناشناخته در سرور');
-                throw new Error(errorResponse.error || 'Server error');
-            }
-        });
+        if (response.status === 400) {
+            // خطاهای اعتبارسنجی
+            displayValidationErrors(data, mode);
+            throw new Error('Validation errors');
+        }
+
+        // سایر خطاها (۵۰۰ یا ...)، پیام در فیلد error است
+        const errorMessage = data.error || 'خطای ناشناخته در سرور';
+        showToast('danger', errorMessage);
+        throw new Error(errorMessage);
     }
-    return response.json();
+
+    // موفقیت (پیام در فیلد message است)
+    return data;
 }
+
 
 // -----------------------------------------------------------
 function loadRolesForCreateModal() {
@@ -153,8 +170,7 @@ function loadRolesForCreateModal() {
             if (!response.ok) throw new Error('خطا در دریافت نقش‌ها');
             return response.json();
         })
-        .then(data => {
-            const roles = data.body || []; //  نقش‌ها از سرور
+        .then(roles => {
             const menu = document.getElementById('rolesDropdownMenu'); //  گرفتن المان منو
             menu.innerHTML = ''; //  پاک کردن نقش‌های قبلی
 
@@ -193,7 +209,7 @@ function loadRolesForEditModal(selectedRoles = []) {
             const menu = document.getElementById('editRolesDropdownMenu');
             menu.innerHTML = '';
 
-            data.body.forEach(role => {
+            data.forEach(role => {
                 const li = document.createElement('div');
                 li.className = 'form-check';
                 li.innerHTML = `
@@ -248,19 +264,28 @@ function capitalize(str) {
 }
 
 // -------------------- Delete Profile --------------------
-function handleProfileDelete(e) {
+async function handleProfileDelete(e) {
     const btn = e.target.closest('.btn-danger');
-    const confirmText = btn.dataset.confirmText || 'آیا از حذف این پروفایل اطمینان دارید؟';
+    const confirmText = btn.dataset.confirmText;
     if (!confirm(confirmText)) return;
 
     const id = btn.dataset.id;
-    fetch(`/profiles/${id}`, {method: 'DELETE'})
-        .then(response => {
-            if (!response.ok) throw new Error('خطا در حذف پروفایل');
-            showToast('success', 'پروفایل با موفقیت حذف شد');
-            loadProfiles();
-        })
-        .catch(error => showToast('danger', error.message || 'خطا در حذف پروفایل'));
+    try {
+        const response = await fetch(`/profiles/${id}`, {
+            method: 'DELETE',
+        });
+
+        const data = await handleResponse(response, 'delete');
+
+        showToast('success', data.message || 'پروفایل با موفقیت حذف شد');
+        loadProfiles();
+
+    } catch (error) {
+        if (error.message !== 'Validation errors') {
+            console.error('Profile deletion error:', error);
+            showToast('danger', error.message || 'خطا در حذف پروفایل');
+        }
+    }
 }
 
 // -------------------- Init Modals --------------------

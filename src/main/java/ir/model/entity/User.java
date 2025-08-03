@@ -1,8 +1,5 @@
 package ir.model.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -27,7 +24,6 @@ public class User extends Base {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-//    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -39,7 +35,7 @@ public class User extends Base {
             foreignKey = @ForeignKey(name = "fk_user_role"),
             inverseForeignKey = @ForeignKey(name = "fk_inverse_user_role")
     )
-    private Set<Role> roleSet;
+    private Set<Role> roleSet = new HashSet<>();
 
     @Column(name = "account_non_expired")
     private boolean accountNonExpired = true;
@@ -57,9 +53,6 @@ public class User extends Base {
     private LocalDateTime credentialsExpiryDate;
 
     public void addRole(Role role){
-        if(roleSet == null){
-            roleSet = new HashSet<>();
-        }
         roleSet.add(role);
     }
 

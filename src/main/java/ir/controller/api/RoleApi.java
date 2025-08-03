@@ -23,7 +23,7 @@ public class RoleApi {
 
     @GetMapping
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<?> getAllRoles() {
         List<String> roles = roleService.findAll()
                 .stream()

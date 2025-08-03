@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -30,9 +31,11 @@ public class Role extends Base {
             foreignKey = @ForeignKey(name = "fk_role_permission"),
             inverseForeignKey = @ForeignKey(name = "fk_inverse_role_permission")
     )
-    private Set<Permission> permissionSet;
+    private Set<Permission> permissionSet = new HashSet<>();
 
-
+    public void addPermission(Permission permission) {
+        permissionSet.add(permission);
+    }
 
     // Constructor to handle deserialization from string
     public Role(String name) {

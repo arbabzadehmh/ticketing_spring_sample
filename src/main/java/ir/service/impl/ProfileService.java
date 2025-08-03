@@ -4,9 +4,11 @@ import ir.dto.ProfileUserDto;
 import ir.dto.mapper.ProfileMapper;
 import ir.model.entity.Profile;
 import ir.model.entity.Role;
+import ir.model.entity.User;
 import ir.repository.ProfileRepository;
 import ir.repository.UserRepository;
 import ir.service.RoleService;
+import ir.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,29 +26,16 @@ public class ProfileService implements ir.service.ProfileService {
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
     private final RoleService roleService;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public ProfileService(ProfileRepository profileRepository, ProfileMapper profileMapper, RoleService roleService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public ProfileService(ProfileRepository profileRepository, ProfileMapper profileMapper, RoleService roleService, UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder) {
         this.profileRepository = profileRepository;
         this.profileMapper = profileMapper;
         this.roleService = roleService;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
-
-//    public void save(ProfileDto profileDto){
-//        Person person = new Person (profileDto.getName(), profileDto.getFamily());
-//        User user = new User (profileDto.getUsername(), profileDto.getPassword());
-//
-//        personService.save(person);
-//
-//        user.setPerson(person);
-//        userService.save(user);
-//
-//        person.setUser(user);
-//        personService.update(person);
-//    }
 
     @Override
     public Profile save(Profile profile) {
@@ -54,13 +43,52 @@ public class ProfileService implements ir.service.ProfileService {
     }
 
     @Transactional
+    public Profile createProfileByCustomer(ProfileUserDto dto) {
+        Role customerRole = roleService.findByName("ROLE_CUSTOMER");
+        User user =
+                User
+                        .builder()
+                        .username(dto.getUsername())
+                        .password(dto.getPassword())
+                        .roleSet(Set.of(customerRole))
+                        .build();
+
+        user = userService.save(user);
+
+        Profile profile = profileMapper.toEntity(dto);
+        profile.setUser(user);
+
+        return profileRepository.save(profile);
+    }
+
+    @Transactional
+    public Profile createProfileByAdmin(ProfileUserDto dto) {
+
+        Set<Role> roles = dto.getRoles().stream()
+                .map(roleService::findByName)
+                .collect(Collectors.toSet());
+
+        User user =
+                User
+                        .builder()
+                        .username(dto.getUsername())
+                        .password(dto.getPassword())
+                        .roleSet(roles)
+                        .build();
+
+        user = userService.save(user);
+
+        Profile profile = profileMapper.toEntity(dto);
+        profile.setUser(user);
+
+        return profileRepository.save(profile);
+    }
+
+    @Transactional
     public Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdmin) {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>profile service update started");
+
         Profile existingProfile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
-
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> 1 existing profile : " + existingProfile);
-
 
         if (isAdmin) {
             // اگر ادمین بود، همه‌چیز به‌جز username قابل آپدیت
@@ -78,8 +106,7 @@ public class ProfileService implements ir.service.ProfileService {
             if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
                 existingProfile.getUser().setPassword(passwordEncoder.encode(dto.getPassword()));
             }
-        }
-        else {
+        } else {
             // اگر مشتری بود، فقط اطلاعات پروفایل خودش را تغییر دهد
             existingProfile.setFirstName(dto.getFirstName());
             existingProfile.setLastName(dto.getLastName());
@@ -92,11 +119,7 @@ public class ProfileService implements ir.service.ProfileService {
             }
         }
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> dto : " + dto);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> 4 existing profile : " + existingProfile);
-
-
-        userRepository.save(existingProfile.getUser());
+        userService.edit(existingProfile.getUser());
         return profileRepository.save(existingProfile);
     }
 
@@ -104,7 +127,7 @@ public class ProfileService implements ir.service.ProfileService {
     @Override
     public void deleteById(Long id) {
         Profile profile = profileRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("پروفایل برای حذف وجود ندارد"));
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 
         profile.setDeleted(true);
         profileRepository.save(profile);

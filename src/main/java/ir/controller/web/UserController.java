@@ -28,7 +28,7 @@ public class UserController
     public String showForm(Model model)
     {
         model.addAttribute("user", new User());
-        model.addAttribute("roleList", roleService.findAll());
+//        model.addAttribute("roleList", roleService.findAll());
         model.addAttribute("userList", userService.findAll());
         return "user2";
     }

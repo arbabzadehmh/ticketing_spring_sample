@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProfileService {
     Profile save(Profile profile);
-    public Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdmin);
+    Profile createProfileByCustomer(ProfileUserDto dto);
+    Profile createProfileByAdmin(ProfileUserDto dto);
+    Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdmin);
     void deleteById(Long id);
     Page<Profile> findAll(Pageable pageable);
     Profile findById(Long id);

@@ -37,7 +37,7 @@
                         <!-- فقط برای ادمین -->
                         <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                             <div class="mb-3">
-                                <label>Roles</label>
+                                <label th:text="#{users.roles}"></label>
                                 <div id="editRolesDropdownMenu"></div>
                             </div>
                             <div class="mb-3">

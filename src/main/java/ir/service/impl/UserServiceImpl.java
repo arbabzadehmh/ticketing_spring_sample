@@ -1,6 +1,7 @@
 package ir.service.impl;
 
 
+import ir.controller.exception.DuplicateUsernameException;
 import ir.model.entity.Role;
 import ir.model.entity.User;
 import ir.repository.RoleRepository;
@@ -29,16 +30,15 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User save(User user) {
-        logger.info("Saving user: {}", user.getUsername());
 
         if (userRepository.existsUserByUsername(user.getUsername())) {
-            throw new IllegalArgumentException();
+            throw new DuplicateUsernameException();
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Set<Role> roles = user.getRoleSet().stream()
                 .map(role -> roleRepository.findByName(role.getName())
-                        .orElseThrow(() -> new IllegalArgumentException("Role not found: " + role.getName())))
+                        .orElseThrow(() -> new EntityNotFoundException("Role not found: " + role.getName())))
                 .collect(Collectors.toSet());
         user.setRoleSet(roles);
         user.setAccountNonExpired(true);
@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
         User saved = userRepository.save(user);
         logger.info("User saved with ID: {}", saved.getUsername());
         return saved;
+    }
+
+    @Transactional
+    public User edit(User user) {
+        return userRepository.save(user);
     }
 
     @Transactional(readOnly = true)

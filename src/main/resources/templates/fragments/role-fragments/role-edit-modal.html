@@ -1,0 +1,32 @@
+<div th:fragment="role-edit-modal">
+    <div class="modal fade" id="roleEditModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:text="#{roles.modal.edit.title}"></h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="roleEditForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="editRoleName">
+                        <div class="mb-3">
+                            <label th:text="#{roles.name}"></label>
+                            <input type="text" class="form-control" id="editName" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label th:text="#{roles.permissions}"></label>
+                            <div id="editPermissionsDropdownMenu"></div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{profiles.edit}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
