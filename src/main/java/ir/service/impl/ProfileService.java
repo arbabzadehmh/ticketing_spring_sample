@@ -37,12 +37,14 @@ public class ProfileService implements ir.service.ProfileService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     @Override
     public Profile save(Profile profile) {
         return profileRepository.save(profile);
     }
 
     @Transactional
+    @Override
     public Profile createProfileByCustomer(ProfileUserDto dto) {
         Role customerRole = roleService.findByName("ROLE_CUSTOMER");
         User user =
@@ -62,6 +64,7 @@ public class ProfileService implements ir.service.ProfileService {
     }
 
     @Transactional
+    @Override
     public Profile createProfileByAdmin(ProfileUserDto dto) {
 
         Set<Role> roles = dto.getRoles().stream()
@@ -76,15 +79,18 @@ public class ProfileService implements ir.service.ProfileService {
                         .roleSet(roles)
                         .build();
 
+
         user = userService.save(user);
 
         Profile profile = profileMapper.toEntity(dto);
         profile.setUser(user);
 
+
         return profileRepository.save(profile);
     }
 
     @Transactional
+    @Override
     public Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdmin) {
 
         Profile existingProfile = profileRepository.findById(profileId)
@@ -124,6 +130,7 @@ public class ProfileService implements ir.service.ProfileService {
     }
 
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Profile profile = profileRepository.findById(id)

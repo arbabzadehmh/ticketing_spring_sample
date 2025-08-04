@@ -14,4 +14,5 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     Page<Permission> findAll(Pageable pageable);
     List<Permission> findAll();
     Optional<Permission> findByPermissionName(String name);
+    boolean existsByPermissionName(String name);
 }

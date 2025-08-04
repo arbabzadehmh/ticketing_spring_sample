@@ -20,12 +20,6 @@
 
                     </select>
                 </div>
-                <!--                <div class="col-12 col-md-4">-->
-                <!--                    <select class="form-select" id="sortBy" aria-label="مرتب‌سازی">-->
-                <!--                        <option value="firstName" th:text="#{roles.sort.name}"-->
-                <!--                                th:selected="${param.sortBy == 'name'}"></option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
             </div>
 
             <!-- جدول نقش ها -->
@@ -44,7 +38,7 @@
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
                                         th:data-id="${role.name}"
-                                        th:data-roles="${#strings.listJoin(role.permissionSet.?[permissionName != null].![permissionName], ',')}">
+                                        th:data-permissions="${#strings.listJoin(role.permissionSet.?[permissionName != null].![permissionName], ',')}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"

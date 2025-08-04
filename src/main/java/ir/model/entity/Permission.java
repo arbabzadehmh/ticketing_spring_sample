@@ -1,6 +1,8 @@
 package ir.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
@@ -23,6 +25,8 @@ public class Permission extends Base {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "{validation.permission}")
+    @Pattern(regexp = "^$|^[A-Za-z0-9_\\s-]{2,50}$", message = "{validation.permissionPattern}")
     @Column(name = "permission", nullable = false, unique = true, length = 100)
     private String permissionName;
 }

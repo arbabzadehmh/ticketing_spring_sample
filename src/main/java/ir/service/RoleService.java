@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RoleService {
     Role save(Role role);
-    Role update(Role role);
+    Role update(String name, Role role);
     void deleteByName(String roleName);
     Role findByName(String roleName);
     Page<Role> findAll(Pageable pageable);

@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -26,9 +27,11 @@ public class RoleServiceImpl implements RoleService {
         this.permissionRepository = permissionRepository;
     }
 
+    @Transactional
     @Override
     public Role save(Role role) {
-        if (roleRepository.existsByName(role.getName())) {
+
+        if (roleRepository.existsByName("ROLE_" + role.getName().toUpperCase())) {
             throw new DuplicateRoleException();
         }
 
@@ -44,9 +47,10 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.save(role);
     }
 
+    @Transactional
     @Override
-    public Role update(Role updatedRole) {
-        Role existingRole = roleRepository.findByName(updatedRole.getName())
+    public Role update(String name, Role updatedRole) {
+        Role existingRole = roleRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found"));
 
         Set<Permission> permissions = updatedRole.getPermissionSet().stream()
@@ -54,10 +58,15 @@ public class RoleServiceImpl implements RoleService {
                         .orElseThrow(() -> new EntityNotFoundException("Permission not found: " + p.getPermissionName())))
                 .collect(Collectors.toSet());
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + permissions);
+
         existingRole.setPermissionSet(permissions);
+
+        System.out.println(existingRole);
         return roleRepository.save(existingRole);
     }
 
+    @Transactional
     @Override
     public void deleteByName(String roleName) {
         Role role = roleRepository.findByName(roleName)

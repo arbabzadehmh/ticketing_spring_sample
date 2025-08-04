@@ -42,12 +42,13 @@ async function handleCreateRoleSubmit(e) {
     e.preventDefault();
     clearValidationErrors();
 
-    const selectedPermissions = Array.from(document.querySelectorAll('.permission-checkbox:checked'))
-        .map(cb => cb.value);
-
     const role = {
-        name: document.getElementById('createName').value.trim()
+        name: document.getElementById('createName').value.trim(),
+        permissionSet: Array.from(document.querySelectorAll('#permissionsDropdownMenu .permission-checkbox:checked'))
+            .map(cb => ({permissionName: cb.value}))
     };
+
+
 
     try {
         const response = await fetch('/roles', {
@@ -82,8 +83,8 @@ async function handleEditRoleSubmit(e) {
         name: document.getElementById('editName').value.trim()
     };
 
-    role.permissions = Array.from(document.querySelectorAll('#editPermissionsDropdownMenu .permission-checkbox:checked'))
-        .map(cb => cb.value);
+    role.permissionSet = Array.from(document.querySelectorAll('#editPermissionsDropdownMenu .permission-checkbox:checked'))
+        .map(cb => ({permissionName: cb.value}));
 
     try {
         const response = await fetch(`/roles/${id}`, {
@@ -108,25 +109,25 @@ async function handleEditRoleSubmit(e) {
 
 
 // -------------------- Handle Server Response --------------------
-    async function handleResponse(response, mode) {
-        const data = await response.json();
+async function handleResponse(response, mode) {
+    const data = await response.json();
 
-        if (!response.ok) {
-            if (response.status === 400) {
-                // خطاهای اعتبارسنجی
-                displayValidationErrors(data, mode);
-                throw new Error('Validation errors');
-            }
-
-            // سایر خطاها (۵۰۰ یا ...)، پیام در فیلد error است
-            const errorMessage = data.error || 'خطای ناشناخته در سرور';
-            showToast('danger', errorMessage);
-            throw new Error(errorMessage);
+    if (!response.ok) {
+        if (response.status === 400) {
+            // خطاهای اعتبارسنجی
+            displayValidationErrors(data, mode);
+            throw new Error('Validation errors');
         }
 
-        // موفقیت (پیام در فیلد message است)
-        return data;
+        // سایر خطاها (۵۰۰ یا ...)، پیام در فیلد error است
+        const errorMessage = data.error || 'خطای ناشناخته در سرور';
+        showToast('danger', errorMessage);
+        throw new Error(errorMessage);
     }
+
+    // موفقیت (پیام در فیلد message است)
+    return data;
+}
 
 // -----------------------------------------------------------
 function loadPermissionsForCreateModal() {
@@ -267,21 +268,6 @@ function initEditButtons() {
     });
 }
 
-// =================== افزودن event delegation برای دکمه کارت ===================
-// document.body.addEventListener('click', function (e) {
-//     const btn = e.target.closest('.btn-warning.card-edit');
-//     if (!btn) return;
-//
-//     document.getElementById('editRoleId').value = btn.dataset.id || '';
-//     document.getElementById('editFirstName').value = btn.dataset.firstname || '';
-//     document.getElementById('editLastName').value = btn.dataset.lastname || '';
-//     document.getElementById('editEmail').value = btn.dataset.email || '';
-//     document.getElementById('editPhone').value = btn.dataset.phone || '';
-//     document.getElementById('editUsername').value = btn.dataset.username || '';
-//     document.getElementById('editPassword').value = '******';
-//     new bootstrap.Modal(document.getElementById('roleEditModal')).show();
-// });
-
 // -------------------------------------------------------
 function initPagination() {
     document.querySelectorAll('.page-link').forEach(link => {
@@ -296,9 +282,7 @@ function initPagination() {
 // --------------------------------------------------
 function initSortAndPageSize() {
     const pageSize = document.getElementById('pageSize');
-    const sortBy = document.getElementById('sortBy');
     if (pageSize) pageSize.addEventListener('change', () => loadRoles(0));
-    if (sortBy) sortBy.addEventListener('change', () => loadRoles(0));
 }
 
 

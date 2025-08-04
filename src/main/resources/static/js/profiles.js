@@ -48,8 +48,9 @@ async function handleCreateProfileSubmit(e) {
     e.preventDefault();
     clearValidationErrors();
 
-    const selectedRoles = Array.from(document.querySelectorAll('.role-checkbox:checked'))
+    const selectedRoles = Array.from(document.querySelectorAll('#profileCreateModal .role-checkbox:checked'))
         .map(cb => cb.value);
+
 
     const profile = {
         firstName: document.getElementById('createFirstName').value.trim(),

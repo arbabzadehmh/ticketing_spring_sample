@@ -8,6 +8,8 @@ import ir.model.entity.Profile;
 import ir.service.RoleService;
 import ir.service.UserService;
 import ir.service.ProfileService;
+import ir.validation.OnCreate;
+import ir.validation.OnUpdate;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
@@ -85,7 +88,7 @@ public class ProfileController {
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<?> saveProfile(
-            @Valid @RequestBody ProfileUserDto profileDto,
+            @Validated(OnCreate.class) @RequestBody ProfileUserDto profileDto,
             BindingResult bindingResult,
             Locale locale
     ) {
@@ -109,7 +112,7 @@ public class ProfileController {
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createProfileByAdmin(
-            @Valid @RequestBody ProfileUserDto profileDto,
+            @Validated(OnCreate.class) @RequestBody ProfileUserDto profileDto,
             BindingResult bindingResult,
             Locale locale
     ) {
@@ -136,7 +139,7 @@ public class ProfileController {
     @ResponseBody
     public ResponseEntity<?> updateProfile(
             @PathVariable Long id,
-            @Valid @RequestBody ProfileUserDto profileUserDto,
+            @Validated(OnUpdate.class) @RequestBody ProfileUserDto profileUserDto,
             BindingResult bindingResult,
             Authentication authentication,
             Locale locale

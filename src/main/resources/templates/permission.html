@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
+<head>
+    <title th:text="#{permissions.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
+</head>
+<body data-bs-theme="light">
+
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container-fluid p-2">
+        <!-- در بخشی از صفحه که همیشه وجود دارد -->
+        <div id="deleteConfirmText" style="display: none;" th:text="#{permissions.delete.confirm}"></div>
+        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+        <div id="permissions-table-container">
+            <div th:replace="~{fragments/permission-fragments/permissions-table :: permissions-table}"></div>
+        </div>
+    </div>
+</main>
+
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/permission-fragments/permission-modal :: permission-modal}"></div>
+
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<script th:src="@{/js/permissions.js}"></script>
+</body>
+</html>

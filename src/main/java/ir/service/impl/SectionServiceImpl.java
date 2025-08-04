@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
 
@@ -23,34 +22,38 @@ public class SectionServiceImpl implements SectionService {
 //        findAllSections();
 //    }
 
-    @Override
+
     @Transactional
     @CacheEvict(cacheNames = "sections", allEntries = true)
+    @Override
     public void addSection(Section section) {
         sectionRepository.save(section);
 
     }
 
-    @Override
+
     @Transactional
     @CacheEvict(cacheNames = "sections", allEntries = true)
+    @Override
     public void updateSection(Section section) {
         sectionRepository.save(section);
 
     }
 
-    @Override
+
     @Transactional
     @CacheEvict(cacheNames = "sections", allEntries = true)
+    @Override
     public void deleteSection(Section section) {
         if(section.getChildSectionList().isEmpty()) {
             sectionRepository.delete(section);
         }
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     @Cacheable(value = "sections")
+    @Override
     public List<Section> findAllSections() {
         return sectionRepository.findAll();
     }

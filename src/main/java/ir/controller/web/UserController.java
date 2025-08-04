@@ -24,14 +24,14 @@ public class UserController
         this.roleService = roleService;
     }
 
-    @GetMapping
-    public String showForm(Model model)
-    {
-        model.addAttribute("user", new User());
-//        model.addAttribute("roleList", roleService.findAll());
-        model.addAttribute("userList", userService.findAll());
-        return "user2";
-    }
+//    @GetMapping
+//    public String showForm(Model model)
+//    {
+//        model.addAttribute("user", new User());
+////        model.addAttribute("roleList", roleService.findAll());
+//        model.addAttribute("userList", userService.findAll());
+//        return "user2";
+//    }
 
     @PostMapping()
     public String saveUser(User user, @ModelAttribute("roleName")String roleName)

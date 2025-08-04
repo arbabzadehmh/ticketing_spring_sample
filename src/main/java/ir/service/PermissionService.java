@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface PermissionService {
     Permission save(Permission permission);
-    Permission update(Permission permission);
+    Permission update(Long id, Permission permission);
+    void deleteById(Long id);
     Page<Permission> findAll(Pageable pageable);
     List<Permission> findAll();
 

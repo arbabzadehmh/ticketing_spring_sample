@@ -96,7 +96,7 @@ public class RoleController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        roleService.update(role);
+        roleService.update(name,role);
 
         String message = messageSource.getMessage("roles.edit.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
@@ -105,7 +105,6 @@ public class RoleController {
     @DeleteMapping("/{name}")
     @ResponseBody
     public ResponseEntity<?> deleteRole(@PathVariable String name, Locale locale) {
-        Role role = roleService.findByName(name);
         roleService.deleteByName(name);
         String message = messageSource.getMessage("roles.delete.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));

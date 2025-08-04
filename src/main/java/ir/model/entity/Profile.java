@@ -29,22 +29,22 @@ public class Profile extends Base {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "{validation.firstName}")
-    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
+//    @NotBlank(message = "{validation.firstName}")
+//    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
-    @NotBlank(message = "{validation.lastName}")
-    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
+//    @NotBlank(message = "{validation.lastName}")
+//    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}")
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
-    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "{validation.email}")
+//    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "{validation.email}")
     @Column(name = "email", length = 50)
     private String email;
 
-    @Pattern(regexp = "^[0-9]{11,}$", message = "{validation.phone}")
-    @Column(name = "phone", unique = true, length = 15)
+//    @Pattern(regexp = "^[0-9]{11,}$", message = "{validation.phone}")
+    @Column(name = "phone", length = 15)
     private String phone;
 
     @OneToOne

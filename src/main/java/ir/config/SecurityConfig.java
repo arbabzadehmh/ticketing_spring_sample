@@ -127,7 +127,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login", "/h2-console/**", "/public/**", "/api/test/public/**").permitAll()
                         .requestMatchers("/profiles/register").permitAll()
                         .requestMatchers("/admins/**").hasRole("ADMIN")
-                        .requestMatchers("/roles/**").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers("/roles/**", "/permissions/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers("/profiles/**").hasAnyRole("ADMIN", "CUSTOMER")
                         .requestMatchers("/api/data").hasAuthority("READ_DATA")
                         .anyRequest().authenticated()

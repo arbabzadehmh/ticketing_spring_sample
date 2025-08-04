@@ -37,6 +37,8 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.username.duplicate", null, locale);
         } else if (e instanceof DuplicateRoleException) {
             return messageSource.getMessage("error.role.duplicate", null, locale);
+        } else if (e instanceof DuplicatePermissionException) {
+            return messageSource.getMessage("error.permission.duplicate", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

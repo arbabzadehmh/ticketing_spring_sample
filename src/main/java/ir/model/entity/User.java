@@ -23,13 +23,13 @@ import java.util.Set;
 @Where(clause = "deleted = false")
 public class User extends Base {
     @Id
-    @NotBlank(message = "{validation.username}")
-    @Pattern(regexp = "^$|^[a-zA-Z\\d._-]{3,30}$", message = "{validation.usernamePattern}")
+//    @NotBlank(message = "{validation.username}")
+//    @Pattern(regexp = "^$|^[a-zA-Z\\d._-]{3,30}$", message = "{validation.usernamePattern}")
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @NotBlank(message = "{validation.password}")
-    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}")
+//    @NotBlank(message = "{validation.password}")
+//    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}")
     @Column(name = "password", nullable = false)
     private String password;
 
