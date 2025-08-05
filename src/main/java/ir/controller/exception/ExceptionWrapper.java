@@ -39,6 +39,12 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.role.duplicate", null, locale);
         } else if (e instanceof DuplicatePermissionException) {
             return messageSource.getMessage("error.permission.duplicate", null, locale);
+        } else if (e instanceof DuplicateSectionException) {
+            return messageSource.getMessage("error.section.duplicate", null, locale);
+        } else if (e instanceof RemovingParentSectionException) {
+            return messageSource.getMessage("error.section.removing", null, locale);
+        } else if (e instanceof SavingSectionWithNoParent) {
+            return messageSource.getMessage("error.section.saving", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

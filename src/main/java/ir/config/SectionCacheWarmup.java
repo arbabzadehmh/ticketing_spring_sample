@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -16,7 +17,8 @@ public class SectionCacheWarmup implements ApplicationListener<ApplicationReadyE
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        sectionService.findAllSections();               // کش‌سازی اینجا به‌درستی فعال می‌شود
+        sectionService.findAll();               // کش‌سازی اینجا به‌درستی فعال می‌شود
+        sectionService.findAll(PageRequest.of(0, 50));
         log.info("**************************************************************  cache sections  ***************************************************************");
     }
 

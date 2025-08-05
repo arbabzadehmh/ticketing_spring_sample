@@ -4,7 +4,7 @@
     --footer-height: 60px;
     --bs-body-bg: #ffffff;
     --bs-body-color: #212529;
-    --bs-primary: #0d6efd;
+    /*--bs-primary: #0d6efd;*/
     --bs-border-color: #dee2e6;
     --icon-color: #212529;
     --validation-error-color: #dc3545;
@@ -183,4 +183,75 @@ td{
 
 .val-err{
     color: var(--validation-error-color);
+}
+
+
+
+/*------------------------- تغییر رنگ اصلی -----------------------*/
+.bg-primary {
+    background-color: #2f575d !important;
+}
+
+/* رنگ عادی لینک‌های سایدبار */
+.sidebar .nav-link,
+.sidebar .nav-link i {
+    color: #2f575d !important;
+}
+
+/* رنگ لینک هنگام hover */
+.sidebar .nav-link:hover,
+.sidebar .nav-link:hover i {
+    color: #172721 !important; /* کمی تیره‌تر از رنگ اصلی */
+}
+
+/* رنگ لینک فعال */
+.sidebar .nav-link.active,
+.sidebar .nav-link.active i {
+    color: #2f575d !important;
+    font-weight: bold; /* لینک فعال رو برجسته‌تر نشون میده (اختیاری) */
+}
+
+
+.pagination .page-link {
+    color: #2f575d !important; /* رنگ شماره صفحات عادی */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #2f575d !important; /* رنگ پس‌زمینه صفحه فعال */
+    border-color: #2f575d !important;
+    color: #fff !important; /* رنگ متن صفحه فعال */
+}
+
+.btn-primary {
+    background-color: #2f575d !important;
+    border-color: #2f575d !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #214349 !important; /* کمی تیره‌تر در حالت hover */
+    border-color: #214349 !important;
+}
+
+/* تغییر رنگ لینک‌ها و آیکون‌های سایدبار در حالت دارک مود */
+[data-bs-theme="dark"] .sidebar .nav-link,
+[data-bs-theme="dark"] .sidebar .nav-link i {
+    color: #ffffff !important;
+}
+
+/* رنگ لینک در هاور در حالت دارک مود */
+[data-bs-theme="dark"] .sidebar .nav-link:hover,
+[data-bs-theme="dark"] .sidebar .nav-link:hover i {
+    color: #cccccc !important; /* کمی خاکستری برای هاور */
+}
+
+/* رنگ لینک فعال در حالت دارک مود */
+[data-bs-theme="dark"] .sidebar .nav-link.active,
+[data-bs-theme="dark"] .sidebar .nav-link.active i {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.sidebar .navbar-brand {
+    margin-bottom: 30px; /* فاصله بین لوگو و آیتم‌های منو */
 }

@@ -1,0 +1,46 @@
+<div th:fragment="section-modal">
+    <div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="sectionModalLabel"
+                        th:text="#{sections.addModalTitle}"
+                        th:attr="data-title-add=#{sections.addModalTitle}, data-title-edit=#{sections.editModalTitle}">
+                    </h5>
+
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="sectionForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="sectionId"> <!-- فقط برای حالت ویرایش -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label" th:text="#{sections.name}"></label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="parentSection" class="form-label" th:text="#{sections.parent}"></label>
+                        <select class="form-select" id="parentSection" name="parentSection">
+                            <option value="">بدون دپارتمان بالادستی</option>
+                            <option th:each="s : ${sections}"
+                                    th:value="${s.id}"
+                                    th:text="${s.title}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
+                        <button type="submit" class="btn btn-primary" id="sectionSaveBtn"
+                                th:text="#{profiles.save}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
