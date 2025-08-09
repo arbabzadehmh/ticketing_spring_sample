@@ -25,17 +25,19 @@ public class Message extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "messageSeq")
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "content", length = 300, nullable = false)
     private String content;
 
     @Column(name="date_time")
     private LocalDateTime dateTime;
 
     @ManyToOne
-    @JoinColumn(name="ticket_id")
+    @JoinColumn(name="ticket_id", foreignKey = @ForeignKey(name = "fk_message_ticket_id"))
     private Ticket ticket;
 
 
     @ManyToOne
-    @JoinColumn(name="username")
+    @JoinColumn(name="username", foreignKey = @ForeignKey(name = "fk_message_username"))
     private User user;
 }

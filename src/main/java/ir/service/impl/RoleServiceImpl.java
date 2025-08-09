@@ -90,4 +90,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() {
         return roleRepository.findAll();
     }
+
+    @Override
+    public Page<Role> findByNameContaining(String name, Pageable pageable) {
+        return roleRepository.findByNameContainingIgnoreCase(name, pageable);
+    }
 }

@@ -1,9 +1,10 @@
-<div th:fragment="sections-table">
+<div th:fragment="sections-table" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="card shadow">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h3 class="mb-0" th:text="#{sections.title}"></h3>
             <button class="btn btn-add btn-light"
                     data-bs-toggle="modal"
+                    sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
                     data-bs-target="#sectionModal"
                     data-title-add="#{sections.addModalTitle}">
                 <i class="fas fa-plus me-2"></i>
@@ -20,8 +21,21 @@
                                 th:selected="${param.size == 10}"></option>
                         <option value="20" th:text="#{profiles.pageSize.20}"
                                 th:selected="${param.size == 20}"></option>
-
                     </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchSectionTitle"
+                           class="form-control"
+                           th:value="${param.sectionTitle}"
+                           th:placeholder="#{sections.search.title}">
+                </div>
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchParentSectionTitle"
+                           class="form-control"
+                           th:value="${param.parentSectionTitle}"
+                           th:placeholder="#{sections.search.parentTitle}">
                 </div>
             </div>
 
@@ -32,7 +46,7 @@
                     <tr>
                         <th th:text="#{sections.name}"></th>
                         <th th:text="#{sections.parent}"></th>
-                        <th th:text="#{profiles.actions}"></th>
+                        <th th:text="#{profiles.actions}" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,12 +60,14 @@
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
+                                        sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
                                         th:data-id="${section.id}"
                                         th:data-title="${section.title}"
                                         th:data-parent-id="${section.parentSection != null ? section.parentSection.id : ''}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
+                                        sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
                                         th:data-id="${section.id}"
                                         th:data-confirm-text="#{sections.delete.confirm}">
                                     <i class="fas fa-trash"></i>

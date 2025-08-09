@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/roles")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class RoleController {
 
     private final RoleService roleService;
@@ -36,6 +38,7 @@ public class RoleController {
     public String rolesList(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String searchRoleName,
             @RequestParam(required = false) Boolean fragment,
             Model model
     ) {
@@ -46,7 +49,12 @@ public class RoleController {
         Sort sort = Sort.by("name").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Role> roles = roleService.findAll(pageable);
+        Page<Role> roles;
+        if (searchRoleName != null && !searchRoleName.isEmpty()) {
+            roles = roleService.findByNameContaining(searchRoleName, pageable);
+        } else {
+            roles = roleService.findAll(pageable);
+        }
         model.addAttribute("roles", roles);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", roles.getTotalPages());
@@ -87,7 +95,7 @@ public class RoleController {
             @Valid @RequestBody Role role,
             BindingResult bindingResult,
             Locale locale
-    ){
+    ) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error ->
@@ -96,7 +104,7 @@ public class RoleController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        roleService.update(name,role);
+        roleService.update(name, role);
 
         String message = messageSource.getMessage("roles.edit.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));

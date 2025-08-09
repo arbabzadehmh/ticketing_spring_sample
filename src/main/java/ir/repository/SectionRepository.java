@@ -19,5 +19,7 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     Page<Section> findAll(Pageable pageable);
     Optional<Section> findByTitle(String title);
     boolean existsByTitle(String title);
+    Page<Section> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+    Page<Section> findByParentSection_TitleContainingIgnoreCase(String parentTitle, Pageable pageable);
 
 }

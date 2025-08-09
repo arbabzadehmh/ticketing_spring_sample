@@ -48,10 +48,7 @@ public class Profile extends Base {
     private String phone;
 
     @OneToOne
-    @JoinColumn(
-            name = "username",
-            foreignKey = @ForeignKey(name = "fk_profile_user")
-    )
+    @JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_profile_user"))
     private User user;
 
 }

@@ -2,13 +2,26 @@ function loadSections(page = 0) {
     const container = document.getElementById('sections-table-container');
     const pageSizeElement = document.getElementById('pageSize');
 
+    const sectionTitleInput = document.getElementById('searchSectionTitle');
+    const parentSectionTitleInput = document.getElementById('searchParentSectionTitle');
+
     if (!container || !pageSizeElement) {
         console.log('%cSections table not found, skipping loadSections()', 'color: orange;');
         return;
     }
 
     const size = parseInt(pageSizeElement.value, 10);
-    const url = `/sections?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+
+    const sectionTitle = sectionTitleInput ? sectionTitleInput.value.trim() : '';
+    const parentSectionTitle = parentSectionTitleInput ? parentSectionTitleInput.value.trim() : '';
+
+    let url = `/sections?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+
+    if (sectionTitle) {
+        url += `&sectionTitle=${encodeURIComponent(sectionTitle)}`;
+    } else if (parentSectionTitle) {
+        url += `&parentSectionTitle=${encodeURIComponent(parentSectionTitle)}`;
+    }
 
     fetch(url)
         .then(response => {
@@ -24,6 +37,7 @@ function loadSections(page = 0) {
             initDeleteButtons();
             initEditButtons();
             initAddButtons();
+            initSearchInputs();
         })
         .catch(error => showToast('danger', error.message || 'خطا در دریافت داده‌ها'));
 }
@@ -127,20 +141,6 @@ function capitalize(str) {
 }
 
 // -------------------------------------------------------
-// function initEditButtons() {
-//     document.querySelectorAll('.btn-edit').forEach(btn => {
-//         btn.addEventListener('click', () => {
-//             const modalTitle = document.querySelector('#sectionModalLabel');
-//             modalTitle.textContent = modalTitle.dataset.titleEdit;
-//             document.getElementById('sectionId').value = btn.dataset.id;
-//             document.getElementById('title').value = btn.dataset.title;
-//             document.getElementById('parentSection').value = btn.dataset.parentId || '';
-//
-//             new bootstrap.Modal(document.getElementById('sectionModal')).show();
-//         });
-//     });
-// }
-
 async function initEditButtons() {
     document.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', async () => {
@@ -179,22 +179,7 @@ async function initEditButtons() {
     });
 }
 
-
-
 // -------------------------------------------------------
-// function initAddButtons() {
-//     const addSectionButton = document.querySelector('[data-bs-target="#sectionModal"]');
-//     if (addSectionButton) {
-//         addSectionButton.addEventListener('click', () => {
-//             const modalTitle = document.getElementById('sectionModalLabel');
-//             modalTitle.textContent = modalTitle.dataset.titleAdd; // پیش‌فرض عنوان افزودن
-//             document.getElementById('sectionId').value = '';  //  حتما خالی کن id رو
-//             document.getElementById('title').value = '';
-//             document.getElementById('parentSection').value = '';
-//         });
-//     }
-// }
-
 async function initAddButtons() {
     const addSectionButton = document.querySelector('[data-bs-target="#sectionModal"]');
     if (addSectionButton) {
@@ -270,6 +255,41 @@ function initSortAndPageSize() {
     const pageSize = document.getElementById('pageSize');
     if (pageSize) pageSize.addEventListener('change', () => loadSections(0));
 }
+
+// ---------------------------------------------------
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// ------------------------------------------------------------
+
+function initSearchInputs() {
+    const sectionTitleInput = document.getElementById('searchSectionTitle');
+    const parentSectionTitleInput = document.getElementById('searchParentSectionTitle');
+
+    const debouncedLoad = debounce(() => loadSections(0), 700);
+
+    if (sectionTitleInput && parentSectionTitleInput) {
+        sectionTitleInput.addEventListener('input', () => {
+            if (sectionTitleInput.value.trim() !== '') {
+                parentSectionTitleInput.value = '';
+            }
+            debouncedLoad();
+        });
+
+        parentSectionTitleInput.addEventListener('input', () => {
+            if (parentSectionTitleInput.value.trim() !== '') {
+                sectionTitleInput.value = '';
+            }
+            debouncedLoad();
+        });
+    }
+}
+
 
 // ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {

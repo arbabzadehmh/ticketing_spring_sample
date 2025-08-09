@@ -1,6 +1,7 @@
 function loadPermissions(page = 0) {
     const container = document.getElementById('permissions-table-container');
     const pageSizeElement = document.getElementById('pageSize');
+    const searchPermissionNameElement = document.getElementById('searchPermissionName');
 
     if (!container || !pageSizeElement) {
         console.log('%cPermissions table not found, skipping loadPermissions()', 'color: orange;');
@@ -8,7 +9,13 @@ function loadPermissions(page = 0) {
     }
 
     const size = parseInt(pageSizeElement.value, 10);
-    const url = `/permissions?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+    const searchPermissionName = searchPermissionNameElement ? searchPermissionNameElement.value.trim() : '';
+
+    let url = `/permissions?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+
+    if (searchPermissionName) {
+        url += `&searchPermissionName=${encodeURIComponent(searchPermissionName)}`;
+    }
 
     fetch(url)
         .then(response => {
@@ -19,11 +26,17 @@ function loadPermissions(page = 0) {
             container.innerHTML = html;
             document.getElementById('pageSize').value = size;
 
+            const newSearchPermissionNameElement = document.getElementById('searchPermissionName');
+            if (newSearchPermissionNameElement) {
+                newSearchPermissionNameElement.value = searchPermissionName;
+            }
+
             initPagination();
             initSortAndPageSize();
             initDeleteButtons();
             initEditButtons();
             initAddButtons();
+            initSearchInput();
         })
         .catch(error => showToast('danger', error.message || 'خطا در دریافت داده‌ها'));
 }
@@ -190,6 +203,26 @@ function initSortAndPageSize() {
     const pageSize = document.getElementById('pageSize');
     if (pageSize) pageSize.addEventListener('change', () => loadPermissions(0));
 }
+// ---------------------------------------------------------
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// -----------------------------------------------------
+function initSearchInput() {
+    const searchPermissionNameInput = document.getElementById('searchPermissionName');
+    if (searchPermissionNameInput) {
+        const debouncedLoad = debounce(() => loadPermissions(0), 700);
+        searchPermissionNameInput.addEventListener('input', () => {
+            debouncedLoad();
+        });
+    }
+}
+
 
 // ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {

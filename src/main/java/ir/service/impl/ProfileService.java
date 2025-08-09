@@ -91,12 +91,12 @@ public class ProfileService implements ir.service.ProfileService {
 
     @Transactional
     @Override
-    public Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdmin) {
+    public Profile updateProfile(ProfileUserDto dto, Long profileId, boolean isAdminOrManager) {
 
         Profile existingProfile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 
-        if (isAdmin) {
+        if (isAdminOrManager) {
             // اگر ادمین بود، همه‌چیز به‌جز username قابل آپدیت
             profileMapper.updateEntity(dto, existingProfile);
 
@@ -164,5 +164,15 @@ public class ProfileService implements ir.service.ProfileService {
     @Override
     public Profile findByUsername(String username) {
         return profileRepository.findByUserUsername(username);
+    }
+
+    @Override
+    public Page<Profile> findByLastNameLike(String lastName, Pageable pageable) {
+        return profileRepository.findByLastNameLike( lastName + "%" , pageable);
+    }
+
+    @Override
+    public Page<Profile> findByUserUsernameLike(String username, Pageable pageable) {
+        return profileRepository.findByUserUsernameLike(  username + "%", pageable);
     }
 }

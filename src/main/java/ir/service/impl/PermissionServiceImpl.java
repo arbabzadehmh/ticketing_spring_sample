@@ -57,6 +57,11 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionRepository.findAll();
     }
 
+    @Override
+    public Page<Permission> findByPermissionNameContaining(String permissionName, Pageable pageable) {
+        return permissionRepository.findByPermissionNameContainingIgnoreCase(permissionName, pageable);
+    }
+
     @Transactional
     @Override
     public void deleteById(Long id) {

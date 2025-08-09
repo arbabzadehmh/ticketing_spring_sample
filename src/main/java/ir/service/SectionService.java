@@ -17,6 +17,8 @@ public interface SectionService {
     Section findById(Long id);
     List<Section> findSectionByTitle(String title);
     List<Section> findByParentSection(Section section);
+    Page<Section> findByTitleContaining(String title, Pageable pageable);
+    Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable);
 
 
 }

@@ -2,6 +2,7 @@ function loadRoles(page = 0) {
     // اگر table وجود نداشت، از تابع خارج شو
     const container = document.getElementById('roles-table-container');
     const pageSizeElement = document.getElementById('pageSize');
+    const searchRoleNameElement = document.getElementById('searchRoleName');
 
     if (!container || !pageSizeElement) {
         console.log('%cRoles table not found, skipping loadRoles()', 'color: orange;');
@@ -9,8 +10,13 @@ function loadRoles(page = 0) {
     }
 
     const size = parseInt(pageSizeElement.value, 10);
+    const searchRoleName = searchRoleNameElement ? searchRoleNameElement.value.trim() : '';
 
-    const url = `/roles?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+    let url = `/roles?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&fragment=true`;
+
+    if (searchRoleName) {
+        url += `&searchRoleName=${encodeURIComponent(searchRoleName)}`;
+    }
 
     fetch(url)
         .then(response => {
@@ -23,10 +29,16 @@ function loadRoles(page = 0) {
             // بازگرداندن مقادیر انتخابی dropdown ها بعد از رندر مجدد
             document.getElementById('pageSize').value = size;
 
+            const newSearchRoleNameElement = document.getElementById('searchRoleName');
+            if (newSearchRoleNameElement) {
+                newSearchRoleNameElement.value = searchRoleName;
+            }
+
             initPagination();
             initSortAndPageSize();
             initDeleteButtons();
             initEditButtons();
+            initSearchInput();
 
             // ثبت دوباره رویداد submit برای فرم edit
             const editForm = document.getElementById('roleEditForm');
@@ -291,6 +303,26 @@ function initDeleteButtons() {
     document.querySelectorAll('.btn-danger').forEach(btn => btn.addEventListener('click', handleRoleDelete));
 }
 
+// -----------------------------------------------------
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// -----------------------------------------------------
+function initSearchInput() {
+    const searchRoleNameInput = document.getElementById('searchRoleName');
+    if (searchRoleNameInput) {
+        const debouncedLoad = debounce(() => loadRoles(0), 700);
+        searchRoleNameInput.addEventListener('input', () => {
+            debouncedLoad();
+        });
+    }
+}
+
 // -------------------- DOMContentLoaded --------------------
 document.addEventListener('DOMContentLoaded', () => {
     loadRoles();
@@ -304,4 +336,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initPagination();
     initSortAndPageSize();
     initDeleteButtons();
+    initSearchInput();
 });

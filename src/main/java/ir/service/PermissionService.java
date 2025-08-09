@@ -12,5 +12,5 @@ public interface PermissionService {
     void deleteById(Long id);
     Page<Permission> findAll(Pageable pageable);
     List<Permission> findAll();
-
+    Page<Permission> findByPermissionNameContaining(String permissionName, Pageable pageable);
 }

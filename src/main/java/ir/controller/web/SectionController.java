@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,8 @@ public class SectionController {
     public String sectionsList(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String sectionTitle,
+            @RequestParam(required = false) String parentSectionTitle,
             @RequestParam(required = false) Boolean fragment,
             Model model) {
 
@@ -44,7 +47,14 @@ public class SectionController {
         Sort sort = Sort.by("title").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Section> sections = sectionService.findAll(pageable);
+        Page<Section> sections;
+        if (sectionTitle != null && !sectionTitle.isEmpty()) {
+            sections = sectionService.findByTitleContaining(sectionTitle, pageable);
+        } else if (parentSectionTitle != null && !parentSectionTitle.isEmpty()) {
+            sections = sectionService.findByParentSectionTitleContaining(parentSectionTitle, pageable);
+        } else {
+            sections = sectionService.findAll(pageable);
+        }
         model.addAttribute("sections", sections);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", sections.getTotalPages());
@@ -56,6 +66,7 @@ public class SectionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
     public ResponseEntity<?> saveSection(
             @Valid @RequestBody Section section,
@@ -78,6 +89,7 @@ public class SectionController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
     public ResponseEntity<?> updateSection(
             @PathVariable Long id,
@@ -101,6 +113,7 @@ public class SectionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
     public ResponseEntity<?> deleteSection(@PathVariable Long id, Locale locale) {
         sectionService.deleteById(id);

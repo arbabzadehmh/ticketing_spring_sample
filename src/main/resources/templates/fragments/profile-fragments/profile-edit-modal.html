@@ -35,7 +35,7 @@
                         </div>
 
                         <!-- فقط برای ادمین -->
-                        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <div th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''MANAGER'')')}">
                             <div class="mb-3">
                                 <label th:text="#{users.roles}"></label>
                                 <div id="editRolesDropdownMenu"></div>
@@ -58,7 +58,7 @@
                                 <label th:text="#{users.credentialsNonExpired}"></label>
                                 <select class="form-select" id="editCredentialsNonExpired">
                                     <option value="true" th:text="#{common.yes}"></option>
-                                    <option value="false" th:tetx="#{common.no}"></option>
+                                    <option value="false" th:text="#{common.no}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -68,10 +68,15 @@
                                     <option value="false" th:text="#{common.no}"></option>
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                <label th:text="#{users.expireDate}"></label>
+                                <input type="datetime-local" class="form-control" id="editCredentialsExpiryDate"/>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{profiles.cancel}"></button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
                         <button type="submit" class="btn btn-primary" th:text="#{profiles.edit}"></button>
                     </div>
                 </form>

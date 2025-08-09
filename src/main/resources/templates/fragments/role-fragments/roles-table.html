@@ -17,8 +17,14 @@
                                 th:selected="${param.size == 10}"></option>
                         <option value="20" th:text="#{profiles.pageSize.20}"
                                 th:selected="${param.size == 20}"></option>
-
                     </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchRoleName"
+                           class="form-control"
+                           th:value="${param.name}"
+                           th:placeholder="#{roles.search.name}">
                 </div>
             </div>
 

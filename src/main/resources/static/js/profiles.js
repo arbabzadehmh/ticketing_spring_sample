@@ -4,6 +4,9 @@ function loadProfiles(page = 0) {
     const pageSizeElement = document.getElementById('pageSize');
     const sortByElement = document.getElementById('sortBy');
 
+    const lastNameInput = document.getElementById('searchLastName');
+    const usernameInput = document.getElementById('searchUsername');
+
     if (!container || !pageSizeElement || !sortByElement) {
         console.log('%cProfiles table not found, skipping loadProfiles()', 'color: orange;');
         return;
@@ -12,7 +15,17 @@ function loadProfiles(page = 0) {
     const size = parseInt(pageSizeElement.value, 10);
     const sortBy = sortByElement.value;
 
-    const url = `/profiles?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&sortBy=${encodeURIComponent(sortBy)}&fragment=true`;
+    const lastName = lastNameInput ? lastNameInput.value.trim() : '';
+    const username = usernameInput ? usernameInput.value.trim() : '';
+
+    let url = `/profiles?page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}&sortBy=${encodeURIComponent(sortBy)}&fragment=true`;
+
+    // اولویت با lastName هست؛ اگر بود اضافه می‌کنیم و username رو نادیده می‌گیریم
+    if (lastName) {
+        url += `&lastName=${encodeURIComponent(lastName)}`;
+    } else if (username) {
+        url += `&username=${encodeURIComponent(username)}`;
+    }
 
     fetch(url)
         .then(response => {
@@ -30,6 +43,8 @@ function loadProfiles(page = 0) {
             initSortAndPageSize();
             initDeleteButtons();
             initEditButtons();
+            initSearchInputs();
+
 
             // ثبت دوباره رویداد submit برای فرم edit
             const editForm = document.getElementById('profileEditForm');
@@ -118,6 +133,9 @@ async function handleEditProfileSubmit(e) {
         profile.accountNonLocked = document.getElementById('editAccountNonLocked').value === 'true';
         profile.credentialsNonExpired = document.getElementById('editCredentialsNonExpired').value === 'true';
         profile.enabled = document.getElementById('editEnabled').value === 'true';
+
+        const expiryVal = document.getElementById('editCredentialsExpiryDate').value;
+        profile.credentialsExpiryDate = expiryVal ? expiryVal + ':00' : null;
     }
 
     try {
@@ -309,6 +327,20 @@ function initEditButtons() {
                 document.getElementById('editAccountNonLocked').value = btn.dataset.accountNonLocked;
                 document.getElementById('editCredentialsNonExpired').value = btn.dataset.credentialsNonExpired;
                 document.getElementById('editEnabled').value = btn.dataset.enabled;
+
+                const expiryDate = btn.dataset.credentialsExpiryDate;
+                const expiryInput = document.getElementById('editCredentialsExpiryDate');
+
+                if (expiryDate && expiryInput) {
+                    console.log('expiryDate raw:', expiryDate);
+
+                    // اگر مقدار رشته ISO هست، مستقیماً 16 کاراکتر اول را بگیر
+                    expiryInput.value = expiryDate.substring(0, 16);
+                } else if (expiryInput) {
+                    expiryInput.value = '';
+                }
+
+
             }
 
             new bootstrap.Modal(document.getElementById('profileEditModal')).show();
@@ -323,7 +355,7 @@ document.body.addEventListener('click', function (e) {
 
     document.getElementById('editProfileId').value = btn.dataset.id || '';
     document.getElementById('editFirstName').value = btn.dataset.firstname || '';
-    document.getElementById('editLastName').value = btn.dataset.lastname || '';
+    document.getElementById('editLastName').value = btn.dataset.lastName || '';
     document.getElementById('editEmail').value = btn.dataset.email || '';
     document.getElementById('editPhone').value = btn.dataset.phone || '';
     document.getElementById('editUsername').value = btn.dataset.username || '';
@@ -356,6 +388,42 @@ function initDeleteButtons() {
     document.querySelectorAll('.btn-danger').forEach(btn => btn.addEventListener('click', handleProfileDelete));
 }
 
+// ------------------------------------------------------
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// ------------------------------------------------------------
+
+function initSearchInputs() {
+    const lastnameInput = document.getElementById('searchLastName');
+    const usernameInput = document.getElementById('searchUsername');
+
+    const debouncedLoad = debounce(() => loadProfiles(0), 700);
+
+    if (lastnameInput && usernameInput) {
+        lastnameInput.addEventListener('input', () => {
+            if (lastnameInput.value.trim() !== '') {
+                usernameInput.value = '';
+            }
+            debouncedLoad();
+        });
+
+        usernameInput.addEventListener('input', () => {
+            if (usernameInput.value.trim() !== '') {
+                lastnameInput.value = '';
+            }
+            debouncedLoad();
+        });
+    }
+}
+
+
+
 // -------------------- DOMContentLoaded --------------------
 document.addEventListener('DOMContentLoaded', () => {
     loadProfiles();
@@ -369,4 +437,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initPagination();
     initSortAndPageSize();
     initDeleteButtons();
+    initSearchInputs();
 });

@@ -10,7 +10,6 @@ import ir.service.UserService;
 import ir.service.ProfileService;
 import ir.validation.OnCreate;
 import ir.validation.OnUpdate;
-import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +46,8 @@ public class ProfileController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "firstName") String sortBy,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String username,
             @RequestParam(required = false) Boolean fragment,
             Model model,
             Authentication authentication
@@ -61,21 +62,29 @@ public class ProfileController {
         Sort sort = Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        boolean isAdminOrManager = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_MANAGER"));
 
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin", isAdminOrManager);
 
-        if (isAdmin) {
-            // ادمین → همه پروفایل‌ها
-            Page<Profile> profiles = profileService.findAll(pageable);
+        if (isAdminOrManager) {
+
+            Page<Profile> profiles;
+            if (lastName != null && !lastName.isEmpty()) {
+                profiles = profileService.findByLastNameLike(lastName, pageable);
+            } else if (username != null && !username.isEmpty()) {
+                profiles = profileService.findByUserUsernameLike(username, pageable);
+            } else {
+                profiles = profileService.findAll(pageable);
+            }
+
             model.addAttribute("profiles", profiles);
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", profiles.getTotalPages());
         } else {
             // مشتری → فقط پروفایل خودش
-            String username = authentication.getName();
-            Profile profile = profileService.findByUsername(username);
+            String myUsername = authentication.getName();
+            Profile profile = profileService.findByUsername(myUsername);
             model.addAttribute("profile", profile);
         }
 
@@ -109,8 +118,8 @@ public class ProfileController {
     }
 
     @PostMapping("/admin/create-profile")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createProfileByAdmin(
             @Validated(OnCreate.class) @RequestBody ProfileUserDto profileDto,
             BindingResult bindingResult,
@@ -136,6 +145,7 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
     public ResponseEntity<?> updateProfile(
             @PathVariable Long id,
@@ -152,11 +162,10 @@ public class ProfileController {
             return ResponseEntity.badRequest().body(errors);
         }
 
+        boolean isAdminOrManager = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_MANAGER"));
 
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
-
-        profileService.updateProfile(profileUserDto, id, isAdmin);
+        profileService.updateProfile(profileUserDto, id, isAdminOrManager);
 
         String message = messageSource.getMessage("profiles.edit.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
@@ -164,6 +173,7 @@ public class ProfileController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @ResponseBody
     public ResponseEntity<?> deleteProfile(@PathVariable Long id, Locale locale) {
         Profile profile = profileService.findById(id);

@@ -20,8 +20,14 @@
                                 th:selected="${param.size == 10}"></option>
                         <option value="20" th:text="#{profiles.pageSize.20}"
                                 th:selected="${param.size == 20}"></option>
-
                     </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchPermissionName"
+                           class="form-control"
+                           th:value="${param.permissionName}"
+                           th:placeholder="#{permissions.search.name}">
                 </div>
             </div>
 

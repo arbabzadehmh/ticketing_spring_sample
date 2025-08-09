@@ -36,12 +36,13 @@ public class SectionServiceImpl implements SectionService {
         // اگر هیچ سکشنی در دیتابیس نیست، سکشن اصلی را بساز
         if (sectionRepository.count() == 0) {
             Section mainSection = Section.builder()
-                    .title("Main Section")
+                    .title("MAIN SECTION")
                     .parentSection(null)
                     .build();
 
             sectionRepository.save(mainSection);
             section.setParentSection(mainSection);
+            section.setTitle(section.getTitle().toUpperCase());
             return sectionRepository.save(section);
         }
 
@@ -62,6 +63,7 @@ public class SectionServiceImpl implements SectionService {
         // اضافه کردن فرزند به والد (فقط برای هماهنگی در حافظه)
         parentSection.addChildSection(section);
         section.setParentSection(parentSection);
+        section.setTitle(section.getTitle().toUpperCase());
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>> parent : " + parentSection);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + section);
@@ -105,7 +107,7 @@ public class SectionServiceImpl implements SectionService {
             }
         }
 
-        existingSection.setTitle(section.getTitle());
+        existingSection.setTitle(section.getTitle().toUpperCase());
 
         return sectionRepository.save(existingSection);
     }
@@ -168,10 +170,14 @@ public class SectionServiceImpl implements SectionService {
         return sectionRepository.findByParentSectionId(section.getId());
     }
 
-    //    @Override
-    public List<Section> findSectionByTitleParentSection(String title) {
-        return sectionRepository.findByParentSection_TitleIsLike(title);
+    @Override
+    public Page<Section> findByTitleContaining(String title, Pageable pageable) {
+        return sectionRepository.findByTitleContainingIgnoreCase(title, pageable);
     }
 
+    @Override
+    public Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable) {
+        return sectionRepository.findByParentSection_TitleContainingIgnoreCase(parentTitle, pageable);
+    }
 
 }

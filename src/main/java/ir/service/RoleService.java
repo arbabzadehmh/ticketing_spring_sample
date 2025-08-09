@@ -13,4 +13,5 @@ public interface RoleService {
     Role findByName(String roleName);
     Page<Role> findAll(Pageable pageable);
     List<Role> findAll();
+    Page<Role> findByNameContaining(String name, Pageable pageable);
 }

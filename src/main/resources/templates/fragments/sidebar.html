@@ -15,17 +15,17 @@
 
 
             <!-- فقط برای ADMIN -->
-            <a class="nav-link" href="/profiles" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="/profiles" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
                 <i class="fa fa-users me-2"></i>
                 <span th:text="#{navbar.profiles}"></span>
             </a>
 
-            <a class="nav-link" href="/tickets" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="/tickets" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
                 <i class="fa fa-ticket me-2"></i>
                 <span th:text="#{navbar.tickets}"></span>
             </a>
 
-            <a class="nav-link" href="/sections" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="/sections" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
                 <i class="fa fa-section me-2"></i>
                 <span th:text="#{navbar.sections}"></span>
             </a>

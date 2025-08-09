@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/permissions")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class PermissionController {
 
     private final PermissionService permissionService;
@@ -35,13 +37,20 @@ public class PermissionController {
     public String permissionsList(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String searchPermissionName,
             @RequestParam(required = false) Boolean fragment,
             Model model
     ) {
         if (size <= 0) size = 10;
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("permissionName").ascending());
-        Page<Permission> permissions = permissionService.findAll(pageable);
+
+        Page<Permission> permissions;
+        if (searchPermissionName != null && !searchPermissionName.isEmpty()) {
+            permissions = permissionService.findByPermissionNameContaining(searchPermissionName, pageable);
+        } else {
+            permissions = permissionService.findAll(pageable);
+        }
 
         model.addAttribute("permissions", permissions);
         model.addAttribute("currentPage", page);

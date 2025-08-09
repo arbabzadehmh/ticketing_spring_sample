@@ -8,7 +8,6 @@ function toggleTheme() {
 }
 
 function updateThemeIcon(theme) {
-    console.log(theme === 'dark')
     const icon = document.getElementById('themeIcon');
     if (!icon) return;
 

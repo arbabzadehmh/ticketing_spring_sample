@@ -12,7 +12,7 @@
             <!-- کنترل‌های صفحه‌بندی و مرتب‌سازی -->
             <!-- کنترل‌های صفحه‌بندی و مرتب‌سازی -->
             <div class="row mb-4 g-3">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <select class="form-select" id="pageSize" aria-label="تعداد در صفحه">
                         <option value="10" th:text="#{profiles.pageSize.10}"
                                 th:selected="${param.size == 10}"></option>
@@ -21,15 +21,33 @@
 
                     </select>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <select class="form-select" id="sortBy" aria-label="مرتب‌سازی">
                         <option value="firstName" th:text="#{profiles.sort.firstName}"
                                 th:selected="${param.sortBy == 'firstName'}"></option>
                         <option value="lastName" th:text="#{profiles.sort.lastName}"
                                 th:selected="${param.sortBy == 'lastName'}"></option>
-
                     </select>
                 </div>
+
+                <!-- ورودی جستجو بر اساس lastName (اختیاری) -->
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchLastName"
+                           class="form-control"
+                           th:value="${param.lastName}"
+                           th:placeholder="#{profiles.search.lastName}">
+                </div>
+
+                <!-- ورودی جستجو بر اساس username (اختیاری) -->
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchUsername"
+                           class="form-control"
+                           th:value="${param.username}"
+                           th:placeholder="#{profiles.search.username}">
+                </div>
+
             </div>
 
             <!-- جدول مشتریان -->
@@ -60,7 +78,8 @@
                                         th:data-account-non-expired="${profile.user.accountNonExpired}"
                                         th:data-account-non-locked="${profile.user.accountNonLocked}"
                                         th:data-credentials-non-expired="${profile.user.credentialsNonExpired}"
-                                        th:data-enabled="${profile.user.enabled}">
+                                        th:data-enabled="${profile.user.enabled}"
+                                        th:data-credentials-expiry-date="${profile.user.credentialsExpiryDate}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
