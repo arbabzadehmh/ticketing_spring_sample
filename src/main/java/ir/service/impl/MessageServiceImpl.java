@@ -19,14 +19,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void save(Message message) {
+    public Message save(Message message) {
         message.getTicket().setStatus(TicketStatus.NotSeen);
-        messageRepository.save(message);
+        return messageRepository.save(message);
     }
 
     @Override
-    public void update(Message message) {
-        messageRepository.save(message);
+    public Message update(Message message) {
+        return messageRepository.save(message);
     }
 
     @Override

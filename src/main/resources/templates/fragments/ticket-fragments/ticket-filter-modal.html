@@ -1,0 +1,69 @@
+<div th:fragment="ticket-filter-modal">
+    <div class="modal fade" id="ticketFilterModal" tabindex="-1" aria-labelledby="ticketFilterModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:text="#{tickets.filter}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="ticketFilterForm">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" th:text="#{tickets.filter.date.from}"></label>
+                                <input id="filterDateFrom" name="dateFrom" type="date" class="form-control"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" th:text="#{tickets.filter.date.to}"></label>
+                                <input id="filterDateTo" name="dateTo" type="date" class="form-control"/>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" th:text="#{tickets.status}"></label>
+                                <select id="filterStatus" name="status" class="form-select">
+                                    <option value="" th:text="#{common.all}"></option>
+                                    <!-- مقدارها را با Enum پر کن. مثال: -->
+                                    <option th:each="s : ${T(ir.model.enums.TicketStatus).values()}"
+                                            th:value="${s.name()}"
+                                            th:text="${s.name()}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" th:text="#{tickets.filter.score}"></label>
+                                <input id="filterScoreLessThan" name="scoreLessThan" type="number" class="form-control" min="2" max="5"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" th:text="#{tickets.customer}"></label>
+                                <input id="filterCustomer" name="customer" type="text" class="form-control"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" th:text="#{tickets.section}"></label>
+                                <select id="filterSection" name="sectionId" class="form-select">
+                                    <option value="" th:text="#{common.all}"></option>
+                                    <!-- می‌توانی این لیست از سرور بگیری یا با Thymeleaf پر کنی -->
+                                    <option th:each="s : ${sectionsForFilter}" th:value="${s.id}"
+                                            th:text="${s.title}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" th:text="#{tickets.title}"></label>
+                                <input id="filterTitle" name="title" type="text" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="filterResetBtn" type="button" class="btn btn-outline-secondary" th:text="#{common.filter.clear}">
+                        </button>
+                        <button id="filterApplyBtn" type="submit" class="btn btn-primary" th:text="#{common.filter.ok}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

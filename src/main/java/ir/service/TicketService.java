@@ -1,23 +1,27 @@
 package ir.service;
 
+import ir.dto.TicketCreateDto;
 import ir.model.entity.Section;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
 import ir.model.enums.TicketStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
 
 public interface TicketService {
-    void save(Ticket ticket);
-    void update(Ticket ticket);
-    void delete(Long id);
-    List<Ticket> findAll();
+    Ticket save(TicketCreateDto ticketDto);
+    Ticket update(Ticket ticket);
+    void deleteById(Long id);
+    Page<Ticket> findAll(Pageable pageable);
+    Page<Ticket> findAll(Specification<Ticket> spec, Pageable pageable);
     Ticket findById(Long id);
-    List<Ticket> findByUser(User user);
-    List<Ticket> findByUserUsername(String username);
-    List<Ticket> findByStatus(TicketStatus status);
-    List<Ticket> findByTitleContains(String title);
-    List<Ticket> findBySection(Section section);
-    List<Ticket> findByScoreLessThan(Integer score);
+    Page<Ticket> findByCustomer(User user, Pageable pageable);
+    Page<Ticket> findByCustomerUsername(String username, Pageable pageable);
+    Page<Ticket> findByStatus(TicketStatus status, Pageable pageable);
+    Page<Ticket> findByTitleContains(String title, Pageable pageable);
+    Page<Ticket> findBySection(Section section, Pageable pageable);
+    Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable);
 
 }

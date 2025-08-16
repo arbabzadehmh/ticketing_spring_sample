@@ -1,11 +1,9 @@
 package ir;
 
+import ir.model.entity.Permission;
 import ir.model.entity.Role;
 import ir.model.entity.User;
-import ir.service.MessageService;
-import ir.service.RoleService;
-import ir.service.TicketService;
-import ir.service.UserService;
+import ir.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,13 +19,16 @@ import java.util.Set;
 public class TicketingSpringSample {
     private static RoleService roleService;
     private static UserService userService;
+    private static PermissionService permissionService;
     private static TicketService ticketService;
     private static MessageService messageService;
 
 
-    public TicketingSpringSample(RoleService roleService, UserService userService, TicketService ticketService, MessageService messageService) {
+
+    public TicketingSpringSample(RoleService roleService, UserService userService, PermissionService permissionService, TicketService ticketService, MessageService messageService) {
         TicketingSpringSample.roleService = roleService;
         TicketingSpringSample.userService = userService;
+        TicketingSpringSample.permissionService = permissionService;
         TicketingSpringSample.ticketService = ticketService;
         TicketingSpringSample.messageService = messageService;
     }
@@ -39,10 +40,19 @@ public class TicketingSpringSample {
 //        System.out.println("Static files root: " + new File("src/main/resources/static").getAbsolutePath());
 
 
+//        Permission permission =
+//                Permission
+//                        .builder()
+//                        .permissionName("write_data")
+//                        .build();
+//        permissionService.save(permission);
+//        log.info("WRITE_DATA Permission Saved");
+//
 //        Role adminRole =
 //                Role
 //                        .builder()
-//                        .name("ROLE_ADMIN")
+//                        .name("ADMIN")
+//                        .permissionSet(Set.of(permission))
 //                        .build();
 //        roleService.save(adminRole);
 //        log.info("Admin Role Saved");
@@ -52,7 +62,6 @@ public class TicketingSpringSample {
 //                        .builder()
 //                        .username("ali")
 //                        .password("123456")
-//                        .locked(false)
 //                        .roleSet(Set.of(adminRole))
 //                        .build();
 //        userService.save(adminUser);

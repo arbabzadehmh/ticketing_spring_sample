@@ -1,42 +1,94 @@
 package ir.service.impl;
 
+import ir.dto.TicketCreateDto;
+import ir.model.entity.Message;
 import ir.model.entity.Section;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
 import ir.model.enums.TicketStatus;
 import ir.repository.TicketRepository;
+import ir.service.SectionService;
 import ir.service.TicketService;
+import ir.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 @Service
 public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
+    private final SectionService sectionService;
+    private final UserService userService;
 
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository, SectionService sectionService, UserService userService) {
         this.ticketRepository = ticketRepository;
+        this.sectionService = sectionService;
+        this.userService = userService;
     }
 
+    @Transactional
     @Override
-    public void save(Ticket ticket) {
+    public Ticket save(TicketCreateDto ticketDto) {
+
+        User customer = userService.findByUsername(ticketDto.getCustomerUsername());
+
+        Ticket ticket =
+                Ticket
+                        .builder()
+                        .title(ticketDto.getTitle())
+                        .status(TicketStatus.NotSeen)
+                        .dateTime(LocalDateTime.now())
+                        .section(sectionService.findById(ticketDto.getSectionId()))
+                        .customer(customer)
+                        .build();
+
+        Message firstMessage =
+                Message
+                        .builder()
+                        .content(ticketDto.getContent())
+                        .dateTime(LocalDateTime.now())
+                        .senderUsername(customer.getUsername())
+                        .senderRoleName("ROLE_CUSTOMER")
+                        .user(customer)
+                        .ticket(ticket)
+                        .build();
+
+        ticket.addMessage(firstMessage);
+
+        return ticketRepository.save(ticket);
+    }
+
+    @Transactional
+    @Override
+    public Ticket update(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+        ticket.setDeleted(true);
         ticketRepository.save(ticket);
     }
 
     @Override
-    public void update(Ticket ticket) {
-        ticketRepository.save(ticket);
+    public Page<Ticket> findAll(Pageable pageable) {
+        return ticketRepository.findAllByOrderByDateTime(pageable);
     }
 
     @Override
-    public void delete(Long id) {
-        ticketRepository.deleteById(id);
+    public Page<Ticket> findAll(Specification<Ticket> spec, Pageable pageable) {
+        return ticketRepository.findAll(spec, pageable);
     }
 
-    @Override
-    public List<Ticket> findAll() {
-        return ticketRepository.findAllByOrderByDateTime();
-    }
 
     @Override
     public Ticket findById(Long id) {
@@ -44,32 +96,32 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findByUser(User user) {
-        return ticketRepository.findByUserOrderByDateTime(user);
+    public Page<Ticket> findByCustomer(User user, Pageable pageable) {
+        return ticketRepository.findByCustomerOrderByDateTime(user, pageable);
     }
 
     @Override
-    public List<Ticket> findByUserUsername(String username) {
-        return ticketRepository.findByUserUsernameOrderByDateTime(username);
+    public Page<Ticket> findByCustomerUsername(String username, Pageable pageable) {
+        return ticketRepository.findByCustomerUsernameOrderByDateTime(username, pageable);
     }
 
     @Override
-    public List<Ticket> findByStatus(TicketStatus status) {
-        return ticketRepository.findByStatusOrderByDateTime(status);
+    public Page<Ticket> findByStatus(TicketStatus status, Pageable pageable) {
+        return ticketRepository.findByStatusOrderByDateTime(status, pageable);
     }
 
     @Override
-    public List<Ticket> findByTitleContains(String title) {
-        return ticketRepository.findByTitleIsLikeOrderByDateTime("%" + title + "%");
+    public Page<Ticket> findByTitleContains(String title, Pageable pageable) {
+        return ticketRepository.findByTitleIsLikeOrderByDateTime("%" + title + "%", pageable);
     }
 
     @Override
-    public List<Ticket> findBySection(Section section) {
-        return ticketRepository.findBySection_IdOrderByDateTime(section.getId());
+    public Page<Ticket> findBySection(Section section, Pageable pageable) {
+        return ticketRepository.findBySection_IdOrderByDateTime(section.getId(), pageable);
     }
 
     @Override
-    public List<Ticket> findByScoreLessThan(Integer score) {
-        return ticketRepository.findByScoreIsLessThanEqualOrderByDateTime(score);
+    public Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable) {
+        return ticketRepository.findByScoreIsLessThanEqualOrderByDateTime(score, pageable);
     }
 }

@@ -2,6 +2,8 @@ package ir.model.entity;
 
 import ir.model.enums.TicketStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,10 +31,13 @@ public class Ticket extends Base{
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "title", length = 100)
+    @NotBlank(message = "{validation.title}")
+    @Size(max = 100, message = "{validation.titleSize}")
     private String title;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(columnDefinition = "smallint")
+    @Column(name = "status", columnDefinition = "smallint")
     private TicketStatus status;
 
     @Column(name="date_time")
@@ -42,16 +47,15 @@ public class Ticket extends Base{
     private Integer score;
 
     @ManyToOne
-    @JoinColumn(name = "section_id")
+    @JoinColumn(name = "section_id", foreignKey = @ForeignKey(name = "fk_ticket_section"))
     private Section section;
 
-
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Message> messageList;
 
     @ManyToOne
-    @JoinColumn(name="username")
-    private User user;
+    @JoinColumn(name="customer", foreignKey = @ForeignKey(name = "fk_ticket_user"))
+    private User customer;
 
     public void addMessage(Message message) {
         if(messageList == null) {

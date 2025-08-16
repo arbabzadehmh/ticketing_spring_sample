@@ -163,7 +163,9 @@ async function initEditButtons() {
             const parents = await response.json();
 
             const parentSelect = document.getElementById('parentSection');
-            parentSelect.innerHTML = `<option value="">بدون دپارتمان بالادستی</option>`;
+            const defaultOption = parentSelect.querySelector('option[value=""]').cloneNode(true);
+            parentSelect.innerHTML = '';
+            parentSelect.appendChild(defaultOption);
             parents.forEach(p => {
                 const option = document.createElement('option');
                 option.value = p.id;
@@ -199,7 +201,9 @@ async function initAddButtons() {
             const parents = await response.json();
 
             const parentSelect = document.getElementById('parentSection');
-            parentSelect.innerHTML = `<option value="">بدون دپارتمان بالادستی</option>`;
+            const defaultOption = parentSelect.querySelector('option[value=""]').cloneNode(true);
+            parentSelect.innerHTML = '';
+            parentSelect.appendChild(defaultOption);
             parents.forEach(p => {
                 const option = document.createElement('option');
                 option.value = p.id;

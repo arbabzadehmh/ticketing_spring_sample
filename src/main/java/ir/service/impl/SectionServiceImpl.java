@@ -3,6 +3,7 @@ package ir.service.impl;
 import ir.controller.exception.DuplicateSectionException;
 import ir.controller.exception.RemovingParentSectionException;
 import ir.controller.exception.SavingSectionWithNoParent;
+import ir.dto.SectionFilterDto;
 import ir.model.entity.Section;
 import ir.repository.SectionRepository;
 import ir.service.SectionService;
@@ -30,7 +31,7 @@ public class SectionServiceImpl implements SectionService {
 
 
     @Transactional
-    @CacheEvict(cacheNames = {"sections", "sectionsPageable"}, allEntries = true)
+    @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public Section save(Section section) {
         // اگر هیچ سکشنی در دیتابیس نیست، سکشن اصلی را بساز
@@ -65,15 +66,12 @@ public class SectionServiceImpl implements SectionService {
         section.setParentSection(parentSection);
         section.setTitle(section.getTitle().toUpperCase());
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>> parent : " + parentSection);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + section);
-
         return sectionRepository.save(section); // فقط فرزند را ذخیره می‌کنیم بخاطر cascade
     }
 
 
     @Transactional
-    @CacheEvict(cacheNames = {"sections", "sectionsPageable"}, allEntries = true)
+    @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public Section update(Long id, Section section) {
         Section existingSection = sectionRepository.findById(id)
@@ -114,7 +112,7 @@ public class SectionServiceImpl implements SectionService {
 
 
     @Transactional
-    @CacheEvict(cacheNames = {"sections", "sectionsPageable"}, allEntries = true)
+    @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public void deleteById(Long id) {
         Section section = sectionRepository.findById(id)
@@ -148,6 +146,13 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public Page<Section> findAll(Pageable pageable) {
         return sectionRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Cacheable(value = "sectionsFilter")
+    @Override
+    public List<SectionFilterDto> findAllForFilter() {
+        return sectionRepository.findAllForFilter();
     }
 
 //    public Optional<List<Section>> findAllSections() {

@@ -7,8 +7,8 @@ import ir.model.entity.User;
 import java.util.List;
 
 public interface MessageService {
-    void save(Message message);
-    void update(Message message);
+    Message save(Message message);
+    Message update(Message message);
     void delete(Long id);
     List<Message> findAll();
     Message findById(Long id);

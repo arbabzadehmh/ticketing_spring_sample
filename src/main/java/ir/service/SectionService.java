@@ -1,5 +1,6 @@
 package ir.service;
 
+import ir.dto.SectionFilterDto;
 import ir.model.entity.Section;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ public interface SectionService {
     void deleteById(Long id);
     List<Section> findAll();
     Page<Section> findAll(Pageable pageable);
-//    Optional<List<Section>> findAllSections();
+    List<SectionFilterDto> findAllForFilter();
     Section findById(Long id);
     List<Section> findSectionByTitle(String title);
     List<Section> findByParentSection(Section section);

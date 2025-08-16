@@ -171,6 +171,7 @@ logging:
 #    com.zaxxer.hikari: DEBUG           # HikariCP pool details
 #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
     org.springframework.jdbc: DEBUG    # JDBC operations
+    org.springframework.cache: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 

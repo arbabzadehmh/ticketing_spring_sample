@@ -1,71 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
 <head>
-    <meta charset="UTF-8">
-    <title>Ticket</title>
+    <title th:text="#{tickets.management}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body>
-<h1>Ticket</h1>
-<form th:action="@{/tickets}" th:method="post" th:object="${ticket}">
-    <input type="text" th:id="title" th:name="title" th:field="*{title}">
-    <select name="status" id="status">
-        <option>NotSeen</option>
-        <option>Seen</option>
-        <option>Responsed</option>
-        <option>Closed</option>
-    </select>
-    <input type="datetime-local" name="dateTime" id="dateTime" th:field="*{dateTime}">
+<body data-bs-theme="light">
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<!--    <select name="user" id="user">-->
-<!--        <option th:each="u : ${allUsers}" th:value="${u.username}" th:text="${u.username}"></option>-->
-<!--    </select>-->
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <input type="submit" value="Save">
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container-fluid p-2">
+        <!-- در بخشی از صفحه که همیشه وجود دارد -->
+        <div id="deleteConfirmText" style="display: none;" th:text="#{tickets.delete.confirm}"></div>
+        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+        <div id="tickets-table-container">
+            <div th:replace="~{fragments/ticket-fragments/tickets-table :: tickets-table}"></div>
+        </div>
+    </div>
+</main>
 
-</form>
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-<h2 th:dir="ltr" th:if="${tickets.isEmpty()}">No Content</h2>
-<table th:if="${not tickets.isEmpty()}">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>DateTime</th>
-        <th>User</th>
-        <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="ticket : ${tickets}">
-        <td th:text="${ticket.id}"></td>
-        <td th:text="${ticket.title}"></td>
-        <td th:text="${ticket.status}"></td>
-        <td th:text="${ticket.dateTime}"></td>
-        <td th:text="${ticket.user.getUsername()}"></td>
-        <td>
-            <button th:data-name="${ticket.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
-            <button th:data-name="${ticket.id}" th:onclick="|openMessages(this.getAttribute('data-name'))|">Open</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<!-- مودال افزودن/ویرایش مشتری -->
+<div th:replace="~{fragments/ticket-fragments/ticket-create-modal :: ticket-create-modal}"></div>
+<!--<div th:replace="~{fragments/ticket-fragments/ticket-edit-modal :: ticket-edit-modal}"></div>-->
+<div th:replace="~{fragments/ticket-fragments/ticket-filter-modal :: ticket-filter-modal}"></div>
 
-<a th:href="@{/panel}">Panel</a>
-
-
-<script>
-    function remove(id){
-        fetch("/tickets/"+id,{
-            method:"DELETE"
-        });
-        window.location.replace("/tickets");
-    }
-    function openMessages(id){
-
-        window.location.replace("/tickets/messages/" + id);
-    }
-
-</script>
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<script th:src="@{/js/tickets.js}"></script>
 </body>
 </html>

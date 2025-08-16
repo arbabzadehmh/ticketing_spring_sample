@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString
 
-@Entity(name="messageEntity")
-@Table(name="message_tbl")
+@Entity(name = "messageEntity")
+@Table(name = "message_tbl")
 @Where(clause = "deleted = false")
 public class Message extends Base {
     @Id
@@ -29,15 +29,24 @@ public class Message extends Base {
     @Column(name = "content", length = 300, nullable = false)
     private String content;
 
-    @Column(name="date_time")
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @ManyToOne
-    @JoinColumn(name="ticket_id", foreignKey = @ForeignKey(name = "fk_message_ticket_id"))
+    @Column(name = "sender_username", nullable = false)
+    private String senderUsername;
+
+    @Column(name = "sender_role_name", nullable = false)
+    private String senderRoleName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_id", foreignKey = @ForeignKey(name = "fk_message_ticket"))
     private Ticket ticket;
 
-
-    @ManyToOne
-    @JoinColumn(name="username", foreignKey = @ForeignKey(name = "fk_message_username"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "username",
+            foreignKey = @ForeignKey(name = "fk_message_user"),
+            updatable = false
+    )
     private User user;
 }

@@ -19,6 +19,7 @@ public class SectionCacheWarmup implements ApplicationListener<ApplicationReadyE
     public void onApplicationEvent(ApplicationReadyEvent event) {
         sectionService.findAll();               // کش‌سازی اینجا به‌درستی فعال می‌شود
         sectionService.findAll(PageRequest.of(0, 50));
+        sectionService.findAllForFilter();
         log.info("**************************************************************  cache sections  ***************************************************************");
     }
 

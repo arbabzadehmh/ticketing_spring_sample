@@ -1,0 +1,43 @@
+<div th:fragment="ticket-create-modal">
+    <div class="modal fade" id="ticketCreateModal" tabindex="-1" aria-labelledby="ticketCreateModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketCreateModalLabel" th:text="#{tickets.modal.create.title}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="ticketCreateForm">
+                    <div class="modal-body">
+
+                        <div class="col-md-10">
+                            <label for="createTitle" class="form-label" th:text="#{tickets.title}"></label>
+                            <input type="text" class="form-control" id="createTitle" name="title">
+                        </div>
+
+                        <div class="col-md-10">
+                            <label class="form-label" th:text="#{tickets.section}"></label>
+                            <select id="selectSection" name="sectionId" class="form-select">
+                                <option value="" th:text="#{common.all}"></option>
+                                <!-- می‌توانی این لیست از سرور بگیری یا با Thymeleaf پر کنی -->
+                                <option th:each="s : ${sectionsForFilter}" th:value="${s.id}"
+                                        th:text="${s.title}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createContent" class="form-label" th:text="#{tickets.content}"></label>
+                            <textarea class="form-control" id="createContent" name="content" rows="5"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{profiles.save}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

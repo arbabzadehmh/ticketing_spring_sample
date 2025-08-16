@@ -25,7 +25,7 @@
                     <div class="mb-3">
                         <label for="parentSection" class="form-label" th:text="#{sections.parent}"></label>
                         <select class="form-select" id="parentSection" name="parentSection">
-                            <option value="">بدون دپارتمان بالادستی</option>
+                            <option value="" th:text="#{sections.noParent}"></option>
                             <option th:each="s : ${sections}"
                                     th:value="${s.id}"
                                     th:text="${s.title}">
