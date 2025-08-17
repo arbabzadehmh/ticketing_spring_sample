@@ -18,7 +18,6 @@
                         <div class="col-md-10">
                             <label class="form-label" th:text="#{tickets.section}"></label>
                             <select id="selectSection" name="sectionId" class="form-select">
-                                <option value="" th:text="#{common.all}"></option>
                                 <!-- می‌توانی این لیست از سرور بگیری یا با Thymeleaf پر کنی -->
                                 <option th:each="s : ${sectionsForFilter}" th:value="${s.id}"
                                         th:text="${s.title}"></option>

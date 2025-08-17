@@ -9,7 +9,7 @@
         </div>
 
         <div class="card-body">
-            <div class="row mb-4 g-3">
+            <div class="row mb-4 g-3 align-items-center">
                 <div class="col-12 col-md-3">
                     <select class="form-select" id="pageSize" aria-label="تعداد در صفحه">
                         <option value="10" th:text="#{profiles.pageSize.10}"
@@ -19,7 +19,7 @@
                     </select>
                 </div>
 
-                <div>
+                <div class="col-auto">
                     <button id="ticketFilterBtn" class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#ticketFilterModal">
                         <i class="fas fa-filter"></i>
                         <span th:text="#{common.filter}"></span>
@@ -27,7 +27,6 @@
                 </div>
             </div>
 
-            <!-- جدول مشتریان -->
             <div class="table-responsive" id="tickets-table">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
@@ -49,7 +48,7 @@
                         <td th:text="${ticket.customer.username}" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"></td>
                         <td th:text="${ticket.status}"></td>
                         <td th:text="${ticket.score}"></td>
-                        <td th:text="${ticket.dateTime}"></td>
+                        <td th:text="${#temporals.format(ticket.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
                         <td>
                             <button class="btn btn-sm btn-info btn-open"
                             th:data-id="${ticket.id}">
@@ -60,7 +59,9 @@
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
                                         sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
-                                        th:data-id="${ticket.id}">
+                                        th:data-id="${ticket.id}"
+                                        th:data-section-id="${ticket.section.id}"
+                                        th:data-status="${ticket.status}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"

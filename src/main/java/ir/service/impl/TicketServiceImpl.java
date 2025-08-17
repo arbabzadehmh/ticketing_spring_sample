@@ -1,6 +1,7 @@
 package ir.service.impl;
 
 import ir.dto.TicketCreateDto;
+import ir.dto.TicketEditDto;
 import ir.model.entity.Message;
 import ir.model.entity.Section;
 import ir.model.entity.Ticket;
@@ -37,6 +38,7 @@ public class TicketServiceImpl implements TicketService {
     public Ticket save(TicketCreateDto ticketDto) {
 
         User customer = userService.findByUsername(ticketDto.getCustomerUsername());
+        Section section = sectionService.findById(ticketDto.getSectionId());
 
         Ticket ticket =
                 Ticket
@@ -44,7 +46,7 @@ public class TicketServiceImpl implements TicketService {
                         .title(ticketDto.getTitle())
                         .status(TicketStatus.NotSeen)
                         .dateTime(LocalDateTime.now())
-                        .section(sectionService.findById(ticketDto.getSectionId()))
+                        .section(section)
                         .customer(customer)
                         .build();
 
@@ -66,8 +68,16 @@ public class TicketServiceImpl implements TicketService {
 
     @Transactional
     @Override
-    public Ticket update(Ticket ticket) {
-        return ticketRepository.save(ticket);
+    public Ticket update(Long id, TicketEditDto ticketEditDto) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        Section section = sectionService.findById(ticketEditDto.getSectionId());
+
+        ticket.setSection(section);
+        ticket.setStatus(ticketEditDto.getStatus());
+
+         return ticketRepository.save(ticket);
     }
 
     @Transactional
@@ -92,7 +102,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket findById(Long id) {
-        return ticketRepository.findById(id).orElse(null);
+        return ticketRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
     }
 
     @Override

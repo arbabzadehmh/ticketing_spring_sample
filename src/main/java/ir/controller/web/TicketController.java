@@ -2,10 +2,9 @@ package ir.controller.web;
 
 import ir.controller.exception.ValidationException;
 import ir.dto.TicketCreateDto;
-import ir.model.entity.Message;
+import ir.dto.TicketEditDto;
 import ir.model.entity.Ticket;
 import ir.model.entity.TicketSpecifications;
-import ir.model.entity.User;
 import ir.model.enums.TicketStatus;
 import ir.service.MessageService;
 import ir.service.SectionService;
@@ -36,15 +35,11 @@ import java.util.Map;
 public class TicketController {
     private final TicketService ticketService;
     private final MessageSource messageSource;
-    private final UserService userService;
-    private final MessageService messageService;
     private final SectionService sectionService;
 
-    public TicketController(TicketService ticketService, MessageSource messageSource, UserService userService, MessageService messageService, SectionService sectionService) {
+    public TicketController(TicketService ticketService, MessageSource messageSource, SectionService sectionService) {
         this.ticketService = ticketService;
         this.messageSource = messageSource;
-        this.userService = userService;
-        this.messageService = messageService;
         this.sectionService = sectionService;
     }
 
@@ -110,6 +105,20 @@ public class TicketController {
 
         String message = messageSource.getMessage("tickets.create.success", null, locale);
 
+        return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateTicket(
+            @PathVariable Long id,
+            @RequestBody TicketEditDto ticketEditDto,
+            Locale locale
+    ){
+
+        ticketService.update(id, ticketEditDto);
+
+        String message = messageSource.getMessage("tickets.edit.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
     }
 

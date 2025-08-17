@@ -92,7 +92,7 @@ async function handleEditTicketSubmit(e) {
     const ticket = {
         title: document.getElementById('editTitle').value.trim(),
         sectionId: document.getElementById('editSection').value,
-        content: document.getElementById('editContent').value.trim()
+        status: document.getElementById('editStatus').value.trim()
     };
 
     try {
@@ -146,7 +146,7 @@ function initTicketEditButtons() {
             document.getElementById('editTicketId').value = btn.dataset.id;
             document.getElementById('editTitle').value = row.cells[0].textContent.trim();
             document.getElementById('editSection').value = btn.dataset.sectionId;
-            document.getElementById('editContent').value = btn.dataset.content;
+            document.getElementById('editStatus').value = btn.dataset.status;
 
             new bootstrap.Modal(document.getElementById('ticketEditModal')).show();
         });

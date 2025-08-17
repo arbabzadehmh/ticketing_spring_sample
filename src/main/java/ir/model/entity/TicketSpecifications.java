@@ -32,7 +32,7 @@ public final class TicketSpecifications {
                 predicates.add(cb.equal(root.get("status"), status));
             }
             if (scoreLessThan != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("score"), scoreLessThan));
+                predicates.add(cb.lessThan(root.get("score"), scoreLessThan));
             }
             if (customerUsername != null && !customerUsername.isBlank()) {
                 // join به customer برای فیلتر نام کاربری

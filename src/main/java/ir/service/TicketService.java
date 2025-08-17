@@ -1,6 +1,7 @@
 package ir.service;
 
 import ir.dto.TicketCreateDto;
+import ir.dto.TicketEditDto;
 import ir.model.entity.Section;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
@@ -12,7 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public interface TicketService {
     Ticket save(TicketCreateDto ticketDto);
-    Ticket update(Ticket ticket);
+    Ticket update(Long id, TicketEditDto ticketEditDto);
     void deleteById(Long id);
     Page<Ticket> findAll(Pageable pageable);
     Page<Ticket> findAll(Specification<Ticket> spec, Pageable pageable);

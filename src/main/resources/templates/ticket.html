@@ -19,7 +19,7 @@
     <div class="container-fluid p-2">
         <!-- در بخشی از صفحه که همیشه وجود دارد -->
         <div id="deleteConfirmText" style="display: none;" th:text="#{tickets.delete.confirm}"></div>
-        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+
         <div id="tickets-table-container">
             <div th:replace="~{fragments/ticket-fragments/tickets-table :: tickets-table}"></div>
         </div>
@@ -29,9 +29,8 @@
 <!-- فوتر -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- مودال افزودن/ویرایش مشتری -->
 <div th:replace="~{fragments/ticket-fragments/ticket-create-modal :: ticket-create-modal}"></div>
-<!--<div th:replace="~{fragments/ticket-fragments/ticket-edit-modal :: ticket-edit-modal}"></div>-->
+<div th:replace="~{fragments/ticket-fragments/ticket-edit-modal :: ticket-edit-modal}"></div>
 <div th:replace="~{fragments/ticket-fragments/ticket-filter-modal :: ticket-filter-modal}"></div>
 
 <!-- اسکریپت‌ها -->
