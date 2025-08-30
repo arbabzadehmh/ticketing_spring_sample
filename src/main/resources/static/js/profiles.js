@@ -332,21 +332,19 @@ function initEditButtons() {
                 const expiryInput = document.getElementById('editCredentialsExpiryDate');
 
                 if (expiryDate && expiryInput) {
-                    console.log('expiryDate raw:', expiryDate);
 
-                    // اگر مقدار رشته ISO هست، مستقیماً 16 کاراکتر اول را بگیر
                     expiryInput.value = expiryDate.substring(0, 16);
+
                 } else if (expiryInput) {
                     expiryInput.value = '';
                 }
-
-
             }
 
             new bootstrap.Modal(document.getElementById('profileEditModal')).show();
         });
     });
 }
+
 
 // =================== افزودن event delegation برای دکمه کارت ===================
 document.body.addEventListener('click', function (e) {
@@ -360,6 +358,7 @@ document.body.addEventListener('click', function (e) {
     document.getElementById('editPhone').value = btn.dataset.phone || '';
     document.getElementById('editUsername').value = btn.dataset.username || '';
     document.getElementById('editPassword').value = '******';
+
     new bootstrap.Modal(document.getElementById('profileEditModal')).show();
 });
 
@@ -391,7 +390,7 @@ function initDeleteButtons() {
 // ------------------------------------------------------
 function debounce(fn, delay) {
     let timeoutId;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => fn.apply(this, args), delay);
     };
@@ -421,7 +420,6 @@ function initSearchInputs() {
         });
     }
 }
-
 
 
 // -------------------- DOMContentLoaded --------------------

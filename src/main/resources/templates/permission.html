@@ -32,8 +32,13 @@
 
 <div th:replace="~{fragments/permission-fragments/permission-modal :: permission-modal}"></div>
 
-<!-- اسکریپت‌ها -->
+
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-<script th:src="@{/js/permissions.js}"></script>
+
+<!--****************************************  Alternative 1 : use permissions.js instead of permissions-api.js-->
+<!--<script th:src="@{/js/permissions.js}"></script>-->
+
+<!--****************************************  Alternative 2 :-->
+<script th:src="@{/js/permissions-api.js}"></script>
 </body>
 </html>

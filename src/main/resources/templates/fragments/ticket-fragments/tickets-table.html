@@ -2,7 +2,10 @@
     <div class="card shadow">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h3 class="mb-0" th:text="#{tickets.management}"></h3>
-            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ticketCreateModal">
+            <button class="btn btn-light"
+                    sec:authorize="hasAnyAuthority('TICKET_CREATE')"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ticketCreateModal">
                 <i class="fas fa-plus me-2"></i>
                 <span th:text="#{tickets.add}"></span>
             </button>
@@ -38,7 +41,7 @@
                         <th th:text="#{tickets.score}"></th>
                         <th th:text="#{tickets.date.time}"></th>
                         <th th:text="#{tickets.messages}"></th>
-                        <th th:text="#{profiles.actions}" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"></th>
+                        <th th:text="#{profiles.actions}" sec:authorize="hasAnyAuthority('TICKET_EDIT', 'TICKET_DELETE')"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,14 +61,14 @@
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
-                                        sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
+                                        sec:authorize="hasAuthority('TICKET_EDIT')"
                                         th:data-id="${ticket.id}"
                                         th:data-section-id="${ticket.section.id}"
                                         th:data-status="${ticket.status}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
-                                        sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
+                                        sec:authorize="hasAuthority('TICKET_DELETE')"
                                         th:data-id="${ticket.id}"
                                         th:data-confirm-text="#{tickets.delete.confirm}">
                                     <i class="fas fa-trash"></i>

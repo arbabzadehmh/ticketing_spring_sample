@@ -36,6 +36,11 @@
 
 <!-- اسکریپت‌ها -->
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-<script th:src="@{/js/roles.js}"></script>
+
+<!--****************************************  Alternative 1 : use roles.js instead of roles-api.js-->
+<!--<script th:src="@{/js/roles.js}"></script>-->
+
+<!--****************************************  Alternative 2 :-->
+<script th:src="@{/js/roles-api.js}"></script>
 </body>
 </html>

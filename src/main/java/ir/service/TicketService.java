@@ -19,7 +19,7 @@ public interface TicketService {
     Page<Ticket> findAll(Specification<Ticket> spec, Pageable pageable);
     Ticket findById(Long id);
     Page<Ticket> findByCustomer(User user, Pageable pageable);
-    Page<Ticket> findByCustomerUsername(String username, Pageable pageable);
+    Page<Ticket> findByCustomerUsername(Specification<Ticket> spec, String username, Pageable pageable);
     Page<Ticket> findByStatus(TicketStatus status, Pageable pageable);
     Page<Ticket> findByTitleContains(String title, Pageable pageable);
     Page<Ticket> findBySection(Section section, Pageable pageable);

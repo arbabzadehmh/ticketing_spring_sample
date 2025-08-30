@@ -111,9 +111,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<Ticket> findByCustomerUsername(String username, Pageable pageable) {
-        return ticketRepository.findByCustomerUsernameOrderByDateTime(username, pageable);
+    public Page<Ticket> findByCustomerUsername(Specification<Ticket> spec, String username, Pageable pageable) {
+        Specification<Ticket> usernameSpec = (root, query, cb) ->
+                cb.equal(root.get("customer").get("username"), username);
+
+        Specification<Ticket> finalSpec = spec == null ? usernameSpec : spec.and(usernameSpec);
+
+        return ticketRepository.findAll(finalSpec, pageable);
     }
+
 
     @Override
     public Page<Ticket> findByStatus(TicketStatus status, Pageable pageable) {

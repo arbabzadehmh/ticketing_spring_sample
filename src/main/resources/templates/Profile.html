@@ -40,6 +40,11 @@
 
 <!-- اسکریپت‌ها -->
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-<script th:src="@{/js/profiles.js}"></script>
+
+<!--****************************************  Alternative 1 : use profiles.js instead of profiles-api.js-->
+<!--<script th:src="@{/js/profiles.js}"></script>-->
+
+<!--****************************************  Alternative 2 :-->
+<script th:src="@{/js/profiles-api.js}"></script>
 </body>
 </html>

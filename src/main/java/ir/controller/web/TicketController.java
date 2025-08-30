@@ -19,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,7 +57,8 @@ public class TicketController {
             @RequestParam(required = false) Long sectionId,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Boolean fragment,
-            Model model
+            Model model,
+            Authentication authentication
             ) {
 
         if (size <= 0) size = 10;
@@ -64,11 +67,20 @@ public class TicketController {
         Sort sort = Sort.by("dateTime").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
+        boolean isAdminOrManager = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_MANAGER"));
+
         Specification<Ticket> spec = TicketSpecifications.build(
                 dateFrom, dateTo, status, scoreLessThan, customer, sectionId, title
         );
 
-        Page<Ticket> tickets = ticketService.findAll(spec, pageable);
+        Page<Ticket> tickets;
+
+        if (isAdminOrManager) {
+            tickets = ticketService.findAll(spec, pageable);
+        } else {
+            tickets = ticketService.findByCustomerUsername(spec, authentication.getName(), pageable);
+        }
 
         model.addAttribute("tickets", tickets);
         model.addAttribute("currentPage", page);
@@ -83,6 +95,7 @@ public class TicketController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('TICKET_CREATE')")
     @ResponseBody
     public ResponseEntity<?> saveTicket(
             @Valid @RequestBody TicketCreateDto ticketDto,
@@ -109,6 +122,7 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('TICKET_EDIT')")
     @ResponseBody
     public ResponseEntity<?> updateTicket(
             @PathVariable Long id,
@@ -123,6 +137,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('TICKET_DELETE')")
     @ResponseBody
     public ResponseEntity<?> deleteTicket(@PathVariable Long id, Locale locale){
         ticketService.deleteById(id);
