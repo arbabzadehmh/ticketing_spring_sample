@@ -17,6 +17,8 @@ function loadPermissions(page = 0) {
         url += `&searchPermissionName=${encodeURIComponent(searchPermissionName)}`;
     }
 
+    console.log("web  controller fetch")
+
     fetch(url)
         .then(response => {
             if (!response.ok) throw new Error('خطا در دریافت داده‌ها');
@@ -30,13 +32,6 @@ function loadPermissions(page = 0) {
             if (newSearchPermissionNameElement) {
                 newSearchPermissionNameElement.value = searchPermissionName;
             }
-
-            initPagination();
-            initSortAndPageSize();
-            initDeleteButtons();
-            initEditButtons();
-            initAddButtons();
-            initSearchInput();
         })
         .catch(error => showToast('danger', error.message || 'خطا در دریافت داده‌ها'));
 }
@@ -47,7 +42,6 @@ async function handlePermissionSubmit(e) {
     clearValidationErrors();
 
     const id = document.getElementById('permissionId').value;
-    console.log("Permission ID on submit:", id);
     const permission = {permissionName: document.getElementById('permissionName').value.trim()};
 
     const url = id ? `/permissions/${id}` : '/permissions';
@@ -136,32 +130,6 @@ function capitalize(str) {
 }
 
 // -------------------------------------------------------
-function initEditButtons() {
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const modalTitle = document.querySelector('#permissionModalLabel');
-            modalTitle.textContent = modalTitle.dataset.titleEdit;
-            document.getElementById('permissionId').value = btn.dataset.id;
-            document.getElementById('permissionName').value = btn.dataset.name;
-            new bootstrap.Modal(document.getElementById('permissionModal')).show();
-        });
-    });
-}
-
-// -------------------------------------------------------
-function initAddButtons() {
-    const addPermissionButton = document.querySelector('[data-bs-target="#permissionModal"]');
-    if (addPermissionButton) {
-        addPermissionButton.addEventListener('click', () => {
-            const modalTitle = document.getElementById('permissionModalLabel');
-            modalTitle.textContent = modalTitle.dataset.titleAdd; // پیش‌فرض عنوان افزودن
-            document.getElementById('permissionId').value = '';  //  حتما خالی کن id رو
-            document.getElementById('permissionName').value = '';
-        });
-    }
-}
-
-// -------------------------------------------------------
 async function handlePermissionDelete(e) {
     const btn = e.target.closest('.btn-danger');
     const confirmText = btn.dataset.confirmText;
@@ -182,27 +150,6 @@ async function handlePermissionDelete(e) {
     }
 }
 
-// -----------------------------------------------------
-function initDeleteButtons() {
-    document.querySelectorAll('.btn-danger').forEach(btn => btn.addEventListener('click', handlePermissionDelete));
-}
-
-// -----------------------------------------------------
-function initPagination() {
-    document.querySelectorAll('.permission-page-link').forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const page = link.dataset.page;
-            loadPermissions(page);
-        });
-    });
-}
-
-// --------------------------------------------------
-function initSortAndPageSize() {
-    const pageSize = document.getElementById('pageSize');
-    if (pageSize) pageSize.addEventListener('change', () => loadPermissions(0));
-}
 // ---------------------------------------------------------
 function debounce(fn, delay) {
     let timeoutId;
@@ -212,62 +159,75 @@ function debounce(fn, delay) {
     };
 }
 
-// -----------------------------------------------------
-function initSearchInput() {
-    const searchPermissionNameInput = document.getElementById('searchPermissionName');
-    if (searchPermissionNameInput) {
-        const debouncedLoad = debounce(() => loadPermissions(0), 700);
-        searchPermissionNameInput.addEventListener('input', () => {
-            debouncedLoad();
-        });
-    }
-}
 
-
-// ----------------------------------------------------
+// -------------------- delegation کلیک‌ها --------------------
 document.addEventListener('DOMContentLoaded', () => {
     loadPermissions();
 
     const form = document.getElementById('permissionForm');
     if (form) form.addEventListener('submit', handlePermissionSubmit);
 
+    const permissionModal = document.getElementById('permissionModal');
     const modalTitle = document.getElementById('permissionModalLabel');
 
-    // دکمه افزودن دسترسی
-    const addPermissionButton = document.querySelector('[data-bs-target="#permissionModal"]');
-    if (addPermissionButton) {
-        addPermissionButton.addEventListener('click', () => {
-            modalTitle.textContent = modalTitle.dataset.titleAdd; // پیش‌فرض
-            document.getElementById('permissionId').value = '';
-            document.getElementById('permissionName').value = '';
-        });
-    }
+    // باز شدن مودال برای افزودن
+    document.body.addEventListener('click', e => {
+        const btn = e.target.closest('.btn-add, .btn-edit, .btn-danger, .page-link');
+        if (!btn) return;
 
-    // دکمه‌های ویرایش
-    initEditButtons();
-    initAddButtons();
-    initPagination();
-    initSortAndPageSize();
-    initDeleteButtons();
-
-    //  برگرداندن عنوان به حالت پیش‌فرض بعد از بسته شدن مودال
-    document.getElementById('permissionModal').addEventListener('hide.bs.modal', () => {
-        modalTitle.textContent = modalTitle.dataset.titleAdd;
-        const focusedElement = document.querySelector('#permissionModal :focus');
-        if (focusedElement) focusedElement.blur();
-    });
-
-    //  گوش دادن به event باز شدن مودال برای اطمینان
-    document.getElementById('permissionModal').addEventListener('show.bs.modal', (event) => {
-        const modalTitle = document.getElementById('permissionModalLabel');
-
-        // اگر دکمه بازکننده مودال دارای کلاس btn-add بود، یعنی افزودن است
-        if (event.relatedTarget && event.relatedTarget.classList.contains('btn-add')) {
+        // افزودن
+        if (btn.classList.contains('btn-add')) {
             modalTitle.textContent = modalTitle.dataset.titleAdd;
             document.getElementById('permissionId').value = '';
             document.getElementById('permissionName').value = '';
+            return;
+        }
+
+        // ویرایش
+        if (btn.classList.contains('btn-edit')) {
+            modalTitle.textContent = modalTitle.dataset.titleEdit;
+            document.getElementById('permissionId').value = btn.dataset.id;
+            document.getElementById('permissionName').value = btn.dataset.name;
+            new bootstrap.Modal(permissionModal).show();
+            return;
+        }
+
+        // حذف
+        if (btn.classList.contains('btn-danger')) {
+            handlePermissionDelete(e);
+            return;
+        }
+
+        // pagination
+        if (btn.classList.contains('page-link')) {
+            e.preventDefault();
+            const page = btn.dataset.page ? parseInt(btn.dataset.page, 10) : (parseInt(btn.textContent, 10) - 1);
+            if (!isNaN(page)) loadPermissions(page);
+        }
+    });
+
+    // بعد از بستن مودال، عنوان به حالت پیش‌فرض
+    if (permissionModal) {
+        permissionModal.addEventListener('hide.bs.modal', () => {
+            modalTitle.textContent = modalTitle.dataset.titleAdd;
+            const focusedElement = permissionModal.querySelector(':focus');
+            if (focusedElement) focusedElement.blur();
+        });
+    }
+
+    // --- سرچ و تغییر سایز صفحه ---
+    const debouncedLoad = debounce(() => loadPermissions(0), 700);
+
+    document.body.addEventListener('input', (e) => {
+        if (e.target.id === 'searchPermissionName') {
+            debouncedLoad();
+        }
+    });
+
+    document.body.addEventListener('change', (e) => {
+        if (e.target.id === 'pageSize') {
+            loadPermissions(0);
         }
     });
 
 });
-

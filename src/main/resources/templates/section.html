@@ -7,7 +7,7 @@
     <title th:text="#{sections.title}"></title>
     <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body data-bs-theme="light">
+<body data-bs-theme="light" th:attr="data-roles=${#authorization.expression('isAuthenticated()') ? #authentication.principal.authorities : null}">
 
 <!-- نوار بالایی -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -35,6 +35,11 @@
 
 <!-- اسکریپت‌ها -->
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-<script th:src="@{/js/sections.js}"></script>
+
+<!--****************************************  Alternative 1 : use sections.js instead of sections-api.js-->
+<!--<script th:src="@{/js/sections.js}"></script>-->
+
+<!--****************************************  Alternative 2 :-->
+<script th:src="@{/js/sections-api.js}"></script>
 </body>
 </html>

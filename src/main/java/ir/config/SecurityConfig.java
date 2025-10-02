@@ -124,7 +124,7 @@ public class SecurityConfig {
                 // 5. Authorization Rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/login", "/h2-console/**", "/public/**", "/sections").permitAll()
+                        .requestMatchers("/", "/login", "/h2-console/**", "/public/**", "/sections", "/rest/sections/get-all",  "/icons/**", "/css/**", "/js/**", "/fonts/**").permitAll()
                         .requestMatchers("/profiles/register").permitAll()
                         .requestMatchers("/admins/**").hasRole("ADMIN")
                         .requestMatchers("/roles/**", "/permissions/**").hasAnyRole("ADMIN", "MANAGER")

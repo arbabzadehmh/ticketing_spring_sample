@@ -1,8 +1,6 @@
 package ir.service.impl;
 
-import ir.controller.exception.DuplicateSectionException;
-import ir.controller.exception.RemovingParentSectionException;
-import ir.controller.exception.SavingSectionWithNoParent;
+import ir.controller.exception.*;
 import ir.dto.SectionFilterDto;
 import ir.model.entity.Section;
 import ir.repository.SectionRepository;
@@ -16,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @RequiredArgsConstructor
@@ -85,6 +85,19 @@ public class SectionServiceImpl implements SectionService {
         // بررسی تغییر والد
         Long newParentId = section.getParentSection() != null ? section.getParentSection().getId() : null;
         Long oldParentId = existingSection.getParentSection() != null ? existingSection.getParentSection().getId() : null;
+
+        if (newParentId != null && newParentId.equals(existingSection.getId())) {
+            throw new SectionAsOwnParentException();
+        }
+
+// جمع‌آوری همه بچه‌ها و زیر بچه‌ها
+        Set<Long> childIds = new HashSet<>();
+        collectChildIds(existingSection, childIds);
+
+        if (newParentId != null && childIds.contains(newParentId)) {
+            throw new DescendantsSectionsAsParent();
+        }
+
 
         if ((newParentId != null && !newParentId.equals(oldParentId))
                 || (newParentId == null && oldParentId != null)) {
@@ -184,5 +197,13 @@ public class SectionServiceImpl implements SectionService {
     public Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable) {
         return sectionRepository.findByParentSection_TitleContainingIgnoreCase(parentTitle, pageable);
     }
+
+    private void collectChildIds(Section section, Set<Long> ids) {
+        for (Section child : section.getChildSectionList()) {
+            ids.add(child.getId());
+            collectChildIds(child, ids);
+        }
+    }
+
 
 }

@@ -18,6 +18,8 @@ function loadRoles(page = 0) {
         url += `&searchRoleName=${encodeURIComponent(searchRoleName)}`;
     }
 
+    console.log("web controller fetch")
+
     fetch(url)
         .then(response => {
             if (!response.ok) throw new Error('خطا در دریافت داده‌ها');

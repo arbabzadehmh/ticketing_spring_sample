@@ -23,6 +23,8 @@ function loadSections(page = 0) {
         url += `&parentSectionTitle=${encodeURIComponent(parentSectionTitle)}`;
     }
 
+    console.log("web controller fetch")
+
     fetch(url)
         .then(response => {
             if (!response.ok) throw new Error('خطا در دریافت داده‌ها');
@@ -48,7 +50,6 @@ async function handleSectionSubmit(e) {
     clearValidationErrors();
 
     const id = document.getElementById('sectionId').value;
-    console.log("Section ID on submit:", id);
     const parentSectionId = document.getElementById('parentSection').value.trim();
     const section = {
         title: document.getElementById('title').value.trim(),
