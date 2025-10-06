@@ -1,0 +1,46 @@
+<div th:fragment="messages-chatbox">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" th:text="#{messages.title}"></h3>
+            <button class="btn btn-add btn-light"
+                    data-bs-toggle="modal"
+                    data-bs-target="#permissionModal"
+                    data-title-add="#{permissions.addModalTitle}">
+                <i class="fas fa-plus me-2"></i>
+                <span th:text="#{messages.add}"></span>
+            </button>
+        </div>
+
+        <div class="card-body">
+            <!-- جایی که پیام‌ها نمایش داده می‌شود -->
+            <div id="chat-box" class="chat-box">
+                <div th:each="message : ${messages}"
+                     class="message"
+                     th:classappend="${message.senderRoleName == 'ROLE_ADMIN' ? 'msg-admin'
+                            : (message.senderRoleName == 'ROLE_MANAGER' ? 'msg-manager' : 'msg-customer')}">
+                    <p th:text="${message.content}"></p>
+                    <small class="text-muted" th:text="${#temporals.format(message.dateTime, 'yyyy-MM-dd HH:mm')}"></small>
+                </div>
+            </div>
+
+            <!-- فرم ارسال پیام -->
+            <form id="messageForm" class="d-flex align-items-center gap-2 mt-auto">
+                <input type="hidden" id="ticketId" name="ticketId" th:value="${ticketId}" />
+
+                <input type="text" class="form-control" id="messageContent" name="content"
+                       placeholder="پیام خود را بنویسید..." required />
+
+                <input type="file" id="messageFile" name="file" class="form-control-file d-none" />
+                <label for="messageFile" class="btn btn-outline-secondary mb-0">
+                    <i class="fas fa-paperclip"></i>
+                </label>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+
+
+        </div>
+    </div>
+</div>

@@ -9,6 +9,8 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -38,15 +40,10 @@ public class Message extends Base {
     @Column(name = "sender_role_name", nullable = false)
     private String senderRoleName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id", foreignKey = @ForeignKey(name = "fk_message_ticket"))
-    private Ticket ticket;
+    @Column(name = "ticket_id", nullable = false, insertable = false, updatable = false)
+    private Long ticketId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "username",
-            foreignKey = @ForeignKey(name = "fk_message_user"),
-            updatable = false
-    )
-    private User user;
+    @OneToMany(mappedBy = "message", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<Attachment> attachments = new ArrayList<>();
+
 }

@@ -11,10 +11,10 @@ public interface AttachmentService {
     void save(Attachment attachment);
     void update(Attachment attachment);
     void delete(Long id);
-    List<Attachment> findAll();
+//    List<Attachment> findAll();
     Attachment findById(Long id);
-    List<Attachment> findByTicketId(Long id);
-    List<Attachment> findByUserName(String username);
-    List<Attachment> findByUserNameAndTicketId(String username, Long id);
-    List<Attachment> findByAttachTimeOrderByAttachTimeDesc(LocalDateTime attachTime);
+//    List<Attachment> findByTicketId(Long id);
+//    List<Attachment> findByUserName(String username);
+//    List<Attachment> findByUserNameAndTicketId(String username, Long id);
+//    List<Attachment> findByAttachTimeOrderByAttachTimeDesc(LocalDateTime attachTime);
 }

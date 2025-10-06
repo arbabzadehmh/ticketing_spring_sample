@@ -3,9 +3,11 @@ package ir.controller.web;
 import ir.controller.exception.ValidationException;
 import ir.dto.TicketCreateDto;
 import ir.dto.TicketEditDto;
+import ir.model.entity.Message;
 import ir.model.entity.Ticket;
 import ir.model.entity.TicketSpecifications;
 import ir.model.enums.TicketStatus;
+import ir.repository.MessageRepository;
 import ir.service.MessageService;
 import ir.service.SectionService;
 import ir.service.TicketService;
@@ -29,8 +31,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 
 @Controller
 @RequestMapping("/tickets")
@@ -38,11 +42,13 @@ public class TicketController {
     private final TicketService ticketService;
     private final MessageSource messageSource;
     private final SectionService sectionService;
+    private final MessageRepository messageRepository;
 
-    public TicketController(TicketService ticketService, MessageSource messageSource, SectionService sectionService) {
+    public TicketController(TicketService ticketService, MessageSource messageSource, SectionService sectionService, MessageRepository messageRepository) {
         this.ticketService = ticketService;
         this.messageSource = messageSource;
         this.sectionService = sectionService;
+        this.messageRepository = messageRepository;
     }
 
     @GetMapping
@@ -92,6 +98,17 @@ public class TicketController {
         return fragment != null && fragment ?
                 "fragments/ticket-fragments/tickets-table :: tickets-table" :
                 "ticket";
+    }
+
+    @GetMapping("/{ticketId}")
+    public String showTicketMessages(@PathVariable Long ticketId, Model model) {
+
+        Ticket ticket = ticketService.findById(ticketId);
+        List<Message> messageList = messageRepository.findByTicketIdOrderByDateTime(ticketId);
+
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("messages", messageList);
+        return "message"; // صفحه کامل message.html
     }
 
     @PostMapping

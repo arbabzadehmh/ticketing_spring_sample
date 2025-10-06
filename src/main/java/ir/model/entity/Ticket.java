@@ -50,17 +50,8 @@ public class Ticket extends Base{
     @JoinColumn(name = "section_id", foreignKey = @ForeignKey(name = "fk_ticket_section"))
     private Section section;
 
-    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Message> messageList;
-
     @ManyToOne
     @JoinColumn(name="customer", foreignKey = @ForeignKey(name = "fk_ticket_user"))
     private User customer;
 
-    public void addMessage(Message message) {
-        if(messageList == null) {
-            messageList = new ArrayList<>();
-        }
-        messageList.add(message);
-    }
 }

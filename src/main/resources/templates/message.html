@@ -1,58 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
 <head>
-    <meta charset="UTF-8">
-    <title>Message</title>
+    <title th:text="#{messages.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body>
+<body data-bs-theme="light" th:attr="data-roles=${#authorization.expression('isAuthenticated()') ? #authentication.principal.authorities : null}">
 
-<h1>Message</h1>
-<form th:action="@{/messages}" th:method="post" th:object="${message}">
-    <input type="text" th:id="message" th:name="message" th:field="*{content}">
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <input type="text" name="ticketId" id="ticketId" th:value="${ticketId}" hidden="hidden">
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <input type="submit" value="Save">
-</form>
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container-fluid p-2">
+        <!-- در بخشی از صفحه که همیشه وجود دارد -->
+        <div id="deleteConfirmText" style="display: none;" th:text="#{messages.delete.confirm}"></div>
+        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+        <div id="sections-table-container">
+            <div th:replace="~{fragments/message-fragments/messages-chatbox :: messages-chatbox}"></div>
+        </div>
+    </div>
+</main>
 
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-<h2 th:dir="ltr" th:if="${messageList.isEmpty()}">No Content</h2>
-<table th:if="${not messageList.isEmpty()}">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Content</th>
-        <th>DateTime</th>
-        <th>Ticket</th>
-        <th>User</th>
-        <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="message:${messageList}">
-        <td th:text="${message.id}"></td>
-        <td th:text="${message.content}"></td>
-        <td th:text="${message.dateTime}"></td>
-        <td th:text="${message.ticket.title}"></td>
-        <td th:text="${message.user.username}"></td>
-        <td>
-            <button th:data-name="${message.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<!-- مودال افزودن/ویرایش مشتری -->
+<!--<div th:replace="~{fragments/section-fragments/section-modal :: section-modal}"></div>-->
 
-<a th:href="@{/panel}">Panel</a>
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
+<!--****************************************  Alternative 1 : use sections.js instead of sections-api.js-->
+<script th:src="@{/js/messages.js}"></script>
 
-<script>
-    function remove(id) {
-        fetch("/messages/" + id, {
-            method: "DELETE"
-        });
-        window.location.replace("/tickets");
-    }
-</script>
-
+<!--****************************************  Alternative 2 :-->
+<!--<script th:src="@{/js/messages-api.js}"></script>-->
 </body>
 </html>

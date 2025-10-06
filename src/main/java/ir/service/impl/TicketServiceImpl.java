@@ -7,6 +7,7 @@ import ir.model.entity.Section;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
 import ir.model.enums.TicketStatus;
+import ir.repository.MessageRepository;
 import ir.repository.TicketRepository;
 import ir.service.SectionService;
 import ir.service.TicketService;
@@ -26,11 +27,13 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
     private final SectionService sectionService;
     private final UserService userService;
+    private final MessageRepository messageRepository;
 
-    public TicketServiceImpl(TicketRepository ticketRepository, SectionService sectionService, UserService userService) {
+    public TicketServiceImpl(TicketRepository ticketRepository, SectionService sectionService, UserService userService, MessageRepository messageRepository) {
         this.ticketRepository = ticketRepository;
         this.sectionService = sectionService;
         this.userService = userService;
+        this.messageRepository = messageRepository;
     }
 
     @Transactional
@@ -50,6 +53,8 @@ public class TicketServiceImpl implements TicketService {
                         .customer(customer)
                         .build();
 
+        ticket = ticketRepository.save(ticket);
+
         Message firstMessage =
                 Message
                         .builder()
@@ -57,13 +62,12 @@ public class TicketServiceImpl implements TicketService {
                         .dateTime(LocalDateTime.now())
                         .senderUsername(customer.getUsername())
                         .senderRoleName("ROLE_CUSTOMER")
-                        .user(customer)
-                        .ticket(ticket)
+                        .ticketId(ticket.getId())
                         .build();
 
-        ticket.addMessage(firstMessage);
+        messageRepository.save(firstMessage);
 
-        return ticketRepository.save(ticket);
+        return ticket;
     }
 
     @Transactional

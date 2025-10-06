@@ -37,6 +37,7 @@ function initTicketUi() {
     initSortAndPageSize();
     initTicketEditButtons();
     initTicketDeleteButtons();
+    initTicketOpenButtons();
 
     // ثبت رویداد submit برای فرم Create
     const createForm = document.getElementById('ticketCreateForm');
@@ -137,6 +138,19 @@ async function handleTicketDelete(e) {
         }
     }
 }
+
+// -------------------------------------------------
+
+function initTicketOpenButtons() {
+    document.querySelectorAll('.btn-open').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const ticketId = btn.dataset.id;
+            // بار اول برو به صفحه‌ی کامل message.html
+            window.location.href = `/tickets/${ticketId}`;
+        });
+    });
+}
+
 
 // ================== Init Buttons ==================
 function initTicketEditButtons() {
@@ -244,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSortAndPageSize();
     initTicketEditButtons();
     initTicketDeleteButtons();
+    initTicketOpenButtons()
 });
 
 

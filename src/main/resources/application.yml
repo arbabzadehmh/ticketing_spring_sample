@@ -5,6 +5,11 @@ spring:
   profiles:
     active: dev  # Default profile (can be overridden with --spring.profiles.active)
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
   docker:                     # in development (dev profile) --> docker:compose:enabled:false
     compose:                  # unless the database and settings will be prod profile database and settings
       enabled: false
@@ -26,6 +31,39 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
+# Management endpoints (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus  # Expose useful endpoints
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.spring_jpa_cache: DEBUG
+    org.springframework.security: DEBUG  # Debug Spring Security
+    org.hibernate.SQL: DEBUG            # Show SQL queries
+    org.hibernate.orm.jdbc.bind: TRACE  # Show parameter binding
+    org.hibernate.orm.jdbc.extract: TRACE  # Show result extraction
+    org.springframework.transaction: DEBUG  # Transaction management
+    org.hibernate.engine.transaction: DEBUG  # Transaction details
+    #    com.zaxxer.hikari: DEBUG           # HikariCP pool details
+    #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
+    org.springframework.jdbc: DEBUG    # JDBC operations
+    org.springframework.cache: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+  file:
+    name: logs/application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
 
 # Production profile (PostgreSQL)
 ---
@@ -150,35 +188,3 @@ server:
         secure: true             # Only over HTTPS
         same-site: strict        # Prevent CSRF via cross-site requests
 
-# Management endpoints (Actuator)
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,metrics,prometheus  # Expose useful endpoints
-
-# Logging configuration
-logging:
-  level:
-    root: INFO
-    com.spring_jpa_cache: DEBUG
-    org.springframework.security: DEBUG  # Debug Spring Security
-    org.hibernate.SQL: DEBUG            # Show SQL queries
-    org.hibernate.orm.jdbc.bind: TRACE  # Show parameter binding
-    org.hibernate.orm.jdbc.extract: TRACE  # Show result extraction
-    org.springframework.transaction: DEBUG  # Transaction management
-    org.hibernate.engine.transaction: DEBUG  # Transaction details
-#    com.zaxxer.hikari: DEBUG           # HikariCP pool details
-#    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
-    org.springframework.jdbc: DEBUG    # JDBC operations
-    org.springframework.cache: TRACE
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
-
-  file:
-    name: logs/application.log
-  logback:
-    rollingpolicy:
-      max-file-size: 10MB
-      max-history: 7

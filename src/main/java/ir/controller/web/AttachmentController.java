@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/attachment")
 public class AttachmentController {
-    private final AttachmentService attachmentService;
-
-    public AttachmentController(AttachmentService attachmentService) {
-        this.attachmentService = attachmentService;
-    }
-
-    @GetMapping
-    public String loadAttachmentPage(Model model) {
-        model.addAttribute("attachment", new Attachment());
-        model.addAttribute("attachmentList", attachmentService.findAll());
-
-        return "attachment";
-    }
-
-    @PostMapping
-    public String save(Model model, Attachment attachment) {
-        attachmentService.save(attachment);
-
-        return "redirect:attachment";
-
-    }
+//    private final AttachmentService attachmentService;
+//
+//    public AttachmentController(AttachmentService attachmentService) {
+//        this.attachmentService = attachmentService;
+//    }
+//
+//    @GetMapping
+//    public String loadAttachmentPage(Model model) {
+//        model.addAttribute("attachment", new Attachment());
+//        model.addAttribute("attachmentList", attachmentService.findAll());
+//
+//        return "attachment";
+//    }
+//
+//    @PostMapping
+//    public String save(Model model, Attachment attachment) {
+//        attachmentService.save(attachment);
+//
+//        return "redirect:attachment";
+//
+//    }
 }

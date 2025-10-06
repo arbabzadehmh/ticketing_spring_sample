@@ -2,6 +2,7 @@ package ir.model.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class Attachment extends Base{
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "file_name", length = 50)
+    @Column(name = "file_name", length = 255)
     private String fileName;
 
     @Enumerated(EnumType.ORDINAL)
@@ -43,16 +44,17 @@ public class Attachment extends Base{
     @Column(name = "attach_time")
     private LocalDateTime attachTime;
 
-    @Column(name = "description", length = 50)
+    @Column(name = "description", length = 255)
     private String description;
 
-
-    @ManyToOne
-    @JoinColumn(name="username",nullable = true,foreignKey = @ForeignKey(name = "fk_attachment_user"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="username", foreignKey = @ForeignKey(name = "fk_attachment_user"))
+    @JsonIgnore
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "ticket_id", nullable = true,foreignKey = @ForeignKey(name = "fk_attachment_ticket"))
-    private Ticket ticket;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "message_id", foreignKey = @ForeignKey(name = "fk_attachment_message"))
+    @JsonIgnore
+    private Message message;
 
 }

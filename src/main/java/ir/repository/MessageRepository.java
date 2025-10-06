@@ -11,8 +11,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByOrderByDateTime();
-    List<Message> findByUserOrderByDateTime(User user);
-    List<Message> findByUserUsernameOrderByDateTime(String username);
-    List<Message> findByTicketOrderByDateTime(Ticket ticket);
+
+//    List<Message> findByUserUsernameOrderByDateTime(String username);
     List<Message> findByTicketIdOrderByDateTime(Long ticketId);
 }
