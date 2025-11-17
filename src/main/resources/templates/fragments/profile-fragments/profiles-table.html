@@ -60,6 +60,7 @@
                         <th th:text="#{profiles.email}"></th>
                         <th th:text="#{profiles.phone}"></th>
                         <th th:text="#{users.username}"></th>
+                        <th th:text="#{profiles.picture}"></th>
                         <th th:text="#{profiles.actions}"></th>
                     </tr>
                     </thead>
@@ -70,6 +71,16 @@
                         <td th:text="${profile.email}"></td>
                         <td th:text="${profile.phone}"></td>
                         <td th:text="${profile.user.username}"></td>
+                        <td>
+                            <img th:if="${profile.profilePicture != null}"
+                                 th:src="@{/profiles/{id}/picture(id=${profile.id})}"
+                                 alt="Profile Picture"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;">
+
+                            <img th:if="${profile.profilePicture == null}"
+                                 th:src="@{/icons/no-image.png}"
+                                 alt="No image"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;border:2px solid #ddd;">                        </td>
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"

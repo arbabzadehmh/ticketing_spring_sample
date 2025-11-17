@@ -1,11 +1,9 @@
 package ir.service.impl;
 
-import ir.model.entity.Attachment;
-import ir.model.entity.Message;
-import ir.model.entity.Ticket;
-import ir.model.entity.User;
+import ir.model.entity.*;
 import ir.model.enums.FileType;
 import ir.model.enums.TicketStatus;
+import ir.repository.AttachmentRepository;
 import ir.repository.MessageRepository;
 import ir.repository.TicketRepository;
 import ir.service.MessageService;
@@ -14,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -23,28 +22,25 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
+    private final FileStorageService fileStorageService;
+    private final AttachmentRepository attachmentRepository;
+    private final OcrService ocrService;
     private final TicketRepository ticketRepository;
 
-    public MessageServiceImpl(MessageRepository messageRepository, TicketRepository ticketRepository) {
+    public MessageServiceImpl(MessageRepository messageRepository, FileStorageService fileStorageService, AttachmentRepository attachmentRepository, OcrService ocrService, TicketRepository ticketRepository) {
         this.messageRepository = messageRepository;
+        this.fileStorageService = fileStorageService;
+        this.attachmentRepository = attachmentRepository;
+        this.ocrService = ocrService;
         this.ticketRepository = ticketRepository;
     }
 
+    @Transactional
     @Override
     public Message save(Long ticketId,
                         String content,
                         Principal principal,
                         List<MultipartFile> files) {
-
-        // گرفتن Authentication از SecurityContext
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName(); // نام کاربری
-//        String role = auth.getAuthorities().stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .findFirst()
-//                .orElse("ROLE_CUSTOMER");
-
-
 
         // ساختن Message جدید
         Message message = Message.builder()
@@ -55,29 +51,58 @@ public class MessageServiceImpl implements MessageService {
                 .ticketId(ticketId)
                 .build();
 
-        // اگر فایل اومده باشه
-        if (files != null && !files.isEmpty()) {
-            List<Attachment> attachments = new ArrayList<>();
+        messageRepository.save(message);
 
-            for (MultipartFile file : files) {
-                if (!file.isEmpty()) {
-                    FileType fileType = mapContentTypeToFileType(file.getContentType());
-                    if (fileType == null) continue;
-
-                    Attachment attachment = Attachment.builder()
-                            .fileName(file.getOriginalFilename())
-                            .fileSize(file.getSize())
-                            .fileType(fileType)
-                            .attachTime(LocalDateTime.now())
-                            .message(message)
-                            .build();
-                    attachments.add(attachment);
-                }
-            }
-            message.setAttachments(attachments);
+        if (files == null || files.isEmpty()) {
+            return message;
         }
 
-        return messageRepository.save(message);
+        List<Attachment> attachments = new ArrayList<>();
+        List<String> storedMongoIds = new ArrayList<>();
+
+        try {
+            for (MultipartFile file : files) {
+                if (file == null || file.isEmpty()) continue;
+
+                // store in GridFS
+                String mongoId = fileStorageService.store(file, principal.getName());
+                storedMongoIds.add(mongoId);
+
+                // map contentType -> FileType enum (implement mapContentTypeToFileType)
+                FileType fileType = mapContentTypeToFileType(file.getContentType());
+
+                Attachment att = Attachment.builder()
+                        .fileName(file.getOriginalFilename())
+                        .fileSize(file.getSize())
+                        .fileType(fileType)
+                        .attachTime(LocalDateTime.now())
+                        .mongoFileId(mongoId)
+                        .message(message)  // set FK to message
+                        .build();
+
+                attachments.add(att);
+            }
+
+            // save attachments metadata in Oracle
+            attachmentRepository.saveAll(attachments);
+
+            // fire OCR async for image attachments (see next)
+            attachments.stream()
+                    .filter(a -> a.getFileType() == FileType.JPG || a.getFileType() == FileType.PNG || a.getFileType() == FileType.BMP)
+                    .forEach(a -> ocrService.extractTextForAttachmentAsync(a)); // async method, explained below
+
+            return message;
+
+        } catch (Exception ex) {
+            // cleanup GridFS files that were created
+            for (String id : storedMongoIds) {
+                try { fileStorageService.deleteById(id); } catch (Exception ignore) {}
+            }
+            // optionally delete the message we saved (if you want atomic-like behaviour)
+            // messageRepository.deleteById(message.getId());
+
+            throw new RuntimeException("Failed to save attachments", ex);
+        }
     }
 
 
@@ -123,13 +148,19 @@ public class MessageServiceImpl implements MessageService {
 
     // متد برای گرفتن نقش کاربر (این بستگی به Security شما داره)
     private String getUserRole(Principal principal) {
-        if (principal instanceof Authentication authentication) {
-            return authentication.getAuthorities().stream()
-                    .findFirst()
-                    .map(GrantedAuthority::getAuthority)
-                    .orElse("ROLE_CUSTOMER");
+        CustomUserDetails userDetails = (CustomUserDetails) ((Authentication) principal).getPrincipal();
+
+        if (userDetails.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "ROLE_ADMIN";
         }
-        return "ROLE_CUSTOMER";
+
+        if (userDetails.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
+            return "ROLE_MANAGER";
+        }
+
+        return "ROLE_CUSTOMER"; // پیش‌فرض
     }
 
 

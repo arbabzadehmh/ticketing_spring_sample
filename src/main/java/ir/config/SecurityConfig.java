@@ -95,7 +95,7 @@ public class SecurityConfig {
                                     "default-src 'self'; " +
                                             "script-src 'self'; " +
                                             "style-src 'self' 'unsafe-inline'; " +   // اجازه به استایل‌های inline
-                                            "img-src 'self' data:; " +               // اجازه بارگذاری تصاویر base64
+                                            "img-src 'self' data: blob:; " +               // اجازه بارگذاری تصاویر base64
                                             "frame-ancestors 'self';"))
                             .addHeaderWriter(new StaticHeadersWriter("X-Content-Type-Options", "nosniff"))
                             .addHeaderWriter(new StaticHeadersWriter("X-XSS-Protection", "1; mode=block"))

@@ -10,6 +10,22 @@
                 <form id="profileCreateForm">
                     <div class="modal-body">
 
+                        <div class="mb-3 text-center">
+                            <img id="createProfileImagePreview"
+                                 src="/icons/no-image.png"
+                                 alt="Profile Picture"
+                                 style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:block;margin:0 auto;">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="createProfilePicture" class="form-label" th:text="#{profiles.picture}"></label>
+                            <input class="form-control" type="file" id="createProfilePicture" name="profilePicture" accept="image/*">
+                        </div>
+
+                        <button type="button" class="btn btn-outline-danger btn-sm" style="display:block;margin:0 auto;" id="deleteCreatePicBtn"
+                                th:text="#{profiles.picture.remove}"></button>
+
+
                         <div class="mb-3">
                             <label for="createUsername" class="form-label" th:text="#{users.username}"></label>
                             <input type="text" class="form-control" id="createUsername" name="username">

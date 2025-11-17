@@ -44,6 +44,8 @@ public class ProfileUserDto {
     @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}", groups = {OnCreate.class, OnUpdate.class})
     private String password;
 
+    private String profilePictureBase64;
+
     private Set<String> roles;
     private boolean accountNonExpired;
     private boolean accountNonLocked;

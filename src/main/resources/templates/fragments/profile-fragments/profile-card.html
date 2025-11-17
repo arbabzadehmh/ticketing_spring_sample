@@ -1,11 +1,25 @@
-<div th:fragment="profile-card">
+<div th:fragment="profile-card" th:id="'profile-card-' + ${profile.id}">
     <div class="card shadow p-3">
+
+        <div class="mb-3">
+            <!-- اگر پروفایل عکس دارد: از وب‌کنترلر /profiles/{id}/picture بخوان -->
+            <img th:if="${profile.profilePicture != null}"
+                 th:src="@{/profiles/{id}/picture(id=${profile.id})}"
+                 alt="Profile Picture"
+                 style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:2px solid #ddd;">
+            <!-- اگر عکس ندارد -->
+            <img th:if="${profile.profilePicture == null}"
+                 th:src="@{/icons/no-image.png}"
+                 alt="No image"
+                 style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:2px solid #ddd;">
+        </div>
+
         <h5 th:text="${profile.firstName + ' ' + profile.lastName}"></h5>
         <h6 th:text="#{users.username} + ' : ' + ${profile.user.username}"></h6>
         <h6 th:text="#{users.password} + ' : ******' "></h6>
         <h6 th:text="#{profiles.email} + ' : ' + ${profile.email}"></h6>
         <h6 th:text="#{profiles.phone} + ' : ' + ${profile.phone}"></h6>
-        <button class="btn btn-warning card-edit" data-bs-toggle="modal" data-bs-target="#profileEditModal"
+        <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#profileEditModal"
                 th:data-id="${profile.id}"
                 th:data-firstname="${profile.firstName}"
                 th:data-lastname="${profile.lastName}"

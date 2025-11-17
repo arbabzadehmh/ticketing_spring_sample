@@ -2,13 +2,6 @@
     <div class="card shadow">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h3 class="mb-0" th:text="#{messages.title}"></h3>
-            <button class="btn btn-add btn-light"
-                    data-bs-toggle="modal"
-                    data-bs-target="#permissionModal"
-                    data-title-add="#{permissions.addModalTitle}">
-                <i class="fas fa-plus me-2"></i>
-                <span th:text="#{messages.add}"></span>
-            </button>
         </div>
 
         <div class="card-body">
@@ -28,7 +21,7 @@
                 <input type="hidden" id="ticketId" name="ticketId" th:value="${ticketId}" />
 
                 <input type="text" class="form-control" id="messageContent" name="content"
-                       placeholder="پیام خود را بنویسید..." required />
+                       th:placeholder="#{messages.new}" required />
 
                 <input type="file" id="messageFile" name="file" class="form-control-file d-none" />
                 <label for="messageFile" class="btn btn-outline-secondary mb-0">

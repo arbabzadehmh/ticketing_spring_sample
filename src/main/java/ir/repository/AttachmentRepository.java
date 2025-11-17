@@ -21,6 +21,6 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 //    List<Attachment> findByTicketIdOrderByAttachTime(Long ticketId);
 //    List<Attachment> findByTicketOrderByAttachTime(Ticket ticket);
 //    List<Attachment> findByUser_UsernameAndTicket_IdOrderByAttachTime(String username, Long ticketId);
-
+    List<Attachment> findByMessageId(Long messageId);
 
 }

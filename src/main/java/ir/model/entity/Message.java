@@ -40,10 +40,10 @@ public class Message extends Base {
     @Column(name = "sender_role_name", nullable = false)
     private String senderRoleName;
 
-    @Column(name = "ticket_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "ticket_id", nullable = false)
     private Long ticketId;
 
-    @OneToMany(mappedBy = "message", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Attachment> attachments = new ArrayList<>();
 
 }

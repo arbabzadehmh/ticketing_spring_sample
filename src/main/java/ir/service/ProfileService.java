@@ -2,8 +2,11 @@ package ir.service;
 
 import ir.dto.ProfileUserDto;
 import ir.model.entity.Profile;
+import ir.model.enums.FileType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Pair;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ProfileService {
     Profile save(Profile profile);
@@ -18,4 +21,8 @@ public interface ProfileService {
     Profile findByUsername(String username);
     Page<Profile> findByLastNameLike(String lastName, Pageable pageable);
     Page<Profile> findByUserUsernameLike(String username, Pageable pageable);
+    Profile uploadOrUpdateProfilePicture(Long profileId, MultipartFile file, String username);
+    void deleteProfilePicture(Long profileId);
+    String getProfilePictureBase64(Long profileId);
+    Pair<byte[], FileType> getProfilePictureBytes(Long profileId);
 }

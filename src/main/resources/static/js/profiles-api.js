@@ -1,4 +1,3 @@
-
 // ******************************************************************** using ProfileApi to findByLastname, findByUsername
 
 let firstLoad = true;
@@ -98,12 +97,23 @@ function renderProfilesTable(profiles) {
             ? p.user.roleSet.map(r => r.name).join(",")
             : '';
 
+        const imgSrc = p.profilePicture
+            ? `/rest/profiles/${p.id}/picture`
+            : `/icons/no-image.png`;
+
         row.innerHTML = `
             <td>${p.firstName}</td>
             <td>${p.lastName}</td>
             <td>${p.email || ''}</td>
             <td>${p.phone || ''}</td>
             <td>${p.user?.username || ''}</td>
+            
+            <td class="text-center">
+                <img src="${imgSrc}"
+                     alt="Profile Picture"
+                     style="width:50px;height:50px;object-fit:cover;border-radius:50%;border:1px solid #ddd;">
+            </td>
+
             <td>
                 <button class="btn btn-sm btn-warning btn-edit"
                     data-id="${p.id}"
@@ -182,6 +192,19 @@ async function handleCreateProfileSubmit(e) {
 
         const data = await handleResponse(response, 'create'); // مدیریت پاسخ با متد استاندارد
 
+        //  اضافه‌شده: آپلود عکس پس از ایجاد پروفایل
+        const fileInput = document.getElementById('createProfilePicture');
+        if (fileInput && fileInput.files.length > 0 && data.id) {
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            await fetch(`/rest/profiles/${data.id}/picture`, {
+                method: 'POST',
+                body: formData
+            });
+        }
+
         // موفقیت
         bootstrap.Modal.getInstance(document.getElementById('profileCreateModal')).hide();
         showToast('success', data.message || 'پروفایل با موفقیت ثبت شد');
@@ -238,15 +261,78 @@ async function handleEditProfileSubmit(e) {
 
         const data = await handleResponse(response, 'edit');
 
+        //  اگر کاربر فایل انتخاب کرده، عکس جدید آپلود شود
+        const fileInput = document.getElementById('editProfilePicture');
+        if (fileInput && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            await fetch(`/rest/profiles/${id}/picture`, {
+                method: 'POST',
+                body: formData
+            });
+        }
+
         bootstrap.Modal.getInstance(document.getElementById('profileEditModal')).hide();
         showToast('success', data.message || 'پروفایل با موفقیت ویرایش شد');
-        loadProfiles();
+
+
+        if (isAdmin) {
+            //  حالت ادمین
+            loadProfiles();
+        } else  {
+            //  حالت کاستومر: کارت را از سرور تازه بگیر
+            refreshProfileCard(id);
+        }
 
     } catch (error) {
         if (error.message !== 'Validation errors') {
             console.error('Profile edition error:', error);
             showToast('danger', error.message || 'خطا در ویرایش پروفایل');
         }
+    }
+}
+
+// ----------------------------------------------------------------
+
+async function refreshProfileCard(profileId) {
+    try {
+        const modal = document.getElementById('profileEditModal');
+
+        //  رفع مشکل focus
+        document.activeElement?.blur();
+
+        //  بستن مودال (اگر باز است)
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+
+        //  اطمینان از حذف backdrop و فعال‌سازی صفحه بعد از بسته شدن
+        setTimeout(async () => {
+            // Bootstrap گاهی backdrop را حذف نمی‌کند → دستی حذف می‌کنیم
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            document.body.classList.remove('modal-open');
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
+
+            // حالا درخواست HTML جدید کارت
+            const res = await fetch(`/profiles/${profileId}/card`);
+            if (!res.ok) throw new Error('خطا در دریافت کارت جدید');
+
+            const html = await res.text();
+
+            // جایگزین کارت جدید
+            const card = document.getElementById(`profile-card-${profileId}`);
+            if (card) {
+                card.outerHTML = html;
+            }
+        }, 400); // کمی بیشتر تا انیمیشن کامل تمام شود
+
+    } catch (err) {
+        console.error('Refresh card error:', err);
+        showToast('danger', err.message || 'خطا در به‌روزرسانی کارت پروفایل');
     }
 }
 
@@ -404,21 +490,34 @@ document.body.addEventListener('click', function (e) {
     const btn = e.target.closest('.btn-warning.btn-edit');
     if (!btn) return;
 
-    const row = btn.closest('tr'); // پیدا کردن ردیف جدول مربوطه
-    const cells = row.querySelectorAll('td'); // گرفتن همه سلول‌ها
+    const modal = document.getElementById('profileEditModal');
+    const isAdmin = document.body.dataset.isAdmin === 'true';
 
-    // فیلدهای اصلی
-    document.getElementById('editProfileId').value = btn.dataset.id;
-    document.getElementById('editFirstName').value = row.cells[0].textContent.trim();
-    document.getElementById('editLastName').value = row.cells[1].textContent.trim();
-    document.getElementById('editEmail').value = row.cells[2].textContent.trim();
-    document.getElementById('editPhone').value = row.cells[3].textContent.trim();
-    document.getElementById('editUsername').value = row.cells[4].textContent.trim();
+    const row = btn.closest('tr'); // پیدا کردن ردیف جدول مربوطه
+
+    if (row) {
+        //  حالت ادمین (جدول)
+        document.getElementById('editProfileId').value = btn.dataset.id;
+        document.getElementById('editFirstName').value = row.cells[0].textContent.trim();
+        document.getElementById('editLastName').value = row.cells[1].textContent.trim();
+        document.getElementById('editEmail').value = row.cells[2].textContent.trim();
+        document.getElementById('editPhone').value = row.cells[3].textContent.trim();
+        document.getElementById('editUsername').value = row.cells[4].textContent.trim();
+    } else {
+        //  حالت Customer (کارت)
+        document.getElementById('editProfileId').value = btn.dataset.id;
+        document.getElementById('editFirstName').value = btn.dataset.firstname;
+        document.getElementById('editLastName').value = btn.dataset.lastname;
+        document.getElementById('editEmail').value = btn.dataset.email;
+        document.getElementById('editPhone').value = btn.dataset.phone;
+        document.getElementById('editUsername').value = btn.dataset.username;
+    }
+
     document.getElementById('editPassword').value = '******';
 
+
     // ---------------- بخش مربوط به ادمین ----------------
-    const isAdmin = document.body.dataset.isAdmin === 'true';
-    if (isAdmin) {
+    if (isAdmin && row) {
         const roles = btn.dataset.roles ? btn.dataset.roles.split(',') : [];
         loadRolesForEditModal(roles);
 
@@ -454,7 +553,7 @@ document.body.addEventListener('click', function (e) {
     }
     // -----------------------------------------------------
 
-    new bootstrap.Modal(document.getElementById('profileEditModal')).show();
+    new bootstrap.Modal(modal).show();
 });
 
 // ---------------- حذف پروفایل ----------------
@@ -498,6 +597,7 @@ document.body.addEventListener('input', function (e) {
         debouncedLoad();
     }
 });
+
 // ------------------------------------------------------
 function debounce(fn, delay) {
     let timeoutId;
@@ -516,5 +616,135 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const editForm = document.getElementById('profileEditForm');
     if (editForm) editForm.addEventListener('submit', handleEditProfileSubmit);
+
+    const imgPreview = document.getElementById('editProfileImagePreview');
+    const fileInput = document.getElementById('editProfilePicture');
+    const deleteBtn = document.getElementById('deleteProfilePicBtn');
+
+    const DEFAULT_IMG = '/icons/no-image.png'; // مسیر عکس پیش‌فرض (قرار بده در static/images)
+    let currentObjectUrl = null;
+
+    //  وقتی کاربر فایل جدید انتخاب می‌کند
+    if (fileInput) {
+        fileInput.addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    if (currentObjectUrl) {
+                        URL.revokeObjectURL(currentObjectUrl);
+                        currentObjectUrl = null;
+                    } // 💠 آزادسازی آدرس قبلی
+                    imgPreview.src = ev.target.result;
+                    imgPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+                deleteBtn.disabled = false;
+            } else {
+                imgPreview.src = DEFAULT_IMG;
+                deleteBtn.disabled = true;
+            }
+        });
+    }
+
+    //  دکمه حذف عکس پروفایل
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+            const profileId = document.getElementById('editProfileId').value;
+            if (!profileId) return;
+
+            try {
+                const response = await fetch(`/rest/profiles/${profileId}/picture`, {method: 'DELETE'});
+                const data = await handleResponse(response, 'delete');
+
+                if (currentObjectUrl) {
+                    URL.revokeObjectURL(currentObjectUrl);
+                    currentObjectUrl = null;
+                } //  آزادسازی
+                imgPreview.src = DEFAULT_IMG;  // نمایش "no image"
+                fileInput.value = '';          // خالی کردن input فایل
+                deleteBtn.disabled = true;
+
+                showToast('success', data.message || 'عکس حذف شد');
+            } catch (error) {
+                console.error('Delete picture error:', error);
+                showToast('danger', error.message || 'خطا در حذف عکس');
+            }
+        });
+    }
+
+    const editModal = document.getElementById('profileEditModal');
+    if (editModal) {
+        editModal.addEventListener('show.bs.modal', () => {
+            const profileId = document.getElementById('editProfileId').value;
+            if (!profileId) {
+                imgPreview.src = DEFAULT_IMG;
+                deleteBtn.disabled = true;
+                return;
+            }
+
+            fetch(`/rest/profiles/${profileId}/picture`)
+                .then(res => (res.ok ? res.blob() : null))
+                .then(blob => {
+                    if (currentObjectUrl) {
+                        URL.revokeObjectURL(currentObjectUrl);
+                        currentObjectUrl = null;
+                    } //  پاک‌سازی قبلی
+                    if (blob) {
+                        currentObjectUrl = URL.createObjectURL(blob);
+                        imgPreview.src = currentObjectUrl;
+                        imgPreview.style.display = 'block';
+                        deleteBtn.disabled = false;
+                    } else {
+                        imgPreview.src = DEFAULT_IMG;
+                        deleteBtn.disabled = true;
+                    }
+                    fileInput.value = ''; //  حتما ورودی فایل پاک شود
+                })
+                .catch(() => {
+                    imgPreview.src = DEFAULT_IMG;
+                    deleteBtn.disabled = true;
+                    fileInput.value = '';
+                });
+        });
+
+        //  هنگام بستن مودال (آزادسازی object URL)
+        editModal.addEventListener('hidden.bs.modal', () => {
+            if (currentObjectUrl) {
+                URL.revokeObjectURL(currentObjectUrl);
+                currentObjectUrl = null;
+            }
+        });
+    }
+
+    const createFileInput = document.getElementById('createProfilePicture');
+    const createImgPreview = document.getElementById('createProfileImagePreview');
+    const deleteCreateBtn = document.getElementById('deleteCreatePicBtn');
+
+    if (createFileInput && createImgPreview) {
+        createFileInput.addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    createImgPreview.src = ev.target.result;
+                    createImgPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+                deleteCreateBtn.disabled = false;
+            } else {
+                createImgPreview.src = DEFAULT_IMG;
+                deleteCreateBtn.disabled = true;
+            }
+        });
+    }
+
+    if (deleteCreateBtn) {
+        deleteCreateBtn.addEventListener('click', () => {
+            createImgPreview.src = DEFAULT_IMG;
+            createFileInput.value = '';
+            deleteCreateBtn.disabled = true;
+        });
+    }
 
 });

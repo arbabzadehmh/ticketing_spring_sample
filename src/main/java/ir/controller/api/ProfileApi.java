@@ -2,7 +2,9 @@ package ir.controller.api;
 
 import ir.controller.exception.ValidationException;
 import ir.dto.ProfileUserDto;
+import ir.model.entity.Attachment;
 import ir.model.entity.Profile;
+import ir.model.enums.FileType;
 import ir.service.ProfileService;
 import ir.service.UserService;
 import ir.validation.OnCreate;
@@ -12,17 +14,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/rest/profiles")
@@ -65,6 +71,23 @@ public class ProfileApi {
             profiles = profileService.findAll(pageable);
         }
 
+//        profiles.forEach(p -> {
+//            if (p.getProfilePicture() != null) {
+//                Attachment att = new Attachment();
+//                att.setId(p.getProfilePicture().getId());
+//                att.setMongoFileId(p.getProfilePicture().getMongoFileId());
+//                att.setFileName(null);    // null کن
+//                att.setFileSize(null);    //  null کن
+//                att.setFileType(null);    //  null کن
+//                att.setAttachTime(null);  //  null کن
+//                att.setDescription(null); //  null کن
+//                att.setExtractedText(null); //  null کن
+//                att.setProfile(null);       //  null کن
+//                att.setMessage(null);
+//                p.setProfilePicture(att);
+//            }
+//        });
+
         return ResponseEntity.ok(profiles);
     }
 
@@ -83,11 +106,14 @@ public class ProfileApi {
             throw new ValidationException(errors);
         }
 
-        profileService.createProfileByCustomer(profileDto);
+        Profile savedProfile = profileService.createProfileByCustomer(profileDto);
 
         String message = messageSource.getMessage("profiles.create.success", null, locale);
 
-        return ResponseEntity.ok(Map.of("message", message));
+        return ResponseEntity.ok(Map.of(
+                "id", savedProfile.getId(),
+                "message", message
+        ));
     }
 
     @PostMapping("/create-profile")
@@ -109,11 +135,14 @@ public class ProfileApi {
             throw new RuntimeException("شبیه‌سازی خطای سرور!");
         }
 
-        profileService.createProfileByAdmin(profileDto);
+        Profile savedProfile = profileService.createProfileByAdmin(profileDto);
 
         String message = messageSource.getMessage("profiles.create.success", null, locale);
 
-        return ResponseEntity.ok(Map.of("message", message));
+        return ResponseEntity.ok(Map.of(
+                "id", savedProfile.getId(),
+                "message", message
+        ));
     }
 
     @PutMapping("/{id}")
@@ -151,4 +180,63 @@ public class ProfileApi {
         String message = messageSource.getMessage("profiles.delete.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
     }
+
+    @PostMapping("/{profileId}/picture")
+    public ResponseEntity<Profile> uploadProfilePicture(
+            @PathVariable Long profileId,
+            @RequestParam("file") MultipartFile file,
+            Principal principal) {
+
+        Profile updated = profileService.uploadOrUpdateProfilePicture(profileId, file, principal.getName());
+        return ResponseEntity.ok(updated);
+    }
+
+    // حذف عکس پروفایل
+    @DeleteMapping("/{profileId}/picture")
+    public ResponseEntity<Map<String, String>> deleteProfilePicture(@PathVariable Long profileId, Locale locale) {
+        profileService.deleteProfilePicture(profileId);
+        String message = messageSource.getMessage("profiles.picture.delete.success", null, locale);
+        return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    // دریافت Base64 عکس پروفایل برای نمایش در مرورگر
+//    @GetMapping("/{profileId}/picture")
+//    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long profileId) {
+//        String base64 = profileService.getProfilePictureBase64(profileId);
+//        if (base64 == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        byte[] imageBytes = java.util.Base64.getDecoder().decode(base64);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS).cachePublic());
+//        headers.setContentType(MediaType.IMAGE_JPEG); // یا IMAGE_PNG بر اساس نوع تصویر
+//
+//        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+//    }
+
+    @GetMapping("/{profileId}/picture")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long profileId) {
+        var pictureData = profileService.getProfilePictureBytes(profileId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS).cachePublic());
+        headers.setContentType(mapFileTypeToMediaType(pictureData.getSecond()));
+
+        return new ResponseEntity<>(pictureData.getFirst(), headers, HttpStatus.OK);
+    }
+
+    private MediaType mapFileTypeToMediaType(FileType fileType) {
+        if (fileType == null) return MediaType.APPLICATION_OCTET_STREAM;
+        return switch (fileType) {
+            case JPG -> MediaType.IMAGE_JPEG;
+            case PNG -> MediaType.IMAGE_PNG;
+            case BMP -> MediaType.valueOf("image/bmp");
+            case PDF -> MediaType.APPLICATION_PDF;
+            case TXT -> MediaType.TEXT_PLAIN;
+        };
+    }
+
+
 }

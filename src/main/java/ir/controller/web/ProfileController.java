@@ -8,13 +8,17 @@ import ir.model.entity.Profile;
 import ir.service.RoleService;
 import ir.service.UserService;
 import ir.service.ProfileService;
+import ir.service.impl.FileStorageService;
 import ir.validation.OnCreate;
 import ir.validation.OnUpdate;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,12 +36,14 @@ import java.util.*;
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final FileStorageService fileStorageService;
     private final UserService userService;
     private final MessageSource messageSource;
 
-    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper, MessageSource messageSource) {
+    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper, FileStorageService fileStorageService, MessageSource messageSource) {
         this.profileService = profileService;
         this.userService = userService;
+        this.fileStorageService = fileStorageService;
         this.messageSource = messageSource;
     }
 
@@ -88,6 +94,27 @@ public class ProfileController {
                 "fragments/profile-fragments/profiles-table :: profiles-table" :
                 "profile";
     }
+
+    @GetMapping("/{id}/picture")
+    @ResponseBody
+    public ResponseEntity<Resource> getProfilePicture(@PathVariable Long id) {
+        Profile profile = profileService.findById(id);
+        if (profile.getProfilePicture() == null) return ResponseEntity.notFound().build();
+
+        GridFsResource res = fileStorageService.getResource(profile.getProfilePicture().getMongoFileId());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // یا نوع واقعی عکس
+                .body(res);
+    }
+
+    @GetMapping("/{id}/card")
+    public String getProfileCard(@PathVariable Long id, Model model) {
+        Profile profile = profileService.findById(id);
+        model.addAttribute("profile", profile);
+        System.out.println("reloaded");
+        return "fragments/profile-fragments/profile-card :: profile-card";
+    }
+
 
 
 //****************************************  Alternative 1 :

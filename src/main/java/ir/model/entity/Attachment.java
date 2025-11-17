@@ -3,6 +3,7 @@ package ir.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ir.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 @Entity(name="attachmentEntity")
 @Table(name="attachment_tbl")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Attachment extends Base{
 
     @Id
@@ -30,6 +32,9 @@ public class Attachment extends Base{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attachmentSeq")
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "mongo_file_id", length = 100)
+    private String mongoFileId;
 
     @Column(name = "file_name", length = 255)
     private String fileName;
@@ -47,10 +52,12 @@ public class Attachment extends Base{
     @Column(name = "description", length = 255)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="username", foreignKey = @ForeignKey(name = "fk_attachment_user"))
+    @Column(name = "extracted_text", columnDefinition = "clob")
+    private String extractedText;
+
+    @OneToOne(mappedBy = "profilePicture", fetch = FetchType.LAZY)
     @JsonIgnore
-    private User user;
+    private Profile profile;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "message_id", foreignKey = @ForeignKey(name = "fk_attachment_message"))

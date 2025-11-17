@@ -1,5 +1,6 @@
 package ir.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -21,6 +22,7 @@ import java.util.Set;
 @Entity(name="userEntity")
 @Table(name="user_tbl")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends Base {
     @Id
 //    @NotBlank(message = "{validation.username}")

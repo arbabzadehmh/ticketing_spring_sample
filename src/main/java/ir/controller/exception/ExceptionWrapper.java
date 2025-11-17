@@ -49,6 +49,10 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.section.saving", null, locale);
         } else if (e instanceof DescendantsSectionsAsParent) {
             return messageSource.getMessage("error.section.child.parent", null, locale);
+        } else if (e instanceof FileReadException) {
+            return messageSource.getMessage("error.file.read", null, locale);
+        } else if (e instanceof FileStorageException) {
+            return messageSource.getMessage("error.file.storage", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

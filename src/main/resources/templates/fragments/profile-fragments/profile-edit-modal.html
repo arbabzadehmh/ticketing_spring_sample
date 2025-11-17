@@ -9,6 +9,22 @@
                 <form id="profileEditForm">
                     <div class="modal-body">
                         <input type="hidden" id="editProfileId">
+
+                        <div class="mb-3 text-center">
+                            <img id="editProfileImagePreview"
+                                 src="/icons/no-image.png"
+                                 alt="Profile Picture"
+                                 style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:block;margin:0 auto;">
+                        </div>
+
+                        <div class="mb-3 ">
+                            <label for="editProfilePicture" class="form-label" th:text="#{profiles.picture}"></label>
+                            <input class="form-control" type="file" id="editProfilePicture" name="profilePicture" accept="image/*">
+                        </div>
+
+                        <button type="button" class="btn btn-outline-danger" style="display:block;margin:0 auto;" id="deleteProfilePicBtn" th:text="#{profiles.picture.remove}"></button>
+
+
                         <div class="mb-3">
                             <label th:text="#{users.username}"></label>
                             <input type="text" class="form-control" id="editUsername" readonly>
@@ -33,6 +49,7 @@
                             <label th:text="#{profiles.phone}"></label>
                             <input type="tel" class="form-control" id="editPhone">
                         </div>
+
 
                         <!-- فقط برای ادمین -->
                         <div th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''MANAGER'')')}">

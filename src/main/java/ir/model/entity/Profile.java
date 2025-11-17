@@ -1,6 +1,7 @@
 package ir.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Where;
 @Entity(name="profileEntity")
 @Table(name="profile_tbl")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Profile extends Base {
 
     @Id
@@ -47,8 +49,11 @@ public class Profile extends Base {
     @Column(name = "phone", length = 15)
     private String phone;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_profile_user"))
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="attachment_id", foreignKey = @ForeignKey(name = "fk_profile_attachment"))
+    private Attachment profilePicture;
 }

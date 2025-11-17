@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.File;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Slf4j
 @EnableJpaRepositories
 @SpringBootApplication
+@EnableAsync
 public class TicketingSpringSample {
     private static RoleService roleService;
     private static UserService userService;
@@ -38,8 +40,8 @@ public class TicketingSpringSample {
         log.info("**************************************************************Spring Boot Application Started");
 
 //        System.out.println("Static files root: " + new File("src/main/resources/static").getAbsolutePath());
-
-
+//
+//
 //        Permission permission =
 //                Permission
 //                        .builder()
