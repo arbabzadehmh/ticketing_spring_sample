@@ -28,7 +28,7 @@ public class Message extends Base {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "content", length = 300, nullable = false)
+    @Column(name = "content", length = 300)
     private String content;
 
     @Column(name = "date_time")

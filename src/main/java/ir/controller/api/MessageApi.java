@@ -29,7 +29,7 @@ public class MessageApi {
     @PostMapping("/{ticketId}")
     public ResponseEntity<Message> sendMessage(
             @PathVariable Long ticketId,
-            @RequestParam("content") String content,
+            @RequestParam(value = "content", required = false) String content,
             @RequestParam(value = "files", required = false) List<MultipartFile> files,
             Principal principal) {
 

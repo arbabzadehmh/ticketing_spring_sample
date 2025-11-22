@@ -86,6 +86,9 @@ public class MessageServiceImpl implements MessageService {
             // save attachments metadata in Oracle
             attachmentRepository.saveAll(attachments);
 
+            message.setAttachments(attachments);
+            messageRepository.save(message);
+
             // fire OCR async for image attachments (see next)
             attachments.stream()
                     .filter(a -> a.getFileType() == FileType.JPG || a.getFileType() == FileType.PNG || a.getFileType() == FileType.BMP)

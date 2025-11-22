@@ -11,8 +11,40 @@
                      class="message"
                      th:classappend="${message.senderRoleName == 'ROLE_ADMIN' ? 'msg-admin'
                             : (message.senderRoleName == 'ROLE_MANAGER' ? 'msg-manager' : 'msg-customer')}">
+                    <h6 class="ltr small-text" th:text="${message.senderUsername} + ':' "></h6>
                     <p th:text="${message.content}"></p>
-                    <small class="text-muted" th:text="${#temporals.format(message.dateTime, 'yyyy-MM-dd HH:mm')}"></small>
+
+                    <!-- فایل‌ها -->
+                    <div class="attachments mt-2" th:if="${message.attachments != null}">
+                        <div th:each="file : ${message.attachments}">
+
+                            <!-- اگر عکس -->
+                            <a th:if="${file.fileType.name() == 'JPG' or file.fileType.name() == 'PNG' or file.fileType.name() == 'BMP'}"
+                               th:href="@{'/rest/images/' + ${file.mongoFileId} + '/raw'}" target="_blank">
+                                <img th:src="@{'/rest/images/' + ${file.mongoFileId} + '/raw'}" class="chat-thumb" />
+                            </a>
+
+                            <!-- PDF -->
+                            <a th:if="${file.fileType.name() == 'PDF'}"
+                               th:href="@{'/rest/images/' + ${file.mongoFileId} + '/download'}" target="_blank" class="d-block">
+                                <i class="fas fa-file-pdf fa-2x text-danger"></i>
+                                <small th:text="${file.fileName}"></small>
+                            </a>
+
+                            <!-- سایر فایل‌ها -->
+                            <a th:if="${file.fileType.name() != 'PDF'
+                        and file.fileType.name() != 'JPG'
+                        and file.fileType.name() != 'PNG'
+                        and file.fileType.name() != 'BMP'}"
+                               th:href="@{'/rest/images/' + ${file.mongoFileId} + '/download'}" target="_blank">
+                                <i class="fas fa-file fa-2x"></i>
+                                <small th:text="${file.fileName}"></small>
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <small class="text-muted ltr small-text" th:text="${#temporals.format(message.dateTime, 'yyyy-MM-dd HH:mm')}"></small>
                 </div>
             </div>
 
@@ -21,9 +53,9 @@
                 <input type="hidden" id="ticketId" name="ticketId" th:value="${ticketId}" />
 
                 <input type="text" class="form-control" id="messageContent" name="content"
-                       th:placeholder="#{messages.new}" required />
+                       th:placeholder="#{messages.new}"/>
 
-                <input type="file" id="messageFile" name="file" class="form-control-file d-none" />
+                <input type="file" id="messageFile" name="files" class="form-control-file d-none" />
                 <label for="messageFile" class="btn btn-outline-secondary mb-0">
                     <i class="fas fa-paperclip"></i>
                 </label>

@@ -7,7 +7,7 @@
     <title th:text="#{tickets.management}"></title>
     <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body data-bs-theme="light">
+<body data-bs-theme="light" th:attr="data-roles=${#authentication.principal != null ? #authentication.principal.authorities : '[]'}">
 <!-- نوار بالایی -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 

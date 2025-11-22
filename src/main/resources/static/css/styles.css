@@ -288,3 +288,35 @@ td{
     background-color: #c5e1a5;
     float: right;
 }
+
+.chat-thumb {
+    width: 120px;
+    height: auto;
+    border-radius: 6px;
+    margin-right: 8px;
+    margin-bottom: 6px;
+    border: 1px solid #ccc;
+}
+.attachments a {
+    display: inline-block;
+}
+
+.message.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+.message.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
+.ltr {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    text-align: left;
+}
+
+.small-text {
+    font-size: 12px;
+}

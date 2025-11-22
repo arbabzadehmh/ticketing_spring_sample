@@ -10,6 +10,13 @@ function loadTickets(page = 0, extraParams = {}) {
     const searchStatusElement = document.getElementById('searchStatus');
     const searchSectionElement = document.getElementById('searchSection');
 
+    const rawRoles = document.body.dataset.roles;
+
+    const roles = rawRoles
+        ? rawRoles.replace(/^\[|\]$/g, '').split(',').map(r => r.trim())
+        : [];
+
+
     if (!container || !pageSizeElement) {
         console.log('%cTickets table not found, skipping loadTickets()', 'color: orange;');
         return;
@@ -115,7 +122,7 @@ function loadTickets(page = 0, extraParams = {}) {
             return res.json();
         })
         .then(data => {
-            renderTicketsTable(data.content);
+            renderTicketsTable(data.content, roles);
             renderPagination(data, currentPage);
 
             const ps = document.getElementById('pageSize');
@@ -132,13 +139,18 @@ function loadTickets(page = 0, extraParams = {}) {
 }
 
 // -------------------- Render Table --------------------
-function renderTicketsTable(tickets) {
+function renderTicketsTable(tickets, roles) {
     const tableBody = document.querySelector("#tickets-table tbody");
     if (!tableBody) return;
 
     tableBody.innerHTML = '';
 
     tickets.forEach(t => {
+
+        const canEdit = roles.includes("TICKET_EDIT");
+        const canDelete = roles.includes("TICKET_DELETE");
+
+
         const row = document.createElement('tr');
 
         const sectionName = t.section?.title ?? t.section?.parentSection?.title ?? '-';
@@ -151,7 +163,6 @@ function renderTicketsTable(tickets) {
         row.innerHTML = `
       <td>${escapeHtml(t.title || '-')}</td>
       <td>${escapeHtml(sectionName)}</td>
-      <td>${escapeHtml(customerName)}</td>
       <td>${escapeHtml(status)}</td>
       <td>${escapeHtml(score)}</td>
       <td>${formatDateTime(t.dateTime)}</td>
@@ -163,6 +174,7 @@ function renderTicketsTable(tickets) {
       </td>
         
       <td>
+      ${canEdit ? `
         <button class="btn btn-sm btn-warning btn-edit" 
             data-id="${t.id}"
             data-title="${escapeAttr(t.title || '')}"
@@ -170,10 +182,14 @@ function renderTicketsTable(tickets) {
             data-status="${escapeAttr(status)}">
           <i class="fas fa-edit"></i>
         </button>
+        ` : ""}
+        
+        ${canDelete ? `
         <button class="btn btn-sm btn-danger btn-delete"
             data-id="${t.id}">
           <i class="fas fa-trash"></i>
         </button>
+        ` : ""}
       </td>
     `;
         tableBody.appendChild(row);
