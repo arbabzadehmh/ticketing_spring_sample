@@ -1,6 +1,7 @@
 package ir.service.impl;
 
 
+import ir.controller.exception.OcrException;
 import ir.model.entity.Attachment;
 import ir.repository.AttachmentRepository;
 import net.sourceforge.tess4j.Tesseract;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -28,13 +30,13 @@ public class OcrService {
     private String tessDataPath;
 
     @Async
-    public CompletableFuture<Void> extractTextForAttachmentAsync(Attachment attachment) {
+    public CompletableFuture<String> extractTextForAttachmentAsync(Attachment attachment) {
         try {
             GridFsResource res = fileStorageService.getResource(attachment.getMongoFileId());
-            if (res == null) return CompletableFuture.completedFuture(null);
+            if (res == null) return CompletableFuture.completedFuture("");
 
             BufferedImage image = ImageIO.read(res.getInputStream());
-            if (image == null) return CompletableFuture.completedFuture(null); // not an image
+            if (image == null) return CompletableFuture.completedFuture(""); // not an image
 
             Tesseract t = new Tesseract();
             t.setDatapath(tessDataPath);
@@ -44,11 +46,35 @@ public class OcrService {
 
             attachment.setExtractedText(text);
             attachmentRepository.save(attachment);
+
+            return CompletableFuture.completedFuture(text);
+
         } catch (Exception e) {
-            // لاگ کن و ادامه بده
-//            log.error("OCR failed for attachment {}", attachment.getId(), e);
+            throw new OcrException();
         }
-        return CompletableFuture.completedFuture(null);
+    }
+
+    public String extractTextSync(Attachment attachment) {
+        try {
+            GridFsResource res = fileStorageService.getResource(attachment.getMongoFileId());
+            if (res == null) return "";
+
+            BufferedImage image = ImageIO.read(res.getInputStream());
+            if (image == null) return ""; // not an image
+
+            Tesseract t = new Tesseract();
+            t.setDatapath(tessDataPath);
+            t.setLanguage("fas"); // فارسی
+
+            String text = t.doOCR(image);
+
+            attachment.setExtractedText(text);
+            attachmentRepository.save(attachment);
+
+            return text;
+        } catch (Exception e) {
+            throw new OcrException();
+        }
     }
 
 }

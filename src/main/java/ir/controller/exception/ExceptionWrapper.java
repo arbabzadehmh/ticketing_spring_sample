@@ -53,6 +53,8 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.file.read", null, locale);
         } else if (e instanceof FileStorageException) {
             return messageSource.getMessage("error.file.storage", null, locale);
+        } else if (e instanceof OcrException) {
+            return messageSource.getMessage("error.ocr", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

@@ -44,6 +44,12 @@ public class Message extends Base {
     private Long ticketId;
 
     @OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Attachment> attachments = new ArrayList<>();
+    private List<Attachment> attachments;
 
+    public void addAttachment(Attachment attachment) {
+        if (attachments == null) {
+            attachments = new ArrayList<>();
+        }
+        attachments.add(attachment);
+    }
 }

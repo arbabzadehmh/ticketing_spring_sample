@@ -9,10 +9,8 @@ import java.security.Principal;
 import java.util.List;
 
 public interface MessageService {
-    Message save(Long ticketId,
-                 String content,
-                 Principal principal,
-                 List<MultipartFile> files);
+    Message save(Long ticketId, String content, Principal principal, List<MultipartFile> files);
+    Message saveOcrMessage(Long ticketId, Principal principal, MultipartFile file);
     Message update(Message message);
     void delete(Long id);
     List<Message> findAll();

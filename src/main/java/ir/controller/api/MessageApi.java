@@ -37,4 +37,15 @@ public class MessageApi {
         return ResponseEntity.ok(savedMessage);
     }
 
+    @PostMapping("/ocr/{ticketId}")
+    public ResponseEntity<Message> sendOcrMessage(
+            @PathVariable Long ticketId,
+            @RequestParam("file") MultipartFile file,
+            Principal principal) {
+
+        Message ocrMessage = messageService.saveOcrMessage(ticketId, principal, file);
+        return ResponseEntity.ok(ocrMessage);
+    }
+
+
 }

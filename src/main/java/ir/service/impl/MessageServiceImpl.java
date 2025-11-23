@@ -1,5 +1,6 @@
 package ir.service.impl;
 
+import ir.controller.exception.FileStorageException;
 import ir.model.entity.*;
 import ir.model.enums.FileType;
 import ir.model.enums.TicketStatus;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -89,22 +91,68 @@ public class MessageServiceImpl implements MessageService {
             message.setAttachments(attachments);
             messageRepository.save(message);
 
-            // fire OCR async for image attachments (see next)
-            attachments.stream()
-                    .filter(a -> a.getFileType() == FileType.JPG || a.getFileType() == FileType.PNG || a.getFileType() == FileType.BMP)
-                    .forEach(a -> ocrService.extractTextForAttachmentAsync(a)); // async method, explained below
-
             return message;
 
         } catch (Exception ex) {
             // cleanup GridFS files that were created
             for (String id : storedMongoIds) {
-                try { fileStorageService.deleteById(id); } catch (Exception ignore) {}
+                try {
+                    fileStorageService.deleteById(id);
+                } catch (Exception ignore) {
+
+                }
             }
             // optionally delete the message we saved (if you want atomic-like behaviour)
             // messageRepository.deleteById(message.getId());
 
-            throw new RuntimeException("Failed to save attachments", ex);
+            throw new FileStorageException();
+        }
+    }
+
+    @Transactional
+    @Override
+    public Message saveOcrMessage(Long ticketId,
+                                  Principal principal,
+                                  MultipartFile file) {
+
+        Message message = Message.builder()
+                .content("")
+                .dateTime(LocalDateTime.now())
+                .senderUsername(principal.getName())
+                .senderRoleName(getUserRole(principal))
+                .ticketId(ticketId)
+                .build();
+
+        messageRepository.save(message);
+
+        if (file == null || file.isEmpty()) {
+            return message;
+        }
+
+        try {
+
+            String mongoId = fileStorageService.store(file, principal.getName());
+            FileType fileType = mapContentTypeToFileType(file.getContentType());
+
+            Attachment attachment = Attachment.builder()
+                    .fileName(file.getOriginalFilename())
+                    .fileSize(file.getSize())
+                    .fileType(fileType)
+                    .attachTime(LocalDateTime.now())
+                    .mongoFileId(mongoId)
+                    .message(message)
+                    .build();
+
+            ocrService.extractTextSync(attachment);
+            attachmentRepository.save(attachment);
+
+            message.addAttachment(attachment);
+            messageRepository.save(message);
+
+            return message;
+
+        } catch (Exception ex) {
+            throw new FileStorageException();
         }
     }
 
@@ -170,12 +218,18 @@ public class MessageServiceImpl implements MessageService {
     private FileType mapContentTypeToFileType(String contentType) {
         if (contentType == null) return null;
         switch (contentType.toLowerCase()) {
-            case "image/jpeg": return FileType.JPG;
-            case "image/png":  return FileType.PNG;
-            case "image/bmp":  return FileType.BMP;
-            case "application/pdf": return FileType.PDF;
-            case "text/plain": return FileType.TXT;
-            default: return null;
+            case "image/jpeg":
+                return FileType.JPG;
+            case "image/png":
+                return FileType.PNG;
+            case "image/bmp":
+                return FileType.BMP;
+            case "application/pdf":
+                return FileType.PDF;
+            case "text/plain":
+                return FileType.TXT;
+            default:
+                return null;
         }
     }
 }
