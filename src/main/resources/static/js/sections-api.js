@@ -115,6 +115,7 @@ function renderSectionsTable(sections, roles) {
         row.innerHTML = `
             <td>${s.title}</td>
             <td>${s.parentSection ? s.parentSection.title : '—'}</td>
+            <td>${s.buildingTitle ? s.buildingTitle : '—'}</td>
             <td>
                 ${canEdit ? `
                     <button class="btn btn-sm btn-warning btn-edit"

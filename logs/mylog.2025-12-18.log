@@ -1,0 +1,1389 @@
+00:01:00.873 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+00:01:00.914 [restartedMain] INFO  ir.TicketingSpringSample - Starting TicketingSpringSample using Java 17.0.12 with PID 19720 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+00:01:00.915 [restartedMain] INFO  ir.TicketingSpringSample - The following 1 profile is active: "dev"
+00:01:00.970 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\arbab\.m2\repository\com\oracle\database\jdbc\ojdbc11\21.9.0.0\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/arbab/.m2/repository/com/oracle/database/jdbc/ojdbc11/21.9.0.0/oraclepki.jar
+00:01:00.980 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+00:01:00.980 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+00:01:01.625 [restartedMain] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'localeResolver' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=webConfig; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [ir/config/WebConfig.class]]
+00:01:01.631 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:01:01.631 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+00:01:01.737 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data JPA - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+00:01:01.785 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 149 ms. Found 10 JPA repository interfaces.
+00:01:02.109 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:01:02.109 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+00:01:02.121 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.122 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.122 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.122 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.122 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.122 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.123 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.123 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.123 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.123 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:01:02.128 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 1 MongoDB repository interface.
+00:01:02.135 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:01:02.136 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.151 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.152 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.152 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:01:02.152 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+00:01:02.361 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=442e5a8d-dc3d-3912-b760-d9b44b978210
+00:01:03.039 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8443 (https)
+00:01:03.047 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8443"]
+00:01:03.050 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+00:01:03.050 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+00:01:03.099 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+00:01:03.099 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2111 ms
+00:01:03.477 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+00:01:03.512 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+00:01:03.536 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+00:01:03.726 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+00:01:03.749 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+00:01:03.967 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@455fd928
+00:01:03.968 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+00:01:04.090 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+00:01:04.108 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+00:01:04.978 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+00:01:05.118 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table attachment_tbl 
+       modify file_type smallint
+00:01:05.133 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table ticket_tbl 
+       modify status smallint
+00:01:05.186 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+00:01:05.823 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+00:01:06.358 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'update' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.update(java.lang.Long,ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:01:06.361 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'save' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.save(ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:01:06.361 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public org.springframework.data.domain.Page ir.service.impl.SectionServiceImpl.findAll(org.springframework.data.domain.Pageable)] caches=[sectionsPageable] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:01:06.362 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAll()] caches=[sections] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:01:06.362 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'deleteById' with operations: [Builder[public void ir.service.impl.SectionServiceImpl.deleteById(java.lang.Long)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:01:06.362 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAllForFilter' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAllForFilter()] caches=[sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:01:06.617 [restartedMain] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/17.0.12+8-LTS-286"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@6807e7e], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@52ac1789, com.mongodb.Jep395RecordCodecProvider@7193442b, com.mongodb.KotlinCodecProvider@27087f1f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@22a51aab], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+00:01:06.629 [cluster-ClusterId{value='6943130a5117695b3dc6fb21', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=24612700, minRoundTripTimeNanos=0}
+00:01:06.787 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+00:01:07.039 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'kafkaBootstrapTest': Injection of autowired dependencies failed
+00:01:07.041 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+00:01:07.044 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+00:01:07.051 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+00:01:07.056 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+00:01:07.077 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+00:01:07.091 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'kafkaBootstrapTest': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1445)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at ir.TicketingSpringSample.main(TicketingSpringSample.java:41)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'kafka.bootstrap-servers' in value "${kafka.bootstrap-servers}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81)
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:423)
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:128)
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:118)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:255)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:226)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:201)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:971)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1574)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	... 24 common frames omitted
+00:02:09.752 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+00:02:09.789 [restartedMain] INFO  ir.TicketingSpringSample - Starting TicketingSpringSample using Java 17.0.12 with PID 15248 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+00:02:09.790 [restartedMain] INFO  ir.TicketingSpringSample - The following 1 profile is active: "dev"
+00:02:09.836 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\arbab\.m2\repository\com\oracle\database\jdbc\ojdbc11\21.9.0.0\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/arbab/.m2/repository/com/oracle/database/jdbc/ojdbc11/21.9.0.0/oraclepki.jar
+00:02:09.836 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+00:02:09.836 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+00:02:10.450 [restartedMain] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'localeResolver' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=webConfig; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [ir/config/WebConfig.class]]
+00:02:10.455 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:02:10.455 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+00:02:10.558 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data JPA - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+00:02:10.606 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 146 ms. Found 10 JPA repository interfaces.
+00:02:10.923 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:02:10.923 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+00:02:10.935 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.935 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.935 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.936 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.936 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.936 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.936 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.936 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.937 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.937 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:02:10.942 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 1 MongoDB repository interface.
+00:02:10.949 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:02:10.950 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+00:02:10.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.965 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.966 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:02:10.966 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+00:02:11.174 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=442e5a8d-dc3d-3912-b760-d9b44b978210
+00:02:11.844 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8443 (https)
+00:02:11.852 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8443"]
+00:02:11.855 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+00:02:11.855 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+00:02:11.900 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+00:02:11.901 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2057 ms
+00:02:12.291 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+00:02:12.325 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+00:02:12.349 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+00:02:12.535 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+00:02:12.556 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+00:02:12.753 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@5296ec15
+00:02:12.755 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+00:02:12.865 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+00:02:12.883 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+00:02:13.729 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+00:02:13.861 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table attachment_tbl 
+       modify file_type smallint
+00:02:13.876 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table ticket_tbl 
+       modify status smallint
+00:02:13.931 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+00:02:14.566 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+00:02:15.081 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'update' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.update(java.lang.Long,ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:02:15.084 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'save' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.save(ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:02:15.085 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public org.springframework.data.domain.Page ir.service.impl.SectionServiceImpl.findAll(org.springframework.data.domain.Pageable)] caches=[sectionsPageable] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:02:15.085 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAll()] caches=[sections] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:02:15.085 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'deleteById' with operations: [Builder[public void ir.service.impl.SectionServiceImpl.deleteById(java.lang.Long)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:02:15.085 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAllForFilter' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAllForFilter()] caches=[sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:02:15.343 [restartedMain] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/17.0.12+8-LTS-286"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@7b12f643], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1e213823, com.mongodb.Jep395RecordCodecProvider@1b1858bd, com.mongodb.KotlinCodecProvider@28d7d2de]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@2ca3d93c], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+00:02:15.354 [cluster-ClusterId{value='6943134fa6e9f33a6882bbd6', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=21151800, minRoundTripTimeNanos=0}
+00:02:15.496 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+00:02:15.831 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:02:16.440 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+00:02:16.441 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+00:02:17.079 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+00:02:17.256 [restartedMain] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+00:02:17.260 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, ChannelProcessingFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+00:02:17.980 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:oracle:thin:@localhost:1521:xe'
+00:02:19.289 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+00:02:19.397 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["https-jsse-nio-8443"]
+00:02:19.451 [restartedMain] INFO  o.a.t.u.net.NioEndpoint.certificate - Connector [https-jsse-nio-8443], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [C:\Users\arbab\.keystore] using alias [ticketingkey] with trust store [null]
+00:02:19.461 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8443 (https) with context path '/'
+00:02:20.613 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+00:02:20.639 [restartedMain] INFO  o.a.k.c.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = earliest
+	bootstrap.servers = [37.19.95.188:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-building-service-updater-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = building-service-updater
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+00:02:20.671 [restartedMain] INFO  o.a.k.c.t.i.KafkaMetricsCollector - initializing Kafka metrics collector
+00:02:20.726 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version: 3.8.1
+00:02:20.727 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId: 70d6ff42debf7e17
+00:02:20.727 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1766003540726
+00:02:20.738 [restartedMain] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Subscribed to topic(s): address-created-topic
+00:02:20.761 [restartedMain] INFO  ir.TicketingSpringSample - Started TicketingSpringSample in 12.445 seconds (process running for 13.235)
+00:02:20.771 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'SimpleKey []' for operation Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAll()] caches=[sections] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:02:20.772 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'SimpleKey []' in cache(s) [sections]
+00:02:20.780 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@339454850 wrapping oracle.jdbc.driver.T4CConnection@5296ec15] read-only
+00:02:20.783 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:02:20.783 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:02:20.836 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        s1_0.id,
+        s1_0.building_id,
+        s1_0.deleted,
+        s1_0.parent_section_id,
+        s1_0.title 
+    from
+        section_table s1_0 
+    where
+        (
+            s1_0.deleted = 0
+        )
+00:02:20.855 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.857 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.862 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [null]
+00:02:20.863 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.863 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [MAIN SECTION]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [HSE]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TRANSPORT]
+00:02:20.867 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [BUS]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TAXI]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.868 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TEST B]
+00:02:20.871 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.873 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [21]
+00:02:20.880 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.880 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [5]
+00:02:20.881 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.882 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [4]
+00:02:20.883 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.883 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [3]
+00:02:20.884 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.884 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [4]
+00:02:20.885 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.885 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [5]
+00:02:20.885 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.885 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [21]
+00:02:20.886 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.886 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [2]
+00:02:20.887 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.887 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [1]
+00:02:20.887 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.887 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [2]
+00:02:20.888 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.888 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [3]
+00:02:20.891 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:02:20.893 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@339454850 wrapping oracle.jdbc.driver.T4CConnection@5296ec15]
+00:02:20.894 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'SimpleKey []' in cache(s) [sections]
+00:02:20.894 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'Page request [number: 0, size 50, sort: UNSORTED]' for operation Builder[public org.springframework.data.domain.Page ir.service.impl.SectionServiceImpl.findAll(org.springframework.data.domain.Pageable)] caches=[sectionsPageable] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:02:20.894 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'Page request [number: 0, size 50, sort: UNSORTED]' in cache(s) [sectionsPageable]
+00:02:20.894 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@889338125 wrapping oracle.jdbc.driver.T4CConnection@5296ec15] read-only
+00:02:20.895 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:02:20.895 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:02:20.897 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        s1_0.id,
+        s1_0.building_id,
+        s1_0.deleted,
+        s1_0.parent_section_id,
+        s1_0.title 
+    from
+        section_table s1_0 
+    where
+        (
+            s1_0.deleted = 0
+        ) 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+00:02:20.897 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:INTEGER) <- [0]
+00:02:20.897 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:INTEGER) <- [50]
+00:02:20.898 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [null]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [MAIN SECTION]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.899 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [HSE]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TRANSPORT]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [BUS]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.900 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TAXI]
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TEST B]
+00:02:20.901 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.901 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [21]
+00:02:20.902 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.903 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [5]
+00:02:20.904 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.904 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [4]
+00:02:20.905 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.905 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [3]
+00:02:20.906 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.906 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [4]
+00:02:20.906 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.907 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [5]
+00:02:20.907 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.907 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [21]
+00:02:20.907 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.907 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [2]
+00:02:20.908 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:02:20.908 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [1]
+00:02:20.908 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.909 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [2]
+00:02:20.909 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.909 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [3]
+00:02:20.911 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:02:20.912 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@889338125 wrapping oracle.jdbc.driver.T4CConnection@5296ec15]
+00:02:20.912 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'Page request [number: 0, size 50, sort: UNSORTED]' in cache(s) [sectionsPageable]
+00:02:20.912 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'SimpleKey []' for operation Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAllForFilter()] caches=[sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:02:20.912 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'SimpleKey []' in cache(s) [sectionsFilter]
+00:02:20.913 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@2121653274 wrapping oracle.jdbc.driver.T4CConnection@5296ec15] read-only
+00:02:20.913 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:02:20.913 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:02:20.922 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        new  ir.dto.SectionFilterDto(s.id, s.title) 
+    FROM
+        sectionEntity s 
+    where
+        s.deleted = false */ select
+            s1_0.id,
+            s1_0.title 
+        from
+            section_table s1_0 
+        where
+            (
+                s1_0.deleted = 0
+            ) 
+            and s1_0.deleted=0
+00:02:20.924 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [MAIN SECTION]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [HSE]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TRANSPORT]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [BUS]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TAXI]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:02:20.925 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TEST B]
+00:02:20.926 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:02:20.927 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@2121653274 wrapping oracle.jdbc.driver.T4CConnection@5296ec15]
+00:02:20.927 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'SimpleKey []' in cache(s) [sectionsFilter]
+00:02:20.927 [restartedMain] INFO  ir.config.SectionCacheWarmup - **************************************************************  cache sections  ***************************************************************
+00:02:20.928 [restartedMain] INFO  ir.TicketingSpringSample - **************************************************************Spring Boot Application Started
+00:02:21.423 [RMI TCP Connection(4)-172.19.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+00:02:21.424 [RMI TCP Connection(4)-172.19.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+00:02:21.426 [RMI TCP Connection(4)-172.19.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+00:02:21.481 [RMI TCP Connection(3)-172.19.0.1] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+00:02:21.486 [RMI TCP Connection(3)-172.19.0.1] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+00:02:21.836 [boundedElastic-1] WARN  o.s.b.a.d.r.RedisReactiveHealthIndicator - Redis health check failed
+org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.translateException(LettuceConnectionFactory.java:1858)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1789)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1586)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.lambda$getConnection$0(LettuceConnectionFactory.java:1566)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.doInLock(LettuceConnectionFactory.java:1527)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:1563)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedReactiveConnection(LettuceConnectionFactory.java:1274)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getReactiveConnection(LettuceConnectionFactory.java:1149)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getReactiveConnection(LettuceConnectionFactory.java:120)
+	at reactor.core.publisher.MonoSupplier.call(MonoSupplier.java:67)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:63)
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:41)
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:354)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:219)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.lambda$getConnection$1(StandaloneConnectionProvider.java:112)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:112)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1787)
+	... 16 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:336)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:339)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:784)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+00:02:23.261 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:23.263 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 1 due to node -1 being disconnected (elapsed time since creation: 2303ms, elapsed time since send: 2303ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:23.263 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:25.677 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:25.677 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 2 due to node -1 being disconnected (elapsed time since creation: 2297ms, elapsed time since send: 2297ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:25.677 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:28.165 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:28.165 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 3 due to node -1 being disconnected (elapsed time since creation: 2307ms, elapsed time since send: 2307ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:28.165 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:30.641 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:30.641 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 4 due to node -1 being disconnected (elapsed time since creation: 2272ms, elapsed time since send: 2272ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:30.641 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:33.365 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:33.365 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 5 due to node -1 being disconnected (elapsed time since creation: 2313ms, elapsed time since send: 2313ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:33.365 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:36.344 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:36.345 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 6 due to node -1 being disconnected (elapsed time since creation: 2268ms, elapsed time since send: 2268ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:36.345 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:39.581 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:39.581 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 8 due to node -1 being disconnected (elapsed time since creation: 2241ms, elapsed time since send: 2241ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:39.581 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:42.935 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:42.935 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 9 due to node -1 being disconnected (elapsed time since creation: 2312ms, elapsed time since send: 2312ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:42.935 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:46.070 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:02:46.070 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 11 due to node -1 being disconnected (elapsed time since creation: 2178ms, elapsed time since send: 2178ms, throttle time: 0ms, request timeout: 30000ms)
+00:02:46.070 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:02:48.607 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Resetting generation and member id due to: consumer pro-actively leaving the group
+00:02:48.607 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Request joining group due to: consumer pro-actively leaving the group
+00:02:48.607 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Unsubscribed all topics or patterns and assigned partitions
+00:02:48.608 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Resetting generation and member id due to: consumer pro-actively leaving the group
+00:02:48.608 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Request joining group due to: consumer pro-actively leaving the group
+00:02:48.610 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+00:02:48.610 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+00:02:48.611 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+00:02:48.611 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+00:02:48.615 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-building-service-updater-1 unregistered
+00:02:48.616 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - building-service-updater: Consumer stopped
+00:02:48.617 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+00:02:48.713 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+00:02:48.736 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+00:02:48.738 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+00:02:48.745 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+00:05:27.868 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+00:05:27.906 [restartedMain] INFO  ir.TicketingSpringSample - Starting TicketingSpringSample using Java 17.0.12 with PID 19840 (D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample\target\classes started by arbab in D:\JAVA\MFT learning\projects\Spring\ticketing_spring_sample)
+00:05:27.907 [restartedMain] INFO  ir.TicketingSpringSample - The following 1 profile is active: "dev"
+00:05:27.951 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\arbab\.m2\repository\com\oracle\database\jdbc\ojdbc11\21.9.0.0\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/arbab/.m2/repository/com/oracle/database/jdbc/ojdbc11/21.9.0.0/oraclepki.jar
+00:05:27.951 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+00:05:27.952 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+00:05:28.585 [restartedMain] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'localeResolver' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=webConfig; factoryMethodName=localeResolver; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [ir/config/WebConfig.class]]
+00:05:28.590 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:05:28.590 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+00:05:28.699 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data JPA - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+00:05:28.755 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 158 ms. Found 10 JPA repository interfaces.
+00:05:29.074 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:05:29.075 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+00:05:29.086 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.087 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.087 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.087 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.087 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.087 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.088 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.088 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.088 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.088 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+00:05:29.093 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 1 MongoDB repository interface.
+00:05:29.100 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+00:05:29.101 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+00:05:29.116 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.AttachmentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.116 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.BuildingRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.116 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ImageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.116 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.OutboxRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.SectionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.TicketRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface ir.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+00:05:29.117 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+00:05:29.343 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=442e5a8d-dc3d-3912-b760-d9b44b978210
+00:05:30.017 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8443 (https)
+00:05:30.029 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8443"]
+00:05:30.032 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+00:05:30.032 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+00:05:30.076 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+00:05:30.076 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2116 ms
+00:05:30.440 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+00:05:30.473 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+00:05:30.494 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+00:05:30.675 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+00:05:30.696 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+00:05:30.892 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@5c41e1ff
+00:05:30.894 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+00:05:31.005 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+00:05:31.023 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+00:05:31.868 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+00:05:32.004 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table attachment_tbl 
+       modify file_type smallint
+00:05:32.018 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table ticket_tbl 
+       modify status smallint
+00:05:32.069 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+00:05:32.711 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+00:05:33.216 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'update' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.update(java.lang.Long,ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:05:33.219 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'save' with operations: [Builder[public ir.model.entity.Section ir.service.impl.SectionServiceImpl.save(ir.model.entity.Section)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:05:33.220 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public org.springframework.data.domain.Page ir.service.impl.SectionServiceImpl.findAll(org.springframework.data.domain.Pageable)] caches=[sectionsPageable] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:05:33.220 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAll' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAll()] caches=[sections] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:05:33.220 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'deleteById' with operations: [Builder[public void ir.service.impl.SectionServiceImpl.deleteById(java.lang.Long)] caches=[sections, sectionsPageable, sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='',true,false]
+00:05:33.220 [restartedMain] TRACE o.s.c.a.AnnotationCacheOperationSource - Adding cacheable method 'findAllForFilter' with operations: [Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAllForFilter()] caches=[sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false']
+00:05:33.476 [restartedMain] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/17.0.12+8-LTS-286"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@405eb08c], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@4138a304, com.mongodb.Jep395RecordCodecProvider@10a6c224, com.mongodb.KotlinCodecProvider@1d74f29a]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@1da32aaa], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+00:05:33.488 [cluster-ClusterId{value='694314158a3ea405655c7eca', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=19977000, minRoundTripTimeNanos=0}
+00:05:33.632 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+00:05:33.973 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:05:34.578 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+00:05:34.578 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+00:05:35.199 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+00:05:35.410 [restartedMain] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+00:05:35.414 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, ChannelProcessingFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+00:05:36.075 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:oracle:thin:@localhost:1521:xe'
+00:05:37.388 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+00:05:37.489 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["https-jsse-nio-8443"]
+00:05:37.543 [restartedMain] INFO  o.a.t.u.net.NioEndpoint.certificate - Connector [https-jsse-nio-8443], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [C:\Users\arbab\.keystore] using alias [ticketingkey] with trust store [null]
+00:05:37.554 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8443 (https) with context path '/'
+00:05:38.714 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+00:05:38.742 [restartedMain] INFO  o.a.k.c.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = earliest
+	bootstrap.servers = [37.19.95.188:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-building-service-updater-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = building-service-updater
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+00:05:38.774 [restartedMain] INFO  o.a.k.c.t.i.KafkaMetricsCollector - initializing Kafka metrics collector
+00:05:38.827 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version: 3.8.1
+00:05:38.827 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId: 70d6ff42debf7e17
+00:05:38.827 [restartedMain] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1766003738826
+00:05:38.836 [restartedMain] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Subscribed to topic(s): address-created-topic
+00:05:38.856 [restartedMain] INFO  ir.TicketingSpringSample - Started TicketingSpringSample in 12.442 seconds (process running for 13.361)
+00:05:38.865 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'SimpleKey []' for operation Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAll()] caches=[sections] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:05:38.866 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'SimpleKey []' in cache(s) [sections]
+00:05:38.873 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@858461090 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff] read-only
+00:05:38.875 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:05:38.875 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:05:38.916 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        s1_0.id,
+        s1_0.building_id,
+        s1_0.deleted,
+        s1_0.parent_section_id,
+        s1_0.title 
+    from
+        section_table s1_0 
+    where
+        (
+            s1_0.deleted = 0
+        )
+00:05:38.935 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.937 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.943 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [null]
+00:05:38.943 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.944 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [MAIN SECTION]
+00:05:38.947 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [HSE]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.948 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TRANSPORT]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [BUS]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.949 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TAXI]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.950 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TEST B]
+00:05:38.954 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.955 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [21]
+00:05:38.962 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.963 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [5]
+00:05:38.964 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.964 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [4]
+00:05:38.965 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.965 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [3]
+00:05:38.966 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.966 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [4]
+00:05:38.967 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.967 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [5]
+00:05:38.967 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.968 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [21]
+00:05:38.968 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.968 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [2]
+00:05:38.970 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.970 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [1]
+00:05:38.971 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.971 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [2]
+00:05:38.971 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.972 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [3]
+00:05:38.976 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:05:38.978 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@858461090 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff]
+00:05:38.979 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'SimpleKey []' in cache(s) [sections]
+00:05:38.980 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'Page request [number: 0, size 50, sort: UNSORTED]' for operation Builder[public org.springframework.data.domain.Page ir.service.impl.SectionServiceImpl.findAll(org.springframework.data.domain.Pageable)] caches=[sectionsPageable] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:05:38.980 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'Page request [number: 0, size 50, sort: UNSORTED]' in cache(s) [sectionsPageable]
+00:05:38.980 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@389089475 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff] read-only
+00:05:38.980 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:05:38.980 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:05:38.983 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        s1_0.id,
+        s1_0.building_id,
+        s1_0.deleted,
+        s1_0.parent_section_id,
+        s1_0.title 
+    from
+        section_table s1_0 
+    where
+        (
+            s1_0.deleted = 0
+        ) 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+00:05:38.983 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:INTEGER) <- [0]
+00:05:38.984 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:INTEGER) <- [50]
+00:05:38.985 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.985 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.985 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [null]
+00:05:38.985 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [MAIN SECTION]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [HSE]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.986 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [1]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TRANSPORT]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [BUS]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.987 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TAXI]
+00:05:38.988 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:05:38.988 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [null]
+00:05:38.988 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (4:BIGINT) -> [3]
+00:05:38.988 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (3:BOOLEAN) -> [false]
+00:05:38.988 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (5:VARCHAR) -> [TEST B]
+00:05:38.988 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.989 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [21]
+00:05:38.990 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.990 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [5]
+00:05:38.991 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.991 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [4]
+00:05:38.992 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.993 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [3]
+00:05:38.993 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.994 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [4]
+00:05:38.994 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.994 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [5]
+00:05:38.994 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:38.994 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [21]
+00:05:38.994 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.995 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [2]
+00:05:38.996 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        csl1_0.parent_section_id,
+        csl1_0.id,
+        csl1_0.building_id,
+        csl1_0.deleted,
+        csl1_0.title 
+    from
+        section_table csl1_0 
+    where
+        csl1_0.parent_section_id=? 
+        and (
+            csl1_0.deleted = 0
+        )
+00:05:38.996 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:BIGINT) <- [1]
+00:05:38.997 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.997 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [2]
+00:05:38.997 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:38.997 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:BIGINT) -> [3]
+00:05:39.000 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:05:39.001 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@389089475 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff]
+00:05:39.001 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'Page request [number: 0, size 50, sort: UNSORTED]' in cache(s) [sectionsPageable]
+00:05:39.001 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Computed cache key 'SimpleKey []' for operation Builder[public java.util.List ir.service.impl.SectionServiceImpl.findAllForFilter()] caches=[sectionsFilter] | key='' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
+00:05:39.001 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - No cache entry for key 'SimpleKey []' in cache(s) [sectionsFilter]
+00:05:39.002 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@1416510511 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff] read-only
+00:05:39.002 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+00:05:39.002 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - begin
+00:05:39.013 [restartedMain] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        new  ir.dto.SectionFilterDto(s.id, s.title) 
+    FROM
+        sectionEntity s 
+    where
+        s.deleted = false */ select
+            s1_0.id,
+            s1_0.title 
+        from
+            section_table s1_0 
+        where
+            (
+                s1_0.deleted = 0
+            ) 
+            and s1_0.deleted=0
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [1]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [MAIN SECTION]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [2]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [HSE]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [3]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TRANSPORT]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [4]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [BUS]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [5]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TAXI]
+00:05:39.015 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (1:BIGINT) -> [21]
+00:05:39.016 [restartedMain] TRACE org.hibernate.orm.jdbc.extract - extracted value (2:VARCHAR) -> [TEST B]
+00:05:39.017 [restartedMain] DEBUG o.h.e.t.internal.TransactionImpl - committing
+00:05:39.018 [restartedMain] DEBUG o.s.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@1416510511 wrapping oracle.jdbc.driver.T4CConnection@5c41e1ff]
+00:05:39.018 [restartedMain] TRACE o.s.c.interceptor.CacheInterceptor - Creating cache entry for key 'SimpleKey []' in cache(s) [sectionsFilter]
+00:05:39.018 [restartedMain] INFO  ir.config.SectionCacheWarmup - **************************************************************  cache sections  ***************************************************************
+00:05:39.020 [restartedMain] INFO  ir.TicketingSpringSample - **************************************************************Spring Boot Application Started
+00:05:39.355 [RMI TCP Connection(1)-172.19.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+00:05:39.356 [RMI TCP Connection(1)-172.19.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+00:05:39.358 [RMI TCP Connection(1)-172.19.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+00:05:39.407 [RMI TCP Connection(2)-172.19.0.1] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+00:05:39.411 [RMI TCP Connection(2)-172.19.0.1] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+00:05:39.760 [boundedElastic-1] WARN  o.s.b.a.d.r.RedisReactiveHealthIndicator - Redis health check failed
+org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.translateException(LettuceConnectionFactory.java:1858)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1789)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1586)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.lambda$getConnection$0(LettuceConnectionFactory.java:1566)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.doInLock(LettuceConnectionFactory.java:1527)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:1563)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedReactiveConnection(LettuceConnectionFactory.java:1274)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getReactiveConnection(LettuceConnectionFactory.java:1149)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getReactiveConnection(LettuceConnectionFactory.java:120)
+	at reactor.core.publisher.MonoSupplier.call(MonoSupplier.java:67)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:63)
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:41)
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:354)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:219)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.lambda$getConnection$1(StandaloneConnectionProvider.java:112)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:112)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1787)
+	... 16 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:336)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:339)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:784)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+00:05:41.342 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:05:41.345 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 1 due to node -1 being disconnected (elapsed time since creation: 2284ms, elapsed time since send: 2284ms, throttle time: 0ms, request timeout: 30000ms)
+00:05:41.345 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:05:43.673 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:05:43.674 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 2 due to node -1 being disconnected (elapsed time since creation: 2245ms, elapsed time since send: 2245ms, throttle time: 0ms, request timeout: 30000ms)
+00:05:43.674 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:05:46.159 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:05:46.160 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 3 due to node -1 being disconnected (elapsed time since creation: 2332ms, elapsed time since send: 2332ms, throttle time: 0ms, request timeout: 30000ms)
+00:05:46.160 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:05:48.692 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:05:48.692 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 5 due to node -1 being disconnected (elapsed time since creation: 2269ms, elapsed time since send: 2269ms, throttle time: 0ms, request timeout: 30000ms)
+00:05:48.692 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:05:51.435 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Node -1 disconnected.
+00:05:51.435 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Cancelled in-flight API_VERSIONS request with correlation id 6 due to node -1 being disconnected (elapsed time since creation: 2294ms, elapsed time since send: 2294ms, throttle time: 0ms, request timeout: 30000ms)
+00:05:51.435 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Bootstrap broker 37.19.95.188:9092 (id: -1 rack: null) disconnected
+00:05:53.355 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Resetting generation and member id due to: consumer pro-actively leaving the group
+00:05:53.355 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Request joining group due to: consumer pro-actively leaving the group
+00:05:53.355 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Unsubscribed all topics or patterns and assigned partitions
+00:05:53.356 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Resetting generation and member id due to: consumer pro-actively leaving the group
+00:05:53.356 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-building-service-updater-1, groupId=building-service-updater] Request joining group due to: consumer pro-actively leaving the group
+00:05:53.361 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+00:05:53.361 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+00:05:53.361 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+00:05:53.361 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+00:05:53.365 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-building-service-updater-1 unregistered
+00:05:53.367 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - building-service-updater: Consumer stopped
+00:05:53.368 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+00:05:53.462 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+00:05:53.484 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+00:05:53.486 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+00:05:53.493 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

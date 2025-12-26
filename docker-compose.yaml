@@ -21,6 +21,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=mft123
       - SPRING_DATA_MONGODB_HOST=mongodb
       - SPRING_DATA_REDIS_HOST=redis
+      - ADDRESS_SERVICE_URL=http://100.99.137.56
     volumes:
       - app-logs:/app/logs                # ولوم جدا برای لاگ‌های اپلیکیشن
     entrypoint: [ "/bin/sh", "-c", "sleep 30 && exec java -jar ticketing_spring_sample.jar" ]
@@ -63,6 +64,33 @@ services:
     volumes:
       - redis-data:/data
     restart: unless-stopped
+
+#zookeeper & kafka
+#  روی سرور دیگر بروکر هستند و دراین سرور فقط کلاینت هستند پس
+#  این تنظیمات برای زمانی است که روی همین سرور بخواهند اجرا شده و بروکر باشند
+
+#  zookeeper:
+#    image: bitnami/zookeeper:latest
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      ALLOW_ANONYMOUS_LOGIN: yes
+#    restart: unless-stopped
+#
+#  kafka:
+#    image: bitnami/kafka:latest
+#    ports:
+#      - "9092:9092"
+#    environment:
+#      - KAFKA_BROKER_ID=1
+#      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+#      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092
+#      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://37.19.95.188:9092
+#      - ALLOW_PLAINTEXT_LISTENER=yes
+#    depends_on:
+#      - zookeeper
+#    restart: unless-stopped
+#
 
 volumes:
   postgres-data:

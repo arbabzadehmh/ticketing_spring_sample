@@ -20,7 +20,7 @@
     <div class="container-fluid p-2">
         <!-- در بخشی از صفحه که همیشه وجود دارد -->
         <div id="deleteConfirmText" style="display: none;" th:text="#{sections.delete.confirm}"></div>
-        <!-- فرگمنت جدول پروفایل ها قابل نمایش برای ادمین-->
+        <!-- فرگمنت جدول دپارتمان ها ها قابل نمایش برای ادمین-->
         <div id="sections-table-container">
             <div th:replace="~{fragments/section-fragments/sections-table :: sections-table}"></div>
         </div>
@@ -30,7 +30,7 @@
 <!-- فوتر -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- مودال افزودن/ویرایش مشتری -->
+<!-- مودال افزودن/ویرایش دپارتمان -->
 <div th:replace="~{fragments/section-fragments/section-modal :: section-modal}"></div>
 
 <!-- اسکریپت‌ها -->

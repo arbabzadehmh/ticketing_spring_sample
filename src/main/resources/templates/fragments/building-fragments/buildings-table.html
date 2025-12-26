@@ -1,0 +1,85 @@
+<div th:fragment="buildings-table">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" th:text="#{buildings.title}"></h3>
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#buildingCreateModal">
+                <i class="fas fa-plus me-2"></i>
+                <span th:text="#{buildings.add}"></span>
+            </button>
+        </div>
+
+        <div class="card-body">
+            <!-- کنترل‌های صفحه‌بندی و مرتب‌سازی -->
+            <!-- کنترل‌های صفحه‌بندی و مرتب‌سازی -->
+            <div class="row mb-4 g-3">
+                <div class="col-12 col-md-3">
+                    <select class="form-select" id="pageSize" aria-label="تعداد در صفحه">
+                        <option value="10" th:text="#{profiles.pageSize.10}"
+                                th:selected="${param.size == 10}"></option>
+                        <option value="20" th:text="#{profiles.pageSize.20}"
+                                th:selected="${param.size == 20}"></option>
+                    </select>
+                </div>
+
+                <!-- ورودی جستجو بر اساس lastName (اختیاری) -->
+                <div class="col-12 col-md-3">
+                    <input type="text"
+                           id="searchBuildingTitle"
+                           class="form-control"
+                           th:value="${param.buildingTitle}"
+                           th:placeholder="#{buildings.search.title}">
+                </div>
+
+            </div>
+
+            <div class="table-responsive" id="buildings-table">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th th:text="#{buildings.name}"></th>
+                        <th th:text="#{buildings.sections}"></th>
+                        <th th:text="#{buildings.phones}"></th>
+                        <th th:text="#{buildings.address}"></th>
+                        <th th:text="#{profiles.actions}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="building : ${buildings.content}">
+                        <td th:text="${building.title}"></td>
+                        <td th:text="${#strings.listJoin(building.sections, ', ')}"></td>
+                        <td th:text="${#strings.listJoin(building.phones, ', ')}"></td>
+                        <td th:text="${building.fullAddress}"></td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-warning btn-edit"
+                                        th:data-id="${building.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger"
+                                        th:data-id="${building.id}"
+                                        th:data-confirm-text="#{buildings.delete.confirm}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- صفحه‌بندی -->
+            <nav class="mt-4" aria-label="صفحه‌بندی">
+                <ul class="pagination justify-content-center">
+                    <li th:each="page : ${#numbers.sequence(0, (totalPages - 1))}"
+                        class="page-item"
+                        th:classappend="${page == buildings.number} ? 'active'">
+                        <a class="page-link"
+                           th:text="${page + 1}"
+                           th:data-page="${page}"
+                           role="button"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

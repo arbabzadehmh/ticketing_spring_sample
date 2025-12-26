@@ -20,6 +20,7 @@ public interface SectionService {
     List<Section> findByParentSection(Section section);
     Page<Section> findByTitleContaining(String title, Pageable pageable);
     Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable);
+    List<Section> saveAll(List<Section> sections);
 
 
 }

@@ -1,7 +1,9 @@
 package ir.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -47,11 +49,27 @@ public class Section extends Base {
     @ToString.Exclude
     private List<Section> childSectionList;
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id", foreignKey = @ForeignKey(name = "fk_section_building"))
+    @ToString.Exclude
+    private Building building;
+
     public void addChildSection(Section childSection){
         if (childSectionList == null){
             childSectionList = new ArrayList<>();
         }
         childSectionList.add(childSection);
+    }
+
+    @JsonProperty("buildingId")
+    public Long getBuildingId() {
+        return building != null ? building.getId() : null;
+    }
+
+    @JsonProperty("buildingTitle")
+    public String getBuildingTitle() {
+        return building != null ? building.getTitle() : null;
     }
 
 }

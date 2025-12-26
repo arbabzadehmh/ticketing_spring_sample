@@ -7,8 +7,10 @@ import ir.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.File;
 import java.util.Set;
@@ -17,7 +19,9 @@ import java.util.Set;
 @Slf4j
 @EnableJpaRepositories
 @SpringBootApplication
+@EnableFeignClients
 @EnableAsync
+@EnableScheduling
 public class TicketingSpringSample {
     private static RoleService roleService;
     private static UserService userService;
@@ -45,10 +49,10 @@ public class TicketingSpringSample {
 //        Permission permission =
 //                Permission
 //                        .builder()
-//                        .permissionName("write_data")
+//                        .permissionName("TICKET_CREATE")
 //                        .build();
 //        permissionService.save(permission);
-//        log.info("WRITE_DATA Permission Saved");
+//        log.info("TICKET_CREATE Permission Saved");
 //
 //        Role adminRole =
 //                Role
@@ -124,7 +128,7 @@ public class TicketingSpringSample {
 //        log.info("Message2 Saved");
 //
 //        ticket.addMessage(message2);
-//        ticket.setStatus(TicketStatus.Responsed);
+//        ticket.setStatus(TicketStatus.Responded);
 //        ticketService.update(ticket);
 //        log.info("Ticket Updated");
 //
@@ -156,7 +160,7 @@ public class TicketingSpringSample {
 //        log.info("Message4 Saved");
 //
 //        ticket.addMessage(message4);
-//        ticket.setStatus(TicketStatus.Responsed);
+//        ticket.setStatus(TicketStatus.Responded);
 //        ticketService.update(ticket);
 //        log.info("Ticket Updated");
 //        System.out.println("----------------------------------------------");

@@ -1,0 +1,98 @@
+<div th:fragment="building-create-modal">
+    <div class="modal fade" id="buildingCreateModal" tabindex="-1" aria-labelledby="buildingCreateModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buildingCreateModalLabel" th:text="#{buildings.modal.create.title}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="buildingCreateForm" autocomplete="off">
+                    <div class="modal-body">
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label for="createTitle" class="form-label" th:text="#{buildings.name}"></label>
+                            <input type="text" class="form-control" id="createTitle" name="createTitle">
+                        </div>
+
+
+
+
+<!--                        <div class="mb-3">-->
+<!--                            <label th:text="#{buildings.sections}"></label>-->
+<!--                            <div class="dropdown w-100">-->
+<!--                                <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button"-->
+<!--                                        id="sectionsDropdown" data-bs-toggle="dropdown" aria-expanded="false"-->
+<!--                                        th:text="#{buildings.sections.select}">-->
+<!--                                </button>-->
+<!--                                <ul class="dropdown-menu w-100 p-2" id="sectionsDropdownMenu"-->
+<!--                                    style="max-height: 200px; overflow-y: auto;">-->
+<!--                                    &lt;!&ndash; نقش‌ها به صورت داینامیک اینجا اضافه می‌شوند &ndash;&gt;-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <!-- Sections -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.sections}"></label>
+                            <div id="sectionsContainer" class="border rounded p-2"
+                                 style="max-height:150px;overflow-y:auto">
+                                <!-- checkboxes injected -->
+                            </div>
+                        </div>
+
+                        <!-- Phones -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.phones}"></label>
+
+                            <div class="input-group mb-2">
+                                <input type="text" id="phoneInput" name="phoneInput" class="form-control">
+                                <button type="button" class="btn btn-outline-primary"
+                                        id="addPhoneBtn">+</button>
+                            </div>
+
+                            <div id="phonesList" class="d-flex flex-wrap gap-2"></div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.address}"></label>
+
+                            <select class="form-select mb-2" id="addressSelect">
+                                <option value="" th:text="#{address.select}"></option>
+                            </select>
+
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    id="addNewAddressBtn">
+                                ➕ <span th:text="#{address.new}"></span>
+                            </button>
+                        </div>
+
+                        <!-- New Address -->
+                        <div id="newAddressContainer" class="border rounded p-3 mt-2 d-none">
+                            <h6 th:text="#{address.new}"></h6>
+
+                            <input class="form-control mb-2" th:placeholder="#{address.country}" id="addrCountry" name="addressDto.country">
+                            <input class="form-control mb-2" th:placeholder="#{address.state}" id="addrState" name="addressDto.state">
+                            <input class="form-control mb-2" th:placeholder="#{address.city}" id="addrCity" name="addressDto.city">
+                            <input class="form-control mb-2" th:placeholder="#{address.village}" id="addrVillage" name="addressDto.village">
+                            <input class="form-control mb-2" th:placeholder="#{address.region}" id="addrRegion" name="addressDto.region">
+                            <input class="form-control mb-2" th:placeholder="#{address.street}" id="addrStreet" name="addressDto.street">
+                            <input class="form-control mb-2" th:placeholder="#{address.plate}" id="addrPlate" name="addressDto.platesNumber">
+                            <input class="form-control mb-2" th:placeholder="#{address.floor}" id="addrFloor" name="addressDto.floor">
+                            <input class="form-control mb-2" th:placeholder="#{address.unit}" id="addrUnit" name="addressDto.unit">
+                            <input class="form-control mb-2" th:placeholder="#{address.postalCode}" id="addrPostal" name="addressDto.postalCode">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{profiles.save}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

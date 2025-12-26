@@ -163,6 +163,7 @@ function renderTicketsTable(tickets, roles) {
         row.innerHTML = `
       <td>${escapeHtml(t.title || '-')}</td>
       <td>${escapeHtml(sectionName)}</td>
+      <td>${escapeHtml(customerName)}</td>
       <td>${escapeHtml(status)}</td>
       <td>${escapeHtml(score)}</td>
       <td>${formatDateTime(t.dateTime)}</td>

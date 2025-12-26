@@ -2,7 +2,9 @@ package ir.service.impl;
 
 import ir.controller.exception.*;
 import ir.dto.SectionFilterDto;
+import ir.model.entity.Building;
 import ir.model.entity.Section;
+import ir.repository.BuildingRepository;
 import ir.repository.SectionRepository;
 import ir.service.SectionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +25,7 @@ import java.util.Set;
 @Service
 public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
+    private final BuildingRepository buildingRepository;
 
 //    @PostConstruct
 //    public void init() {
@@ -143,7 +146,23 @@ public class SectionServiceImpl implements SectionService {
             section.getParentSection().getChildSectionList().remove(section);
         }
 
+        Building building = section.getBuilding();  // نگه داشتن مرجع قبل از null کردن
+        if (building != null) {
+            building.getSectionList().remove(section);
+            buildingRepository.save(building);
+        }
+
+        // قطع ارتباط Section با Building
+        section.setBuilding(null);
+
         sectionRepository.save(section); // اگر والد ندارد، فقط خودش را ذخیره کن
+    }
+
+    @Transactional
+    @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
+    @Override
+    public List<Section> saveAll(List<Section> sections) {
+        return sectionRepository.saveAll(sections);
     }
 
 
@@ -168,9 +187,6 @@ public class SectionServiceImpl implements SectionService {
         return sectionRepository.findAllForFilter();
     }
 
-//    public Optional<List<Section>> findAllSections() {
-//        return Optional.of(sectionRepository.findAll());
-//    }
 
     @Override
     public Section findById(Long id) {

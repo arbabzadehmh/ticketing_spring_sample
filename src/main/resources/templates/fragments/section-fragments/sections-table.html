@@ -46,6 +46,7 @@
                     <tr>
                         <th th:text="#{sections.name}"></th>
                         <th th:text="#{sections.parent}"></th>
+                        <th th:text="#{buildings.name}"></th>
                         <th th:text="#{profiles.actions}" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"></th>
                     </tr>
                     </thead>
@@ -56,6 +57,8 @@
                             <span th:if="${section.parentSection != null}" th:text="${section.parentSection.title}"></span>
                             <span th:unless="${section.parentSection != null}">—</span>
                         </td>
+
+                        <td th:text="${section.buildingTitle != null ? section.buildingTitle : '—'}"></td>
 
                         <td>
                             <div class="d-flex gap-2">

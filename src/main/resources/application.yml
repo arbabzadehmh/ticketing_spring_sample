@@ -32,6 +32,27 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+
+  kafka:
+    bootstrap-servers: 100.99.137.56:9092
+    consumer:
+      group-id: building-service-updater
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+kafka:
+  topic:
+    address-create-request: address-create-request-topic
+    address-created: address-created-topic
+
+outbox:
+  publisher:
+    delay: 2000
+
 app:
   ocr:
     tessdata-path: src/main/resources/tessdata   # مسیر فایل‌های زبان Tesseract
@@ -60,6 +81,7 @@ logging:
     #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
     org.springframework.jdbc: DEBUG    # JDBC operations
     org.springframework.cache: TRACE
+    ir.client.AddressClient: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
@@ -70,6 +92,8 @@ logging:
     rollingpolicy:
       max-file-size: 10MB
       max-history: 7
+
+
 
 # Production profile (PostgreSQL)
 ---
@@ -111,6 +135,12 @@ spring:
   cache:
     type: redis
 
+
+address:
+  service:
+    url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
+
+
 server:
   port: 8443                     # HTTPS port
   ssl:
@@ -126,6 +156,7 @@ server:
           http-only: true          # Prevent JS access to cookies
           secure: true             # Only over HTTPS
           same-site: strict        # Prevent CSRF via cross-site requests
+
 
 # Development/Testing profile (H2)
 ---
@@ -177,6 +208,10 @@ spring:
 #    console:
 #      enabled: true              # Enable H2 console for dev
 #      path: /h2-console
+
+address:
+  service:
+    url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
 
 server:
   port: 8443                     # HTTPS port

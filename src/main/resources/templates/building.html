@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
+<head>
+  <title th:text="#{buildings.title}"></title>
+  <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
+</head>
+<body data-bs-theme="light" th:attr="data-is-admin=${isAdmin}">
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+  <div class="container-fluid p-2">
+    <!-- در بخشی از صفحه که همیشه وجود دارد -->
+    <div id="deleteConfirmText" style="display: none;" th:text="#{buildings.delete.confirm}"></div>
+
+    <div id="buildings-table-container">
+      <div th:replace="~{fragments/building-fragments/buildings-table :: buildings-table}"></div>
+    </div>
+
+  </div>
+</main>
+
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- مودال افزودن/ویرایش ساختمان -->
+<div th:replace="~{fragments/building-fragments/building-create-modal :: building-create-modal}"></div>
+<!--<div th:replace="~{fragments/building-fragments/building-edit-modal :: building-edit-modal}"></div>-->
+
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+<!--****************************************  Alternative 1 : use profiles.js instead of profiles-api.js-->
+<!--<script th:src="@{/js/profiles.js}"></script>-->
+
+<!--****************************************  Alternative 2 :-->
+<script th:src="@{/js/buildings-api.js}"></script>
+</body>
+</html>

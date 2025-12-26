@@ -1,6 +1,7 @@
 package ir.controller.api;
 
 import ir.controller.exception.ValidationException;
+import ir.dto.SectionDto;
 import ir.model.entity.Section;
 import ir.repository.SectionRepository;
 import ir.service.SectionService;
@@ -79,6 +80,14 @@ public class SectionApi {
 
         return ResponseEntity.ok(sections);
     }
+
+//    @GetMapping("/dto-for-building")
+//    public List<SectionDto> getAllForBuilding() {
+//        return sectionService.findAll()
+//                .stream()
+//                .map(s -> new SectionDto(s.getId(), s.getTitle()))
+//                .toList();
+//    }
 
 
     @PostMapping

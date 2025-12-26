@@ -1,6 +1,7 @@
 package ir.service.impl;
 
 import ir.controller.exception.FileStorageException;
+import ir.controller.exception.TicketClosedException;
 import ir.model.entity.*;
 import ir.model.enums.FileType;
 import ir.model.enums.TicketStatus;
@@ -44,6 +45,20 @@ public class MessageServiceImpl implements MessageService {
                         Principal principal,
                         List<MultipartFile> files) {
 
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        LocalDateTime lastMessageTime = messageRepository.findLastMessageTime(ticketId);
+
+        if (lastMessageTime != null &&
+                lastMessageTime.isBefore(LocalDateTime.now().minusDays(7))) {
+
+            ticket.setStatus(TicketStatus.Closed);
+            ticketRepository.save(ticket);
+
+            throw new TicketClosedException();
+        }
+
         // ساختن Message جدید
         Message message = Message.builder()
                 .content(content)
@@ -54,6 +69,8 @@ public class MessageServiceImpl implements MessageService {
                 .build();
 
         messageRepository.save(message);
+
+        updateTicketStatusOnNewMessage(ticket, message);
 
         if (files == null || files.isEmpty()) {
             return message;
@@ -115,6 +132,20 @@ public class MessageServiceImpl implements MessageService {
                                   Principal principal,
                                   MultipartFile file) {
 
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        LocalDateTime lastMessageTime = messageRepository.findLastMessageTime(ticketId);
+
+        if (lastMessageTime != null &&
+                lastMessageTime.isBefore(LocalDateTime.now().minusDays(7))) {
+
+            ticket.setStatus(TicketStatus.Closed);
+            ticketRepository.save(ticket);
+
+            throw new TicketClosedException();
+        }
+
         Message message = Message.builder()
                 .content("")
                 .dateTime(LocalDateTime.now())
@@ -124,6 +155,8 @@ public class MessageServiceImpl implements MessageService {
                 .build();
 
         messageRepository.save(message);
+
+        updateTicketStatusOnNewMessage(ticket, message);
 
         if (file == null || file.isEmpty()) {
             return message;
@@ -196,6 +229,24 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> findByTicketId(Long ticketId) {
         return messageRepository.findByTicketIdOrderByDateTime(ticketId);
     }
+
+    private void updateTicketStatusOnNewMessage(Ticket ticket, Message message) {
+
+        // 1) بررسی بسته بودن تیکت
+        if (ticket.getStatus() == TicketStatus.Closed) {
+            throw new TicketClosedException();
+        }
+
+        // 3) تعیین وضعیت بر اساس role فرستنده
+        if (message.getSenderRoleName().equals("ROLE_CUSTOMER")) {
+            ticket.setStatus(TicketStatus.NotSeen);
+        } else if (message.getSenderRoleName().equals("ROLE_ADMIN") || message.getSenderRoleName().equals("ROLE_MANAGER")) {
+            ticket.setStatus(TicketStatus.Responded);
+        }
+
+        ticketRepository.save(ticket);
+    }
+
 
     // متد برای گرفتن نقش کاربر (این بستگی به Security شما داره)
     private String getUserRole(Principal principal) {
