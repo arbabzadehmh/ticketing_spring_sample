@@ -34,7 +34,7 @@ public class Building extends Base{
 
     @NotBlank(message = "{validation.building}")
     @Pattern(regexp = "^$|^[A-Za-z\\u0600-\\u06FF0-9_\\u06F0-\\u06F9\\s-]{2,50}$", message = "{validation.buildingPattern}")
-    @Column(name="title", length = 50, unique = true)
+    @Column(name="title", length = 50)
     private String title;
 
     @ElementCollection

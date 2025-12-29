@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @ToString
 public class BuildingCreateRequest {
+
     @Valid
     private Building building;
 

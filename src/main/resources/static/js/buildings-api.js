@@ -211,7 +211,7 @@ async function handleCreateBuildingSubmit(e) {
         phones = [];
         renderPhones();
 
-        loadBuildings();
+        setTimeout(() => loadBuildings(), 4000);
 
     } catch (error) {
         if (error.message !== 'Validation errors') {
@@ -326,7 +326,7 @@ function loadAddressesForCreateModal() {
             const select = document.getElementById('addressSelect');
             if (!select) return;
 
-            select.innerHTML = `<option value="">انتخاب آدرس</option>`;
+            select.innerHTML = `<option value="">---</option>`;
 
             addresses.forEach(addr => {
                 const option = document.createElement('option');
@@ -375,8 +375,8 @@ function displayValidationErrors(errors, mode) {
     clearValidationErrors();
 
     for (const field in errors) {
+        // querySelector با name کامل (مثلاً "addressDto.street")
         const input = document.querySelector(`[name="${field}"]`);
-
         if (input) {
             input.classList.add('is-invalid');
             const errorDiv = document.createElement('div');
@@ -451,7 +451,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addNewAddressBtn = document.getElementById('addNewAddressBtn');
     addNewAddressBtn?.addEventListener('click', () => {
-        document.getElementById('newAddressContainer')?.classList.toggle('d-none');
+        const newAddressContainer = document.getElementById('newAddressContainer');
+        const addressSelect = document.getElementById('addressSelect');
+
+        // نمایش یا مخفی کردن فرم آدرس جدید
+        newAddressContainer?.classList.toggle('d-none');
+
+        // ریست select به حالت پیش‌فرض
+        if (addressSelect) {
+            addressSelect.value = "";
+        }
     });
 
 

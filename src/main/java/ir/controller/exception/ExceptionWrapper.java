@@ -59,6 +59,8 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.ticket.closed", null, locale);
         } else if (e instanceof DuplicateBuildingException) {
             return messageSource.getMessage("error.building.duplicate", null, locale);
+        } else if (e instanceof AddressEmptyException) {
+            return messageSource.getMessage("error.address.empty", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

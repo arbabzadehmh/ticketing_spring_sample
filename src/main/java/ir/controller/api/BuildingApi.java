@@ -59,13 +59,16 @@ public class BuildingApi {
             Locale locale
     ) {
 
-
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
-            bindingResult.getFieldErrors().forEach(error ->
-                    errors.put(error.getField(), error.getDefaultMessage())
-            );
-            throw new ValidationException(errors);
+            bindingResult.getFieldErrors().forEach(error -> {
+                // از نام واقعی فیلد استفاده کن، حتی اگر nested باشد
+                String field = error.getField();
+                errors.put(field, error.getDefaultMessage());
+            });
+
+            // برگرداندن خطاها به صورت Bad Request
+            return ResponseEntity.badRequest().body(errors);
         }
 
         buildingService.save(buildingCreateRequest.getBuilding(), buildingCreateRequest.getAddressDto());

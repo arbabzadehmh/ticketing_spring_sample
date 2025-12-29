@@ -35,7 +35,7 @@ public class AddressDto {
     private String village;
 
     @Pattern(regexp = "^[a-zA-Z\\u0600-\\u06FF0-9\\u06F0-\\u06F9\\s]{1,30}$",
-            message = "{validation.region}")
+            message = "{validation.regionPattern}")
     private String region;
 
     @NotBlank(message = "{validation.street}")

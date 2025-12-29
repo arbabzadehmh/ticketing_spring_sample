@@ -2,6 +2,7 @@ package ir.service.impl;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ir.controller.exception.AddressEmptyException;
 import ir.controller.exception.DuplicateBuildingException;
 import ir.controller.exception.DuplicateSectionException;
 import ir.dto.AddressDto;
@@ -55,6 +56,10 @@ public class BuildingServiceImpl implements BuildingService {
 
         if (buildingRepository.existsByTitle(building.getTitle())) {
             throw new DuplicateBuildingException();
+        }
+
+        if(building.getAddressId() == null && addressDto == null) {
+            throw new AddressEmptyException();
         }
 
         if (building.getAddressId() != null) {
@@ -153,6 +158,9 @@ public class BuildingServiceImpl implements BuildingService {
     @SneakyThrows
     private Building saveWithNewAddress(Building building, AddressDto addressDto) {
 
+        if (addressDto == null) {
+            throw new AddressEmptyException();
+        }
 
         Building savedBuilding = Building.builder()
                 .title(building.getTitle())
