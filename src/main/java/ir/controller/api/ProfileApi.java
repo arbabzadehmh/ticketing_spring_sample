@@ -4,6 +4,7 @@ import ir.controller.exception.ValidationException;
 import ir.dto.ProfileUserDto;
 import ir.model.entity.Attachment;
 import ir.model.entity.Profile;
+import ir.model.entity.User;
 import ir.model.enums.FileType;
 import ir.service.ProfileService;
 import ir.service.UserService;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +40,7 @@ public class ProfileApi {
     private final MessageSource messageSource;
     private final UserService userService;
 
-    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService) {
+    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService, PasswordEncoder passwordEncoder) {
         this.profileService = profileService;
         this.messageSource = messageSource;
         this.userService = userService;
@@ -116,6 +118,19 @@ public class ProfileApi {
         ));
     }
 
+    @PostMapping("/reset-password/{username}")
+    public ResponseEntity<?> resetPassword(@PathVariable String username, Locale locale) {
+
+        String resetPassword = userService.resetPassword(username);
+
+        String message = messageSource.getMessage("users.password.reset.success", null, locale);
+
+        return ResponseEntity.ok(Map.of(
+                "resetPass", resetPassword,
+                "message", message
+        ));
+    }
+
     @PostMapping("/create-profile")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<?> createProfileByAdmin(
@@ -131,9 +146,9 @@ public class ProfileApi {
             throw new ValidationException(errors);
         }
 
-        if ("error".equalsIgnoreCase(profileDto.getFirstName())) {
-            throw new RuntimeException("شبیه‌سازی خطای سرور!");
-        }
+//        if ("error".equalsIgnoreCase(profileDto.getFirstName())) {
+//            throw new RuntimeException("شبیه‌سازی خطای سرور!");
+//        }
 
         Profile savedProfile = profileService.createProfileByAdmin(profileDto);
 

@@ -20,9 +20,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/logout").setViewName("logout");
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/home").setViewName("index");
         registry.addViewController("/error").setViewName("error");
+        registry.addViewController("/resetPass").setViewName("reset-password");
     }
 
     // هندل کردن منابع استاتیک (CSS, JS, تصاویر و ...)

@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+    <title th:text="#{home.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body>
-<h1>index page</h1>
-<a th:href="@{/login}"> Login </a>
+<body data-bs-theme="light">
+
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- محتوای اصلی -->
+<main class="main-content p-5">
+    <div class="container-fluid p-5 justify-content-center bg-secondary-subtle">
+        <h1 th:text="#{dashboard.welcome}"></h1>
+    </div>
+</main>
+
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+
+<script th:src="@{/js/permissions-api.js}"></script>
 </body>
 </html>

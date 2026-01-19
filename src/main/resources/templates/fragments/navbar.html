@@ -1,4 +1,5 @@
-<nav th:fragment="navbar" class="navbar navbar-dark bg-primary border-bottom py-2">
+<nav th:fragment="navbar" class="navbar navbar-dark bg-primary border-bottom py-2"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container-fluid">
         <!-- سمت چپ: دکمه همبرگر و لوگو -->
         <div class="d-flex align-items-center">
@@ -44,7 +45,7 @@
                         <span th:text="#{navbar.settings}"></span>
                     </a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">
+                    <li><a class="dropdown-item" href="/logout">
                         <i class="fas fa-sign-out-alt me-2"></i>
                         <span th:text="#{navbar.logout}"></span>
                     </a></li>

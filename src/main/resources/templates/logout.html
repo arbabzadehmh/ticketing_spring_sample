@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
+<head>
+    <meta charset="UTF-8">
+
+    <title th:text="#{logout.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
+</head>
+<body>
+
+<main class="p-5 justify-content-center">
+    <div class="container-fluid p-5 justify-content-center bg-secondary-subtle">
+
+        <div class="bg-secondary p-3">
+
+            <a class="btn btn-light" href="/home">
+                <i class="me-2"></i>
+                <span th:text="#{back.home}"></span>
+            </a>
+
+        </div>
+
+    </div>
+</main>
+
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

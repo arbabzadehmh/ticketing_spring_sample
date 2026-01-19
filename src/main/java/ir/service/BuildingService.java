@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface BuildingService {
     Building save(Building building, AddressDto addressDto);
+    Building edit(Building building, AddressDto addressDto);
     void deleteById(Long id);
     Page<BuildingTableDto> findAllForTable(Pageable pageable, String searchTitle);
     List<Building> findAll();

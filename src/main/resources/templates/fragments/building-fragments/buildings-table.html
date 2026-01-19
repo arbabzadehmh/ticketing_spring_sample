@@ -52,7 +52,12 @@
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
-                                        th:data-id="${building.id}">
+                                        th:data-id="${building.id}"
+                                        th:data-title="${building.title}"
+                                        th:data-phone="${#strings.listJoin(building.phones, ',')}"
+                                        th:data-section-ids="${#strings.listJoin(building.sectionIds, ',')}"
+                                        th:data-section="${#strings.listJoin(building.sections, ',')}"
+                                        th:data-address-id="${building.fullAddress}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"

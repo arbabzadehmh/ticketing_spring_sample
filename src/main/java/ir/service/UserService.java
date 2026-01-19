@@ -15,4 +15,5 @@ public interface UserService {
     List<User> findByRole(Role role);
     List<User> findByRoleName(String roleName);
     User findByUsernameAndPassword(String username, String password);
+    String resetPassword(String username);
 }

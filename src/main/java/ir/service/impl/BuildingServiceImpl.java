@@ -69,6 +69,89 @@ public class BuildingServiceImpl implements BuildingService {
         }
     }
 
+    @SneakyThrows
+    @Transactional
+    @Override
+    public Building edit(Building building, AddressDto addressDto) {
+
+        //  گرفتن building موجود
+        Building existing = buildingRepository.findById(building.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Building not found"));
+
+        //  جلوگیری از عنوان تکراری (به جز خود building)
+        if (buildingRepository.existsByTitleAndIdNot(
+                building.getTitle(),
+                building.getId()
+        )) {
+            throw new DuplicateBuildingException();
+        }
+
+        //  آپدیت فیلدهای ساده
+        existing.setTitle(building.getTitle());
+        existing.setPhoneNumbers(building.getPhoneNumbers());
+
+        //  مدیریت آدرس
+        if (building.getAddressId() != null) {
+
+            // انتخاب آدرس موجود
+            existing.setAddressId(building.getAddressId());
+
+        } else if (addressDto != null) {
+
+            // آدرس جدید → ارسال event
+            existing.setAddressId(null);
+
+            AddressCreateRequestEvent ev = new AddressCreateRequestEvent();
+            ev.eventId = UUID.randomUUID().toString();
+            ev.buildingId = existing.getId();
+            ev.address = addressDto;
+            ev.createdAt = Instant.now().toEpochMilli();
+
+            String payload = objectMapper.writeValueAsString(ev);
+
+            OutboxEvent out = new OutboxEvent();
+            out.setAggregateType("BUILDING");
+            out.setAggregateId(existing.getId());
+            out.setEventType("ADDRESS_CREATE_REQUEST");
+            out.setPayload(payload);
+            out.setPublished(false);
+
+            outboxRepository.save(out);
+
+        } else {
+            throw new AddressEmptyException();
+        }
+
+        //  قطع ارتباط سکشن‌های قبلی
+        if (existing.getSectionList() != null && !existing.getSectionList().isEmpty()) {
+            existing.getSectionList().forEach(section -> section.setBuilding(null));
+            sectionRepository.saveAll(existing.getSectionList());
+        }
+
+        // اتصال سکشن‌های جدید
+        if (building.getSectionList() != null && !building.getSectionList().isEmpty()) {
+
+            List<Long> sectionIds = building.getSectionList()
+                    .stream()
+                    .map(Section::getId)
+                    .toList();
+
+            List<Section> managedSections = sectionRepository.findAllById(sectionIds);
+
+            managedSections.forEach(section -> section.setBuilding(existing));
+            existing.setSectionList(managedSections);
+
+            sectionService.saveAll(managedSections);
+
+        } else {
+            existing.setSectionList(new ArrayList<>());
+        }
+
+        //  ذخیره نهایی
+        return buildingRepository.save(existing);
+    }
+
+
     @Transactional
     @Override
     public void deleteById(Long id) {
@@ -250,6 +333,10 @@ public class BuildingServiceImpl implements BuildingService {
                 b.getSectionList()
                         .stream()
                         .map(Section::getTitle)
+                        .toList(),
+                b.getSectionList()
+                        .stream()
+                        .map(Section::getId)
                         .toList(),
                 addressFormatter.format(
                         addressMap.get(b.getAddressId())

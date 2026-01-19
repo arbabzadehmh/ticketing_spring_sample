@@ -2,6 +2,7 @@ package ir.service.impl;
 
 
 import ir.controller.exception.DuplicateUsernameException;
+import ir.model.entity.Profile;
 import ir.model.entity.Role;
 import ir.model.entity.User;
 import ir.repository.RoleRepository;
@@ -49,6 +50,19 @@ public class UserServiceImpl implements UserService {
         User saved = userRepository.save(user);
         logger.info("User saved with ID: {}", saved.getUsername());
         return saved;
+    }
+
+    @Override
+    public String resetPassword(String username) {
+
+        User existingUser = userRepository.findById(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        int newPassword = 1000 + (int) (Math.random()*8999);
+        String randomPassword = String.valueOf(newPassword);
+        existingUser.setPassword(passwordEncoder.encode(randomPassword));
+        userRepository.save(existingUser);
+        return randomPassword;
     }
 
     @Transactional

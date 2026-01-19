@@ -1,25 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
+    <meta charset="UTF-8">
+
+    <title th:text="#{login.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
 <body>
 
-<form action="/login" method="post">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" required>
+<main class="p-5 justify-content-center">
+    <div class="container-fluid p-5 justify-content-center bg-secondary-subtle">
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
+        <div class="bg-secondary p-3">
 
-  <input type="submit" value="Login">
+            <form action="/login" method="post">
+                <div class="form-check-inline">
 
-  <div th:if="${param.error}">
-    Invalid username or password, please try again.
-  </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label" th:text="#{users.username}"></label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
 
-</form>
+                    <div class="mb-3">
+                        <label for="password" class="form-label" th:text="#{users.password}"></label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <input type="submit" class="btn btn-primary" th:value="#{login}">
+
+                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#profileRegisterModal">
+                            <i class="me-2"></i>
+                            <span th:text="#{signup}"></span>
+                        </button>
+
+                        <a class="btn btn-light" href="/resetPass">
+                            <i class="me-2"></i>
+                            <span th:text="#{forget.password}"></span>
+                        </a>
+
+                    </div>
+
+                    <div th:if="${param.error}">
+                        <h6 th:text="#{login.error}"></h6>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</main>
+
+<div th:replace="~{fragments/profile-fragments/profile-register-modal :: profile-register-modal}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+<script th:src="@{/js/profiles-register.js}"></script>
 
 </body>
 </html>

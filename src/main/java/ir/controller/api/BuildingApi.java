@@ -78,6 +78,35 @@ public class BuildingApi {
         return ResponseEntity.ok(Map.of("message", message));
     }
 
+    @PutMapping
+    @PreAuthorize("hasAuthority('BUILDING_EDIT')")
+    public ResponseEntity<?> editBuilding(
+            @Valid @RequestBody BuildingCreateRequest buildingCreateRequest,
+            BindingResult bindingResult,
+            Locale locale
+    ) {
+
+        System.out.println(">>>>>>>>>>>>>>> put : " + buildingCreateRequest);
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                // از نام واقعی فیلد استفاده کن، حتی اگر nested باشد
+                String field = error.getField();
+                errors.put(field, error.getDefaultMessage());
+            });
+
+            // برگرداندن خطاها به صورت Bad Request
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        buildingService.edit(buildingCreateRequest.getBuilding(), buildingCreateRequest.getAddressDto());
+
+        String message = messageSource.getMessage("buildings.edit.success", null, locale);
+
+        return ResponseEntity.ok(Map.of("message", message));
+    }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('BUILDING_DELETE')")

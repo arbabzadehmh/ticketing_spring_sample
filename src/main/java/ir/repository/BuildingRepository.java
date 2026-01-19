@@ -15,6 +15,8 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
     List<Building> findAll();
     Page<Building> findByTitleContainingIgnoreCase(String title, Pageable pageable);
     boolean existsByTitle(String title);
+    boolean existsByTitleAndIdNot(String title, Long id);
+
 
     @Query(
             value = """

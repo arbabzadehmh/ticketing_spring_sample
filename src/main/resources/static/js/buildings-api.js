@@ -1,6 +1,7 @@
 let firstLoad = true;
 
-let phones = [];
+let createPhones = [];
+let editPhones = [];
 
 function escapeHtml(text) {
     if (text == null) return '';
@@ -49,13 +50,13 @@ function loadBuildings(page = 0) {
                 const newSearchBuildingTitleElement = document.getElementById('searchBuildingTitle');
                 if (newSearchBuildingTitleElement) newSearchBuildingTitleElement.value = searchBuildingTitle;
 
-                // REMOVED: هیچ initXYZ اینجا صدا زده نمی‌شه. (delegation داریم)
-                // اگر فرم‌های داخل مودال‌ها وجود دارن، submitشون رو یکبار bind می‌کنیم
-                const editForm = document.getElementById('buildingEditForm');
-                if (editForm && !editForm.dataset.bound) {
-                    editForm.addEventListener('submit', handleEditBuildingSubmit);
-                    editForm.dataset.bound = 'true'; // CHANGED: جلوگیری از دوباره بایند شدن
-                }
+                // // REMOVED: هیچ initXYZ اینجا صدا زده نمی‌شه. (delegation داریم)
+                // // اگر فرم‌های داخل مودال‌ها وجود دارن، submitشون رو یکبار bind می‌کنیم
+                // const editForm = document.getElementById('buildingEditForm');
+                // if (editForm && !editForm.dataset.bound) {
+                //     editForm.addEventListener('submit', handleEditBuildingSubmit);
+                //     editForm.dataset.bound = 'true'; // CHANGED: جلوگیری از دوباره بایند شدن
+                // }
 
             })
             .catch(err => showToast('danger', err.message || 'خطا در دریافت داده‌ها'));
@@ -116,7 +117,12 @@ function renderBuildingsTable(buildings) {
       <td>${escapeHtml(b.fullAddress ?? '-')}</td>
       <td>
         <button class="btn btn-sm btn-warning btn-edit"
-          data-id="${b.id}">
+          data-id="${b.id}"
+          data-title="${b.title}"
+          data-phone="${b.phones ? b.phones.join(',') : ''}"
+          data-section-ids="${Array.isArray(b.sectionIds) ? b.sectionIds.join(',') : ''}"
+          data-section="${Array.isArray(b.sections) ? b.sections.join(',') : ''}"
+          data-address-id="${b.fullAddress}">
           <i class="fas fa-edit"></i>
         </button>
         <button class="btn btn-sm btn-danger btn-delete"
@@ -179,7 +185,7 @@ async function handleCreateBuildingSubmit(e) {
     // --- Building ---
     const building = {
         title: document.getElementById('createTitle').value.trim(),
-        phoneNumbers: phones,
+        phoneNumbers: createPhones,
         sectionList: Array.from(
             document.querySelectorAll('#sectionsContainer .section-checkbox:checked')
         ).map(cb => ({id: cb.value})),
@@ -208,7 +214,7 @@ async function handleCreateBuildingSubmit(e) {
 
         showToast('success', data.message || 'بیلدینگ با موفقیت ثبت شد');
 
-        phones = [];
+        createPhones = [];
         renderPhones();
 
         setTimeout(() => loadBuildings(), 4000);
@@ -228,13 +234,34 @@ function renderPhones() {
 
     phonesList.innerHTML = '';
 
-    phones.forEach((phone, index) => {
+    createPhones.forEach((phone, index) => {
         const badge = document.createElement('span');
         badge.className = 'badge bg-primary d-flex align-items-center gap-1';
         badge.innerHTML = `
             ${phone}
             <button type="button"
-                    class="btn btn-sm btn-close btn-close-white"
+                    class="btn btn-sm btn-close btn-close-white remove-phone-btn"
+                    data-index="${index}">
+            </button>
+        `;
+        phonesList.appendChild(badge);
+    });
+}
+// -------------------------------------------------------------------------
+
+function renderPhonesForEdit() {
+    const phonesList = document.getElementById('editPhonesList'); //  لیست تلفن‌ها در edit modal
+    if (!phonesList) return;
+
+    phonesList.innerHTML = '';
+
+    editPhones.forEach((phone, index) => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-primary d-flex align-items-center gap-1';
+        badge.innerHTML = `
+            ${phone}
+            <button type="button"
+                    class="btn btn-sm btn-close btn-close-white remove-phone-btn"
                     data-index="${index}">
             </button>
         `;
@@ -277,38 +304,16 @@ function loadSectionsForCreateModal() {
 }
 
 
-const buildingCreateModal = document.getElementById('buildingCreateModal');
-
-if (buildingCreateModal && !buildingCreateModal.dataset.bound) {
-
-    buildingCreateModal.addEventListener('shown.bs.modal', () => {
-        loadSectionsForCreateModal();
-        loadAddressesForCreateModal();
-    });
-
-    buildingCreateModal.dataset.bound = 'true';
-}
-
-// -------------------------------------------------
-// function buildAddressDtoIfNew() {
-//     const container = document.getElementById('newAddressContainer');
+// const buildingCreateModal = document.getElementById('buildingCreateModal');
 //
-//     if (container.classList.contains('d-none')) {
-//         return null;
-//     }
+// if (buildingCreateModal && !buildingCreateModal.dataset.bound) {
 //
-//     return {
-//         country: addrCountry.value?.trim(),
-//         state: addrState.value?.trim(),
-//         city: addrCity.value?.trim(),
-//         village: addrVillage.value?.trim(),
-//         region: addrRegion.value?.trim(),
-//         street: addrStreet.value?.trim(),
-//         platesNumber: addrPlate.value?.trim(),
-//         floor: addrFloor.value?.trim(),
-//         unit: addrUnit.value?.trim(),
-//         postalCode: addrPostal.value?.trim()
-//     };
+//     buildingCreateModal.addEventListener('shown.bs.modal', () => {
+//         loadSectionsForCreateModal();
+//         loadAddressesForCreateModal();
+//     });
+//
+//     buildingCreateModal.dataset.bound = 'true';
 // }
 
 // ----------------------------------------------------------
@@ -354,6 +359,179 @@ function formatAddress(addr) {
     ].filter(Boolean).join(' - ');
 }
 
+// ----------------------------------------------------------------
+async function handleEditBuildingSubmit(e) {
+    e.preventDefault();
+    clearValidationErrors();
+
+    const addressSelect = document.getElementById('editAddressSelect');
+    const addressId = addressSelect?.value || null;
+
+    let addressDto = null;
+
+    const newAddressVisible =
+        !document
+            .getElementById('editNewAddressContainer')
+            .classList.contains('d-none');
+
+    if (!addressId && newAddressVisible) {
+        addressDto = {
+            country: editAddrCountry.value,
+            state: editAddrState.value,
+            city: editAddrCity.value,
+            village: editAddrVillage.value,
+            region: editAddrRegion.value,
+            street: editAddrStreet.value,
+            platesNumber: editAddrPlate.value,
+            floor: editAddrFloor.value,
+            unit: editAddrUnit.value,
+            postalCode: editAddrPostal.value
+        };
+    }
+
+    const building = {
+        id: document.getElementById('editBuildingId').value,
+        title: document.getElementById('editTitle').value.trim(),
+        phoneNumbers: editPhones,
+        sectionList: Array.from(
+            document.querySelectorAll('#editSectionsContainer .section-checkbox:checked')
+        ).map(cb => ({id: cb.value})),
+        addressId: addressId || null
+    };
+
+    const payload = {
+        building,
+        addressDto
+    };
+
+    try{
+    const response = await fetch('/rest/buildings', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+    const data = await handleResponse(response, 'edit');
+
+    bootstrap.Modal
+        .getInstance(document.getElementById('buildingEditModal'))
+        ?.hide();
+
+    showToast('success', data.message || 'ویرایش با موفقیت انجام شد');
+
+    setTimeout(() => loadBuildings(), 4000);
+    } catch (error) {
+        if (error.message !== 'Validation errors') {
+            console.error('Building creation error:', error);
+            showToast('danger', error.message || 'خطا در ویرایش بیلدینگ');
+        }
+    }
+}
+// -----------------------------------------------------------------
+function loadSectionsForEditModal(selectedSectionIds = []) {
+
+    fetch('/rest/sections/get-all')
+        .then(response => {
+            if (!response.ok) throw new Error('خطا در دریافت سکشن‌ها');
+            return response.json();
+        })
+        .then(data => {
+            const sectionsArray = Array.isArray(data) ? data : data.content || [];
+            const container = document.getElementById('editSectionsContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            sectionsArray.forEach(section => {
+                const div = document.createElement('div');
+                div.className = 'form-check';
+
+                div.innerHTML = `
+                    <input class="form-check-input section-checkbox"
+                           type="checkbox"
+                           value="${section.id}"
+                           id="edit-section-${section.id}"
+                           ${selectedSectionIds.includes(section.id) ? 'checked' : ''}
+                    <label class="form-check-label" for="edit-section-${section.id}">
+                        ${section.title}
+                    </label>
+                `;
+
+                container.appendChild(div);
+            });
+        })
+        .catch(err => console.error('Error loading sections for edit modal:', err));
+}
+
+// ----------------------------------------------------------------
+function extractPostalCode(fullAddress) {
+    if (!fullAddress) return null;
+
+    // پشتیبانی از فارسی و انگلیسی
+    const match = fullAddress.match(/(?:کدپستی|Postal Code)\s*[:\s]*([^\s،]+)/i);
+    return match ? match[1] : null;
+}
+
+
+function loadAddressesForEditModal(fullAddress = '') {
+    fetch('/rest/addresses')
+        .then(res => res.json())
+        .then(addresses => {
+            const select = document.getElementById('editAddressSelect');
+            if (!select) return;
+
+            select.innerHTML = '';
+
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = fullAddress || '---';
+            select.appendChild(defaultOption);
+
+            const postalCodeToMatch = extractPostalCode(fullAddress);
+
+            addresses.forEach(addr => {
+                const option = document.createElement('option');
+                option.value = addr.id;
+                option.textContent = formatAddress(addr);
+
+                // اگر postalCode مشابه پیدا شد، ست شود
+                if (postalCodeToMatch && addr.postalCode === postalCodeToMatch) {
+                    option.selected = true;
+                    defaultOption.remove(); // گزینه پیش‌فرض را حذف می‌کنیم
+                }
+
+                select.appendChild(option);
+            });
+        })
+        .catch(err => console.error('Error loading addresses for edit modal:', err));
+}
+
+
+
+// function loadAddressesForEditModal(fullAddress = '') {
+//     fetch('/rest/addresses')
+//         .then(response => {
+//             if (!response.ok) throw new Error('خطا در دریافت آدرس‌ها');
+//             return response.json();
+//         })
+//         .then(response => {
+//             const addresses = response.body ?? response;
+//             const select = document.getElementById('editAddressSelect');
+//             if (!select) return;
+//
+//             select.innerHTML = `<option value="">${fullAddress || '---'}</option>`; // fullAddress نمایش داده میشه اما هیچ value انتخاب نشده
+//
+//             addresses.forEach(addr => {
+//                 const option = document.createElement('option');
+//                 option.value = addr.id;
+//                 option.textContent = formatAddress(addr);
+//                 select.appendChild(option);
+//             });
+//         })
+//         .catch(err => console.error('Error loading addresses for edit modal:', err));
+// }
+
+
 // -------------------- Handle Server Response --------------------
 async function handleResponse(response, mode) {
     const data = await response.json();
@@ -371,21 +549,105 @@ async function handleResponse(response, mode) {
 }
 
 // -------------------- Validation helpers --------------------
+// function displayValidationErrors(errors, mode) {
+//     clearValidationErrors();
+//
+//     for (const field in errors) {
+//         // querySelector با name کامل (مثلاً "addressDto.street")
+//         const input = document.querySelector(`[name="${field}"]`);
+//         if (input) {
+//             input.classList.add('is-invalid');
+//             const errorDiv = document.createElement('div');
+//             errorDiv.className = 'invalid-feedback';
+//             errorDiv.textContent = errors[field];
+//             input.parentNode.appendChild(errorDiv);
+//         }
+//     }
+// }
+
+// function displayValidationErrors(errors, mode) {
+//     clearValidationErrors();
+//
+//     // تعیین modal بر اساس mode
+//     const modal = mode === 'edit'
+//         ? document.getElementById('buildingEditModal')
+//         : document.getElementById('buildingCreateModal');
+//
+//     if (!modal) return;
+//
+//     console.log('Errors:', errors);
+//     console.log('Modal:', modal);
+//
+//     for (const field in errors) {
+//         // پیدا کردن input داخل modal
+//         const input = modal.querySelector(`[name="${field}"]`);
+//         if (input) {
+//             input.classList.add('is-invalid');
+//
+//             // اضافه کردن div برای نمایش پیام خطا
+//             const errorDiv = document.createElement('div');
+//             errorDiv.className = 'invalid-feedback';
+//             errorDiv.textContent = errors[field];
+//
+//             // اگر قبلاً خطایی بود پاکش کن
+//             const existingError = input.parentNode.querySelector('.invalid-feedback');
+//             if (existingError) existingError.remove();
+//
+//             input.parentNode.appendChild(errorDiv);
+//         } else {
+//             console.warn(`Input not found for field: ${field}`);
+//         }
+//     }
+// }
+
+
 function displayValidationErrors(errors, mode) {
     clearValidationErrors();
 
+    const modal = mode === 'edit'
+        ? document.getElementById('buildingEditModal')
+        : document.getElementById('buildingCreateModal');
+
+    if (!modal) return;
+
+    // ابتدا خطاهای معمولی هر فیلد (غیر آدرس) نمایش داده میشن
     for (const field in errors) {
-        // querySelector با name کامل (مثلاً "addressDto.street")
-        const input = document.querySelector(`[name="${field}"]`);
-        if (input) {
-            input.classList.add('is-invalid');
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'invalid-feedback';
-            errorDiv.textContent = errors[field];
-            input.parentNode.appendChild(errorDiv);
+        if (!field.startsWith('addressDto.')) {
+            const input = modal.querySelector(`[name="${field}"]`);
+            if (input) {
+                input.classList.add('is-invalid');
+
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'invalid-feedback';
+                errorDiv.textContent = errors[field];
+
+                const existingError = input.parentNode.querySelector('.invalid-feedback');
+                if (existingError) existingError.remove();
+
+                input.parentNode.appendChild(errorDiv);
+            }
+        }
+    }
+
+    // خطاهای آدرس داخل یک div واحد نمایش داده میشن
+    const addressErrors = Object.keys(errors)
+        .filter(f => f.startsWith('addressDto.'))
+        .map(f => errors[f]);
+
+    if (addressErrors.length > 0) {
+        const container = modal.querySelector('#' + (mode === 'edit' ? 'editNewAddressContainer' : 'newAddressContainer'));
+        if (container) {
+            let errorDiv = container.querySelector('.invalid-feedback-address');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'invalid-feedback-address text-danger mt-2';
+                container.appendChild(errorDiv);
+            }
+            errorDiv.innerHTML = '<ul>' + addressErrors.map(err => `<li>${err}</li>`).join('') + '</ul>';
         }
     }
 }
+
 
 // --------------------------------------------------
 function clearValidationErrors() {
@@ -434,19 +696,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addPhoneBtn = document.getElementById('addPhoneBtn');
     const phoneInput = document.getElementById('phoneInput');
+    const editAddPhoneBtn = document.getElementById('editAddPhoneBtn');
+    const editPhoneInput = document.getElementById('editPhoneInput');
 
     addPhoneBtn?.addEventListener('click', () => {
         const value = phoneInput.value.trim();
         if (!value) return;
 
-        if (phones.includes(value)) {
+        if (createPhones.includes(value)) {
             showToast('warning', 'این شماره قبلاً اضافه شده');
             return;
         }
 
-        phones.push(value);
+        createPhones.push(value);
         renderPhones();
         phoneInput.value = '';
+    });
+
+    editAddPhoneBtn?.addEventListener('click', () => {
+        const value = editPhoneInput.value.trim();
+        if (!value) return;
+
+        if (editPhones.includes(value)) {
+            showToast('warning', 'این شماره قبلاً اضافه شده');
+            return;
+        }
+
+        editPhones.push(value);
+        renderPhonesForEdit();
+        editPhoneInput.value = '';
     });
 
     const addNewAddressBtn = document.getElementById('addNewAddressBtn');
@@ -463,12 +741,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.getElementById('addressSelect')
+        ?.addEventListener('change', e => {
+            if (e.target.value) {
+                document
+                    .getElementById('newAddressContainer')
+                    ?.classList.add('d-none');
+            }
+        });
+
+
+
+    // اگر آدرس جدید فعال شد → select ریست شود
+    document.getElementById('editAddNewAddressBtn')
+        ?.addEventListener('click', () => {
+            const container = document.getElementById('editNewAddressContainer');
+            const select = document.getElementById('editAddressSelect');
+
+            container.classList.toggle('d-none');
+
+            if (!container.classList.contains('d-none')) {
+                select.value = '';
+            }
+        });
+
+// اگر آدرس انتخاب شد → فرم آدرس جدید بسته شود
+    document.getElementById('editAddressSelect')
+        ?.addEventListener('change', e => {
+            if (e.target.value) {
+                document
+                    .getElementById('editNewAddressContainer')
+                    ?.classList.add('d-none');
+            }
+        });
+
+
 
     // فرم‌ها
     const createForm = document.getElementById('buildingCreateForm');
     if (createForm && !createForm.dataset.bound) {
         createForm.addEventListener('submit', handleCreateBuildingSubmit);
         createForm.dataset.bound = 'true';
+    }
+
+
+    const buildingCreateModal = document.getElementById('buildingCreateModal');
+
+    if (buildingCreateModal && !buildingCreateModal.dataset.bound) {
+
+        buildingCreateModal.addEventListener('shown.bs.modal', () => {
+            loadSectionsForCreateModal();
+            loadAddressesForCreateModal();
+        });
+
+        buildingCreateModal.dataset.bound = 'true';
     }
 
 
@@ -486,23 +812,62 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        //  ADDED: حذف تلفن
-        const removePhoneBtn = e.target.closest('.btn-close');
-        if (removePhoneBtn && removePhoneBtn.dataset.index !== undefined) {
-            phones.splice(removePhoneBtn.dataset.index, 1);
+        const btnCreate = e.target.closest('[data-bs-target="#buildingCreateModal"]');
+        if (btnCreate) {
+            createPhones = [];
             renderPhones();
             return;
         }
 
-        // todo:
+        //  ADDED: حذف تلفن
+        const removePhoneBtn = e.target.closest('.remove-phone-btn');
+        if (removePhoneBtn && removePhoneBtn.dataset.index !== undefined) {
+            const index = removePhoneBtn.dataset.index;
+
+// داخل Edit modal
+            if (removePhoneBtn.closest('#buildingEditModal')) {
+                editPhones.splice(index, 1);
+                renderPhonesForEdit();
+            }
+
+// داخل Create modal
+            if (removePhoneBtn.closest('#buildingCreateModal')) {
+                createPhones.splice(index, 1);
+                renderPhones();
+            }
+            return;
+        }
+
         const btnEdit = e.target.closest('.btn-edit');
         if (btnEdit) {
-            const row = btnEdit.closest('tr');
-            document.getElementById('editRoleName').value = btnEdit.dataset.id || '';
-            document.getElementById('editName').value = row ? row.cells[0].textContent.trim() : '';
-            const selected = btnEdit.dataset.permissions ? btnEdit.dataset.permissions.split(',') : [];
-            loadPermissionsForEditModal(selected);
-            new bootstrap.Modal(document.getElementById('roleEditModal')).show();
+            const tr = btnEdit.closest('tr');
+
+            // editPhones = [];
+            // renderPhonesForEdit();
+
+            document.getElementById('editBuildingId').value = btnEdit.dataset.id;
+
+            //  title
+            document.getElementById('editTitle').value = btnEdit.dataset.title || '';
+
+            //  تلفن‌ها
+            editPhones = btnEdit.dataset.phone ? btnEdit.dataset.phone.split(',') : [];
+            renderPhonesForEdit(); // باید مشابه renderPhones باشد اما برای edit modal
+
+            //  Sections تیک خورده
+            const sectionIds = btnEdit.dataset.sectionIds ? btnEdit.dataset.sectionIds.split(',').map(Number) : [];
+            loadSectionsForEditModal(sectionIds);
+
+            //  آدرس select پیش‌فرض
+            const fullAddress = tr.cells[3].textContent.trim(); // ستون fullAddress در جدول
+            loadAddressesForEditModal(fullAddress);
+
+            //  فرم آدرس جدید همیشه خام باشه
+            document.getElementById('editNewAddressContainer').classList.add('d-none');
+            document.querySelectorAll('#editNewAddressContainer input').forEach(input => input.value = '');
+
+            // نمایش modal
+            new bootstrap.Modal(document.getElementById('buildingEditModal')).show();
             return;
         }
 

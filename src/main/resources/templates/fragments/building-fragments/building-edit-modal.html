@@ -1,0 +1,152 @@
+<div th:fragment="building-edit-modal">
+    <div class="modal fade" id="buildingEditModal" tabindex="-1"
+         aria-labelledby="buildingEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="buildingEditModalLabel"
+                        th:text="#{buildings.modal.edit.title}">
+                    </h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <form id="buildingEditForm" autocomplete="off">
+                    <div class="modal-body">
+
+                        <!-- hidden id -->
+                        <input type="hidden" id="editBuildingId" name="building.id">
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label class="form-label"
+                                   th:text="#{buildings.name}"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="editTitle"
+                                   name="building.title">
+                        </div>
+
+                        <!-- Sections -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.sections}"></label>
+                            <div id="editSectionsContainer"
+                                 class="border rounded p-2"
+                                 style="max-height:150px;overflow-y:auto">
+                                <!-- checkboxes injected -->
+                            </div>
+                        </div>
+
+                        <!-- Phones -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.phones}"></label>
+
+                            <div class="input-group mb-2">
+                                <input type="text"
+                                       id="editPhoneInput"
+                                       class="form-control">
+                                <button type="button"
+                                        class="btn btn-outline-primary"
+                                        id="editAddPhoneBtn">+</button>
+                            </div>
+
+                            <div id="editPhonesList"
+                                 class="d-flex flex-wrap gap-2"></div>
+                        </div>
+
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label th:text="#{buildings.address}"></label>
+
+                            <select class="form-select mb-2" id="editAddressSelect" name="building.addressId">
+                                <option value="" th:text="#{address.select}"></option>
+                            </select>
+
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    id="editAddNewAddressBtn">
+                                ➕ <span th:text="#{address.new}"></span>
+                            </button>
+                        </div>
+
+                        <!-- New Address (EDIT) -->
+                        <div id="editNewAddressContainer"
+                             class="border rounded p-3 mt-2 d-none">
+
+                            <h6 th:text="#{address.new}"></h6>
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.country}"
+                                   id="editAddrCountry"
+                                   name="addressDto.country">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.state}"
+                                   id="editAddrState"
+                                   name="addressDto.state">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.city}"
+                                   id="editAddrCity"
+                                   name="addressDto.city">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.village}"
+                                   id="editAddrVillage"
+                                   name="addressDto.village">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.region}"
+                                   id="editAddrRegion"
+                                   name="addressDto.region">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.street}"
+                                   id="editAddrStreet"
+                                   name="addressDto.street">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.plate}"
+                                   id="editAddrPlate"
+                                   name="addressDto.platesNumber">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.floor}"
+                                   id="editAddrFloor"
+                                   name="addressDto.floor">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.unit}"
+                                   id="editAddrUnit"
+                                   name="addressDto.unit">
+
+                            <input class="form-control mb-2"
+                                   th:placeholder="#{address.postalCode}"
+                                   id="editAddrPostal"
+                                   name="addressDto.postalCode">
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                                th:text="#{profiles.cancel}">
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-primary"
+                                th:text="#{profiles.save}">
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
