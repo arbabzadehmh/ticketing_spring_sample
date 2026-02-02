@@ -14,7 +14,7 @@
             </a>
 
 
-            <a class="nav-link" href="/profiles">
+            <a class="nav-link" href="/profiles" sec:authorize="isAuthenticated()">
                 <i class="fa fa-address-card me-2"></i>
                 <span th:text="#{navbar.profiles}"></span>
             </a>
@@ -29,7 +29,7 @@
                 <span th:text="#{navbar.permissions}"></span>
             </a>
 
-            <a class="nav-link" href="/tickets">
+            <a class="nav-link" href="/tickets" sec:authorize="isAuthenticated()">
                 <i class="fa fa-message me-2"></i>
                 <span th:text="#{navbar.tickets}"></span>
             </a>

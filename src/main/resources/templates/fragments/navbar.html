@@ -1,5 +1,6 @@
 <nav th:fragment="navbar" class="navbar navbar-dark bg-primary border-bottom py-2"
-     xmlns:sec="http://www.w3.org/1999/xhtml">
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
         <!-- سمت چپ: دکمه همبرگر و لوگو -->
         <div class="d-flex align-items-center">
@@ -13,43 +14,92 @@
         <div class="d-flex align-items-center gap-3">
 
 
-            <!-- اعلان‌ها -->
-            <div class="dropdown">
-                <button class="btn btn-link text-white" data-bs-toggle="dropdown">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#" th:text="#{navbar.notifications}"></a></li>
-                </ul>
+            <div class="d-flex align-items-center gap-3" sec:authorize="isAuthenticated()">
+                <!-- اعلان‌ها -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-white position-relative" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+
+                        <span th:if="${notificationCount > 0}"
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                              th:text="${notificationCount}">
+                        </span>
+
+                    </button>
+                    <!--                    <ul class="dropdown-menu dropdown-menu-end">-->
+                    <!--                        <li><a class="dropdown-item" href="#" th:text="#{navbar.notifications}"></a></li>-->
+                    <!--                    </ul>-->
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li th:if="${#lists.isEmpty(notifications)}">
+                            <span class="dropdown-item text-muted" th:text="#{navbar.no.notification}"></span>
+                        </li>
+
+                        <li th:each="n : ${notifications}">
+                            <a class="dropdown-item small" th:href="${n.link != null ? n.link : '#'}" th:classappend="${!n.read} ? 'fw-bold'">
+                                <strong th:text="${n.title}"></strong><br>
+                                <span th:text="${n.message}"></span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-center" href="/notifications">
+                                مشاهده همه
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- پیام‌ها -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-white" data-bs-toggle="dropdown">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" th:text="#{navbar.messages}"></a></li>
+                    </ul>
+                </div>
+
+
+                <!-- پروفایل -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-white" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle fs-4"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">
+                            <i class="fas fa-cog me-2"></i>
+                            <span th:text="#{navbar.settings}"></span>
+                        </a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="/logout" method="post">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    <span th:text="#{navbar.logout}"></span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- پیام‌ها -->
-            <div class="dropdown">
+            <div class="dropdown" sec:authorize="!isAuthenticated()">
+
                 <button class="btn btn-link text-white" data-bs-toggle="dropdown">
-                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-sign-in"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#" th:text="#{navbar.messages}"></a></li>
+                    <li><a class="dropdown-item" href="/login" th:text="#{login}"></a></li>
                 </ul>
-            </div>
 
-
-            <!-- پروفایل -->
-            <div class="dropdown">
-                <button class="btn btn-link text-white" data-bs-toggle="dropdown">
-                    <i class="fas fa-user-circle fs-4"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">
-                        <i class="fas fa-cog me-2"></i>
-                        <span th:text="#{navbar.settings}"></span>
-                    </a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/logout">
-                        <i class="fas fa-sign-out-alt me-2"></i>
-                        <span th:text="#{navbar.logout}"></span>
-                    </a></li>
-                </ul>
             </div>
 
             <!-- تغییر زبان -->

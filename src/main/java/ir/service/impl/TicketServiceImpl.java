@@ -1,5 +1,8 @@
 package ir.service.impl;
 
+import ir.controller.exception.TicketClosedException;
+import ir.controller.exception.TicketIsAlreadyClosedException;
+import ir.controller.exception.TicketIsAlreadyScoredException;
 import ir.dto.TicketCreateDto;
 import ir.dto.TicketEditDto;
 import ir.model.entity.Message;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -143,5 +147,37 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable) {
         return ticketRepository.findByScoreIsLessThanEqualOrderByDateTime(score, pageable);
+    }
+
+    @Transactional
+    @Override
+    public void closeTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        if (ticket.getStatus() == TicketStatus.Closed) {
+            throw new TicketIsAlreadyClosedException();
+        }
+        ticket.setStatus(TicketStatus.Closed);
+        ticketRepository.save(ticket);
+    }
+
+    @Transactional
+    @Override
+    public void scoreTicket(Long id, Integer score) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        if (ticket.getScore() != null) {
+            throw new TicketIsAlreadyScoredException();
+        }
+
+        ticket.setScore(score);
+        ticketRepository.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> findAllById(List<Long> ids) {
+        return List.of();
     }
 }

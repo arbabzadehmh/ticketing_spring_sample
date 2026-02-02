@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatBox = document.getElementById('chat-box');
     const fileInput = document.getElementById('messageFile');
     const ocrBtn = document.getElementById('ocrSendBtn');
+    const ticketCloseBtn = document.getElementById('ticketCloseBtn');
 
     document.querySelectorAll('.message').forEach(msgDiv => {
         applyDirectionToElement(msgDiv);
@@ -161,20 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${year}-${month}-${day} ${hour}:${minute}`;
     }
 
-// -------------------- هندل پاسخ سرور --------------------
-    async function handleResponse(response, mode) {
-        const data = await response.json();
-        if (!response.ok) {
-            if (response.status === 400) {
-                displayValidationErrors(data, mode);
-                throw new Error('Validation errors');
-            }
-            const errorMessage = data.error || data.message || 'خطای ناشناخته در سرور';
-            showToast('danger', errorMessage);
-            throw new Error(errorMessage);
-        }
-        return data;
-    }
+
 
 // -------------------- RTL/LTR --------------------
     function isRTL(text) {
@@ -210,5 +198,84 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+// -----------------------------------------------------------------
+
+    if (ticketCloseBtn) {
+
+        ticketCloseBtn.addEventListener('click', async () => {
+
+            const ticketId = document.getElementById("ticketId").value;
+
+            try {
+                const response = await fetch(`/rest/messages/ticket-close/${ticketId}`, {
+                    method: 'PUT'
+                });
+
+                const data = await handleResponse(response, 'edit');
+
+                showToast('success', data.message || 'مکالمه پایان یافت');
+
+            } catch (error) {
+                if (error.message !== 'Validation errors') {
+                    console.error('error:', error);
+                    showToast('danger', error.message || 'خطا در بستن مکالمه');
+                }
+            }
+
+        });
+    }
+
+    document.querySelectorAll('.btn-score').forEach(btn => {
+        btn.addEventListener('click', handleTicketScore);
+    });
+
 });
 
+// --------------------------------------------------------------------
+async function handleTicketScore(e) {
+    const score = e.currentTarget.dataset.score;
+    const ticketId = document.getElementById("ticketId").value;
+
+    try {
+        const response = await fetch(`/rest/messages/ticket-score/${ticketId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(score)
+        });
+
+        const data = await handleResponse(response, 'edit');
+
+        showToast('success', data.message || 'امتیاز شما ثبت شد');
+        disableScoreButtons();
+
+    } catch (error) {
+        if (error.message !== 'Validation errors') {
+            console.error('error:', error);
+            showToast('danger', error.message || 'خطا در ثبت امتیاز');
+        }
+    }
+}
+
+// ---------------------------------------------------------------------
+function disableScoreButtons() {
+    document.querySelectorAll('.btn-score').forEach(btn => {
+        btn.disabled = true;
+        btn.classList.add('disabled');
+    });
+}
+
+
+// -------------------- هندل پاسخ سرور --------------------
+async function handleResponse(response, mode) {
+    const data = await response.json();
+    if (!response.ok) {
+        if (response.status === 400) {
+            displayValidationErrors(data, mode);
+            throw new Error('Validation errors');
+        }
+        const errorMessage = data.error || data.message || 'خطای ناشناخته در سرور';
+        showToast('danger', errorMessage);
+        throw new Error(errorMessage);
+    }
+    return data;
+}

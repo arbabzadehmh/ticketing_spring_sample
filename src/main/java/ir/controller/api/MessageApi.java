@@ -2,23 +2,32 @@ package ir.controller.api;
 
 import ir.model.entity.Message;
 import ir.service.MessageService;
+import ir.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rest/messages")
 public class MessageApi {
 
     private final MessageService messageService;
+    private final TicketService ticketService;
+    private final MessageSource messageSource;
 
-    public MessageApi(MessageService messageService) {
+    public MessageApi(MessageService messageService, TicketService ticketService, MessageSource messageSource) {
         this.messageService = messageService;
+        this.ticketService = ticketService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/{ticketId}")
@@ -48,4 +57,31 @@ public class MessageApi {
     }
 
 
+    @PutMapping("/ticket-close/{ticketId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> closeTicket(
+            @PathVariable Long ticketId,
+            Locale locale
+    ) {
+
+        ticketService.closeTicket(ticketId);
+
+        String message = messageSource.getMessage("tickets.close.success", null, locale);
+        return ResponseEntity.ok(Map.of("message", message));
+    }
+
+
+    @PutMapping("/ticket-score/{ticketId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> scoreTicket(
+            @PathVariable Long ticketId,
+            @RequestBody Integer score,
+            Locale locale
+    ) {
+
+        ticketService.scoreTicket(ticketId, score);
+
+        String message = messageSource.getMessage("tickets.score.success", null, locale);
+        return ResponseEntity.ok(Map.of("message", message));
+    }
 }

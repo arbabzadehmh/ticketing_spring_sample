@@ -19,4 +19,14 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findByRoleSetContaining(Role role);
     List<User> findByRoleSetName(String roleName);
 
+    @Query("""
+    SELECT DISTINCT u
+    FROM userEntity u
+    JOIN u.roleSet r
+    JOIN r.permissionSet p
+    WHERE p.permissionName = :permissionName
+""")
+    List<User> findAdminsWithPermission(@Param("permissionName") String permissionName);
+
+
 }

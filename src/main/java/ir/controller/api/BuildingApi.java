@@ -86,8 +86,6 @@ public class BuildingApi {
             Locale locale
     ) {
 
-        System.out.println(">>>>>>>>>>>>>>> put : " + buildingCreateRequest);
-
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error -> {

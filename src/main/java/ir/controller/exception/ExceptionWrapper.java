@@ -57,6 +57,10 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.file.storage", null, locale);
         } else if (e instanceof TicketClosedException) {
             return messageSource.getMessage("error.ticket.closed", null, locale);
+        } else if (e instanceof TicketIsAlreadyClosedException) {
+            return messageSource.getMessage("error.ticket.already.closed", null, locale);
+        } else if (e instanceof TicketIsAlreadyScoredException) {
+            return messageSource.getMessage("error.ticket.already.scored", null, locale);
         } else if (e instanceof DuplicateBuildingException) {
             return messageSource.getMessage("error.building.duplicate", null, locale);
         } else if (e instanceof AddressEmptyException) {

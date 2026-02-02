@@ -1,4 +1,4 @@
-<div th:fragment="messages-chatbox">
+<div th:fragment="messages-chatbox" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="card shadow">
         <div class="card-header bg-primary text-white p-3">
             <div class="d-flex flex-column">
@@ -83,6 +83,28 @@
                     <i class="fas fa-image"></i>
                 </button>
                 <input type="file" id="ocrFile" class="d-none">
+
+                <div class="mb-3" sec:authorize="hasRole('CUSTOMER')">
+
+                    <button type="button" id="ticketCloseBtn" class="btn btn-dark mb-1 col-md-9"
+                            th:text="#{messages.close}">
+                        <i class="fas fa-close"></i>
+                    </button>
+
+                    <button class="btn btn-info mb-1 col-md-9" data-bs-toggle="dropdown" th:text="#{messages.score}" th:disabled="${ticket.score != null}">
+                        <i class="fas fa-gift"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><button class="dropdown-item btn-score" data-score="5" th:text="#{messages.score.5}"></button></li>
+                        <li><button class="dropdown-item btn-score" data-score="4" th:text="#{messages.score.4}"></button></li>
+                        <li><button class="dropdown-item btn-score" data-score="3" th:text="#{messages.score.3}"></button></li>
+                        <li><button class="dropdown-item btn-score" data-score="2" th:text="#{messages.score.2}"></button></li>
+                        <li><button class="dropdown-item btn-score" data-score="1" th:text="#{messages.score.1}"></button></li>
+                    </ul>
+
+
+                </div>
+
             </form>
 
 

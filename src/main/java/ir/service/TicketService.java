@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
+
 
 public interface TicketService {
     Ticket save(TicketCreateDto ticketDto);
@@ -24,5 +26,7 @@ public interface TicketService {
     Page<Ticket> findByTitleContains(String title, Pageable pageable);
     Page<Ticket> findBySection(Section section, Pageable pageable);
     Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable);
-
+    void closeTicket(Long id);
+    void scoreTicket(Long id, Integer score);
+    List<Ticket> findAllById(List<Long> ids);
 }
