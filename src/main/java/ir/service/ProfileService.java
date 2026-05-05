@@ -19,6 +19,7 @@ public interface ProfileService {
     Page<Profile> findByOrderByFirstNameAsc(String firstName, Pageable pageable);
     Page<Profile> findByOrderByLastNameAsc(String lastName, Pageable pageable);
     Profile findByUsername(String username);
+    String getEmailByUsername(String username);
     Page<Profile> findByLastNameLike(String lastName, Pageable pageable);
     Page<Profile> findByUserUsernameLike(String username, Pageable pageable);
     Profile uploadOrUpdateProfilePicture(Long profileId, MultipartFile file, String username);

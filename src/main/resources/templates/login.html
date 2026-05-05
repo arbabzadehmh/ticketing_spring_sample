@@ -16,33 +16,50 @@
 
         <div class="bg-secondary p-3">
 
-            <form action="/login" method="post">
-                <div class="form-check-inline">
+            <form action="/login" method="post" class="col-md-4 ms-auto me-3">
+                <div>
 
                     <div class="mb-3">
                         <label for="username" class="form-label" th:text="#{users.username}"></label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-5">
                         <label for="password" class="form-label" th:text="#{users.password}"></label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
-                    <div class="mb-3 text-center">
-                        <input type="submit" class="btn btn-primary" th:value="#{login}">
+                    <div class="row mb-3 g-2">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-light w-100"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#profileRegisterModal">
+                                <span th:text="#{signup}"></span>
+                            </button>
+                        </div>
 
-                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#profileRegisterModal">
-                            <i class="me-2"></i>
-                            <span th:text="#{signup}"></span>
-                        </button>
-
-                        <a class="btn btn-light" href="/resetPass">
-                            <i class="me-2"></i>
-                            <span th:text="#{forget.password}"></span>
-                        </a>
-
+                        <div class="col-6">
+                            <a class="btn btn-light w-100" href="/resetPass">
+                                <span th:text="#{forget.password}"></span>
+                            </a>
+                        </div>
                     </div>
+
+
+                    <div class="row mb-3 g-2">
+                        <div class="col-6">
+                            <input type="submit"
+                                   class="btn btn-primary w-100"
+                                   th:value="#{login}">
+                        </div>
+
+                        <div class="col-6">
+                            <a class="btn btn-primary w-100" href="/home">
+                                <span th:text="#{guest.login}"></span>
+                            </a>
+                        </div>
+                    </div>
+
 
                     <div th:if="${param.error}">
                         <h6 th:text="#{login.error}"></h6>

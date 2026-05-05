@@ -124,12 +124,11 @@ public class SecurityConfig {
                 // 5. Authorization Rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/building/get-all",  "/icons/**", "/css/**", "/js/**", "/fonts/**", "/resetPass").permitAll()
+                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/building/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/resetPass").permitAll()
                         .requestMatchers("/rest/profiles/register").permitAll()
                         .requestMatchers("/rest/profiles/reset-password/**").permitAll()
                         .requestMatchers("/admins/**").hasRole("ADMIN")
-                        .requestMatchers("/roles/**", "/permissions/**").hasAnyRole("ADMIN", "MANAGER")
-                        .requestMatchers("/api/data").hasAuthority("READ_DATA")
+                        .requestMatchers("/roles/**", "/rest/roles/**", "/permissions/**", "/rest/permissions", "/reports/**").hasAnyRole("ADMIN", "MANAGER")
                         .anyRequest().authenticated()
                 )
 

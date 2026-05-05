@@ -4,7 +4,9 @@ import ir.model.entity.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
@@ -14,4 +16,12 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
     Profile findByUserUsername(String username);
     Page<Profile> findByLastNameLike(String lastName, Pageable pageable);
     Page<Profile> findByUserUsernameLike(String username, Pageable pageable);
+
+    @Query("""
+       select p.email
+       from profileEntity p
+       where p.user.username = :username
+       """)
+    String findEmailByUserUsername(@Param("username") String username);
+
 }

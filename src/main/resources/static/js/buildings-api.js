@@ -699,12 +699,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const editAddPhoneBtn = document.getElementById('editAddPhoneBtn');
     const editPhoneInput = document.getElementById('editPhoneInput');
 
+    const duplicatePhoneTextElem = document.getElementById('duplicatePhoneText');
+    const duplicatePhoneText = duplicatePhoneTextElem ? duplicatePhoneTextElem.textContent.trim() : "Duplicate phone number";
+
+
     addPhoneBtn?.addEventListener('click', () => {
         const value = phoneInput.value.trim();
         if (!value) return;
 
         if (createPhones.includes(value)) {
-            showToast('warning', 'این شماره قبلاً اضافه شده');
+            showToast('warning', duplicatePhoneText || 'این شماره قبلا اضافه شده');
             return;
         }
 

@@ -1,0 +1,66 @@
+<div th:fragment="reports-ticket-table" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0" th:text="#{reports.ticket.score.title}"></h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row mb-4 g-3 align-items-center">
+                <div class="col-12 col-md-3">
+                    <select class="form-select" id="pageSize" aria-label="تعداد در صفحه">
+                        <option value="10" th:text="#{profiles.pageSize.10}"
+                                th:selected="${param.size == 10}"></option>
+                        <option value="20" th:text="#{profiles.pageSize.20}"
+                                th:selected="${param.size == 20}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive" id="report-ticket-table">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th th:text="#{tickets.title}"></th>
+                        <th th:text="#{tickets.section}"></th>
+                        <th th:text="#{tickets.customer}"></th>
+                        <th th:text="#{tickets.status}"></th>
+                        <th th:text="#{tickets.score}"></th>
+                        <th th:text="#{tickets.date.time}"></th>
+                        <th th:text="#{tickets.messages}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ticket : ${tickets.content}">
+                        <td th:text="${ticket.title}"></td>
+                        <td th:text="${ticket.section.title}"></td>
+                        <td th:text="${ticket.customer.username}"></td>
+                        <td th:text="${ticket.status}"></td>
+                        <td th:text="${ticket.score}"></td>
+                        <td th:text="${#temporals.format(ticket.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td>
+                            <button class="btn btn-sm btn-info btn-open"
+                                    th:data-id="${ticket.id}">
+                                <i class="fas fa-envelope-open"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- صفحه‌بندی -->
+            <nav class="mt-4" aria-label="صفحه‌بندی">
+                <ul class="pagination justify-content-center">
+                    <li th:each="page : ${#numbers.sequence(0, (totalPages - 1))}"
+                        class="page-item"
+                        th:classappend="${page == tickets.number} ? 'active'">
+                        <a class="page-link"
+                           th:text="${page + 1}"
+                           th:data-page="${page}"
+                           role="button"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

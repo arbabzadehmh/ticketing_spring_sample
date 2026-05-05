@@ -145,11 +145,14 @@ function renderTicketsTable(tickets, roles) {
 
     tableBody.innerHTML = '';
 
+    const canEdit = roles.includes("TICKET_EDIT");
+    const canDelete = roles.includes("TICKET_DELETE");
+
+    const canSeeCustomer =
+        roles.includes("ROLE_ADMIN") ||
+        roles.includes("ROLE_MANAGER");
+
     tickets.forEach(t => {
-
-        const canEdit = roles.includes("TICKET_EDIT");
-        const canDelete = roles.includes("TICKET_DELETE");
-
 
         const row = document.createElement('tr');
 
@@ -163,7 +166,11 @@ function renderTicketsTable(tickets, roles) {
         row.innerHTML = `
       <td>${escapeHtml(t.title || '-')}</td>
       <td>${escapeHtml(sectionName)}</td>
-      <td>${escapeHtml(customerName)}</td>
+      
+      ${canSeeCustomer
+            ? `<td>${escapeHtml(customerName)}</td>`
+            : ''}
+      
       <td>${escapeHtml(status)}</td>
       <td>${escapeHtml(score)}</td>
       <td>${formatDateTime(t.dateTime)}</td>

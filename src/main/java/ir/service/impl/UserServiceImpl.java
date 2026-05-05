@@ -2,9 +2,9 @@ package ir.service.impl;
 
 
 import ir.controller.exception.DuplicateUsernameException;
-import ir.model.entity.Profile;
 import ir.model.entity.Role;
 import ir.model.entity.User;
+import ir.repository.ProfileRepository;
 import ir.repository.RoleRepository;
 import ir.repository.UserRepository;
 import ir.service.UserService;
@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+    private final ProfileRepository profileRepository;
 
     @Transactional
     public User save(User user) {
@@ -62,6 +64,12 @@ public class UserServiceImpl implements UserService {
         String randomPassword = String.valueOf(newPassword);
         existingUser.setPassword(passwordEncoder.encode(randomPassword));
         userRepository.save(existingUser);
+        emailService.sendEmail(
+                profileRepository.findEmailByUserUsername(existingUser.getUsername()),
+                "Reset password",
+                "Hi" + "\n" +
+                "your temporary password is: " + randomPassword
+        );
         return randomPassword;
     }
 

@@ -22,6 +22,7 @@ services:
       - SPRING_DATA_MONGODB_HOST=mongodb
       - SPRING_DATA_REDIS_HOST=redis
       - ADDRESS_SERVICE_URL=http://100.99.137.56
+      - ZOHO_MAIL_PASSWORD=VGvURGmNtHdR
     volumes:
       - app-logs:/app/logs                # ولوم جدا برای لاگ‌های اپلیکیشن
     entrypoint: [ "/bin/sh", "-c", "sleep 30 && exec java -jar ticketing_spring_sample.jar" ]

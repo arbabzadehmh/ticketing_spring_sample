@@ -21,7 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import ir.model.entity.Role;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -177,7 +177,30 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findAllById(List<Long> ids) {
-        return List.of();
+    public Page<Ticket> findAllById(List<Long> ids, Pageable pageable) {
+        if (ids == null || ids.isEmpty()) {
+            return Page.empty(pageable);
+        }
+        return ticketRepository.findByIdInOrderByDateTime(ids, pageable);
+    }
+
+    @Override
+    public long unreadTicketCount(User user) {
+
+        boolean isAdminOrManager = user.hasRole("ROLE_ADMIN") || user.hasRole("ROLE_MANAGER");
+
+        boolean isCustomer = user.hasRole("ROLE_CUSTOMER");
+
+        if (isAdminOrManager) {
+            return ticketRepository.countByStatus(TicketStatus.NotSeen);
+        }
+
+        if (isCustomer) {
+            return ticketRepository.countByStatusAndCustomer(
+                    TicketStatus.Responded, user);
+        }
+
+        return 0;
+
     }
 }

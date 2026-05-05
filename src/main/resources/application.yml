@@ -81,7 +81,9 @@ logging:
     #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
     org.springframework.jdbc: DEBUG    # JDBC operations
     org.springframework.cache: TRACE
+    org.springframework.mail: DEBUG
     ir.client.AddressClient: DEBUG
+    net.javacrumbs.shedlock: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
@@ -101,6 +103,26 @@ spring:
   config:
     activate:
       on-profile: prod
+
+  mail:
+    host: smtp.zoho.com
+    port: 587
+    username: ticketing_spring_sample@zohomail.com
+    password: ${ZOHO_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/postgres
+    baseline-on-migrate: true
+
+
   datasource:
     url: jdbc:postgresql://postgres:5432/spring_db
     username: mft
@@ -164,6 +186,26 @@ spring:
   config:
     activate:
       on-profile: dev
+
+  mail:
+    host: smtp.zoho.com
+    port: 587
+    username: ticketing_spring_sample@zohomail.com
+    password: VGvURGmNtHdR
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/oracle
+    baseline-on-migrate: true
+
+
   datasource:                                           # for H2 database--> comment lines 85-99
     url: jdbc:oracle:thin:@localhost:1521:xe            # and uncomment lines 101-114, 125-128
     username: ticketing_spring

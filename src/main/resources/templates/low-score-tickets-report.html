@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
+<head>
+    <title th:text="#{reports.ticket.score.title}"></title>
+    <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
+</head>
+<body data-bs-theme="light" th:attr="data-report-id=${reportId}">
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container-fluid p-2">
+        <div id="report-tickets-table-container">
+            <div th:replace="~{fragments/report-fragments/reports-ticket-table :: reports-ticket-table}"></div>
+        </div>
+    </div>
+</main>
+
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- اسکریپت‌ها -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+<script th:src="@{/js/reports-tickets-api.js}"></script>
+</body>
+</html>

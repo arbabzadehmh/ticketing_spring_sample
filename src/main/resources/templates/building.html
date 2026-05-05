@@ -19,6 +19,7 @@
   <div class="container-fluid p-2">
     <!-- در بخشی از صفحه که همیشه وجود دارد -->
     <div id="deleteConfirmText" style="display: none;" th:text="#{buildings.delete.confirm}"></div>
+    <div id="duplicatePhoneText" style="display: none;" th:text="#{buildings.duplicate.phone}"></div>
 
     <div id="buildings-table-container">
       <div th:replace="~{fragments/building-fragments/buildings-table :: buildings-table}"></div>

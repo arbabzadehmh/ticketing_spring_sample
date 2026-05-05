@@ -69,5 +69,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.body.style.overflowY = 'hidden';
+
+    initNotifications();
+
 });
 
+// ===================================================================
+function initNotifications() {
+
+    document.querySelectorAll('.notification-item').forEach(item => {
+
+        item.addEventListener('click', async function (e) {
+
+            e.preventDefault();
+
+            const id = this.dataset.id;
+            const link = this.href;
+
+            if (!id) {
+                if (link) window.location.href = link;
+                return;
+            }
+
+            const token = document.querySelector('meta[name="_csrf"]')?.content;
+            const header = document.querySelector('meta[name="_csrf_header"]')?.content;
+
+            try {
+
+                const headers = {};
+
+                if (token && header) {
+                    headers[header] = token;
+                }
+
+                await fetch(`/rest/notifications/${id}/read`, {
+                    method: 'POST',
+                    headers: headers
+                });
+
+                // UI update
+                this.classList.remove('fw-bold');
+
+                const badge = document.querySelector('.notification-badge');
+
+                if (badge) {
+
+                    let count = parseInt(badge.innerText, 10);
+
+                    if (count <= 1) {
+                        badge.remove();
+                    } else {
+                        badge.innerText = count - 1;
+                    }
+                }
+
+            } catch (err) {
+                console.error('Notification read failed', err);
+            }
+
+            // navigation AFTER fetch
+            if (link && link !== '#') {
+                window.location.href = link;
+            }
+
+        });
+
+    });
+}

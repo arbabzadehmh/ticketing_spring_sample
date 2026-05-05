@@ -29,6 +29,11 @@
                 <span th:text="#{navbar.permissions}"></span>
             </a>
 
+            <a class="nav-link" href="/reports" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
+                <i class="fa fa-newspaper me-2"></i>
+                <span th:text="#{navbar.reports}"></span>
+            </a>
+
             <a class="nav-link" href="/tickets" sec:authorize="isAuthenticated()">
                 <i class="fa fa-message me-2"></i>
                 <span th:text="#{navbar.tickets}"></span>

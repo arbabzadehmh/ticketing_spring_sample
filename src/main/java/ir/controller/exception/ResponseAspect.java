@@ -1,6 +1,7 @@
 package ir.controller.exception;
 
 
+import ir.service.impl.AsyncLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,9 +19,11 @@ import java.util.Map;
 public class ResponseAspect {
 
     private final ExceptionWrapper exceptionWrapper;
+    private final AsyncLogService asyncLogService;
 
-    public ResponseAspect(ExceptionWrapper exceptionWrapper) {
+    public ResponseAspect(ExceptionWrapper exceptionWrapper, AsyncLogService asyncLogService) {
         this.exceptionWrapper = exceptionWrapper;
+        this.asyncLogService = asyncLogService;
     }
 
 
@@ -28,15 +31,36 @@ public class ResponseAspect {
     public Object webControllerResponse(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             Object result = joinPoint.proceed();
-            log.info("Web Controller: " + joinPoint.getSignature().getName());
+            String infoMessage = "Web Controller: " + joinPoint.getSignature().getName();
+            log.info(infoMessage);
+            asyncLogService.saveLog(
+                    "INFO",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    infoMessage,
+                    Thread.currentThread().getName()
+            );
             return result;
         } catch (ValidationException e) {
-            log.error("Web Controller Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors());
+            String errorMessage ="Web Controller Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors();
+            log.error(errorMessage);
+            asyncLogService.saveLog(
+                    "ERROR",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    errorMessage,
+                    Thread.currentThread().getName()
+            );
             return ResponseEntity.badRequest().body(e.getErrors()); // بازگرداندن خطا به صورت JSON
         } catch (Exception e) {
             Locale locale = LocaleContextHolder.getLocale(); // گرفتن زبان کاربر
             String message = exceptionWrapper.getMessage(e, locale);
-            log.error("Web Controller Error in {}: {}", joinPoint.getSignature().getName(), e.getMessage());
+            String errorMessage = "Web Controller Error in " + joinPoint.getSignature().getName() + ": " + e.getMessage();
+            log.error(errorMessage);
+            asyncLogService.saveLog(
+                    "ERROR",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    errorMessage,
+                    Thread.currentThread().getName()
+            );
             return ResponseEntity.status(500).body(Map.of("error", message));
         }
     }
@@ -45,7 +69,14 @@ public class ResponseAspect {
     public ResponseEntity<?> apiResponse(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             Object result = joinPoint.proceed();
-            log.info("API: " + joinPoint.getSignature().getName());
+            String infoMessage = "API: " + joinPoint.getSignature().getName();
+            log.info(infoMessage);
+            asyncLogService.saveLog(
+                    "INFO",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    infoMessage,
+                    Thread.currentThread().getName()
+            );
 
             if (result instanceof ResponseEntity) {
                 return (ResponseEntity<?>) result; // جلوگیری از دابل‌ریسپانس
@@ -54,12 +85,26 @@ public class ResponseAspect {
             return ResponseEntity.ok(result);
 
         } catch (ValidationException e) {
-            log.error("API Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors());
+            String errorMessage ="API Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors();
+            log.error(errorMessage);
+            asyncLogService.saveLog(
+                    "ERROR",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    errorMessage,
+                    Thread.currentThread().getName()
+            );
             return ResponseEntity.badRequest().body(e.getErrors()); // بازگرداندن خطا به صورت JSON
         } catch (Exception e) {
             Locale locale = LocaleContextHolder.getLocale(); // گرفتن زبان کاربر
             String message = exceptionWrapper.getMessage(e, locale);
-            log.error("API Error in {}: {}", joinPoint.getSignature().getName(), e.getMessage());
+            String errorMessage = "API Error in " + joinPoint.getSignature().getName() + ": " + e.getMessage();
+            log.error(errorMessage);
+            asyncLogService.saveLog(
+                    "ERROR",
+                    joinPoint.getTarget().getClass().getSimpleName(),
+                    errorMessage,
+                    Thread.currentThread().getName()
+            );
             return ResponseEntity.status(500).body(Map.of("error", message));
         }
     }

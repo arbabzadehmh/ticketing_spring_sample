@@ -24,6 +24,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
     Page<Ticket> findByStatusOrderByDateTime(TicketStatus status, Pageable pageable);
     Page<Ticket> findByScoreIsLessThanEqualOrderByDateTime(Integer score, Pageable pageable);
     Page<Ticket> findBySection_IdOrderByDateTime(Long id, Pageable pageable);
+    Page<Ticket> findByIdInOrderByDateTime(List<Long> ids, Pageable pageable);
+    long countByStatus(TicketStatus status);
+    long countByStatusAndCustomer(TicketStatus status, User customer);
+
 
     @Query("""
         SELECT t

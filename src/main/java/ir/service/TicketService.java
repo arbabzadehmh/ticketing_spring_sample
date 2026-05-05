@@ -28,5 +28,6 @@ public interface TicketService {
     Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable);
     void closeTicket(Long id);
     void scoreTicket(Long id, Integer score);
-    List<Ticket> findAllById(List<Long> ids);
+    Page<Ticket> findAllById(List<Long> ids, Pageable pageable);
+    long unreadTicketCount(User user);
 }

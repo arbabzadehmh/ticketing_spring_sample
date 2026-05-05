@@ -5,6 +5,8 @@ import ir.model.entity.User;
 import ir.repository.NotificationRepository;
 import ir.service.NotificationService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,13 +22,28 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public List<Notification> findAll() {
+        return notificationRepository.findAll();
+    }
+
+    @Override
+    public Page<Notification> findAll(Pageable pageable) {
+        return notificationRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Notification> findByUser(User user, Pageable pageable) {
+        return notificationRepository.findByUserOrderByCreatedAtDesc(user, pageable);
+    }
+
+    @Override
     public List<Notification> getUnread(User user) {
-        return notificationRepository.findTop5ByUserAndReadFalseOrderByCreatedAtDesc(user);
+        return notificationRepository.findTop5ByUserAndIsReadFalseOrderByCreatedAtDesc(user);
     }
 
     @Override
     public long unreadCount(User user) {
-        return notificationRepository.countByUserAndReadFalse(user);
+        return notificationRepository.countByUserAndIsReadFalse(user);
     }
 
     @Override
@@ -43,6 +60,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setTitle(title);
         notification.setMessage(message);
         notification.setCreatedAt(LocalDateTime.now());
+        notification.setLink(link);
         notification.setUser(user);
         notificationRepository.save(notification);
     }

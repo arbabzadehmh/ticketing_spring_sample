@@ -191,6 +191,12 @@ public class ProfileService implements ir.service.ProfileService {
     }
 
     @Override
+    public String getEmailByUsername(String username) {
+        return profileRepository.findEmailByUserUsername(username);
+    }
+
+
+    @Override
     public Page<Profile> findByLastNameLike(String lastName, Pageable pageable) {
         return profileRepository.findByLastNameLike(lastName + "%", pageable);
     }

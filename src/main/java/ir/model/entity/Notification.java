@@ -32,8 +32,8 @@ public class Notification {
     @Column(name = "message")
     private String message;
 
-    @Column(name = "read")
-    private boolean read = false;
+    @Column(name = "is_read")
+    private boolean isRead = false;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -42,6 +42,6 @@ public class Notification {
     private String link;
 
     @ManyToOne
-    @JoinColumn(name="user", foreignKey = @ForeignKey(name = "fk_notification_user"))
+    @JoinColumn(name="username", foreignKey = @ForeignKey(name = "fk_notification_user"))
     private User user;
 }

@@ -64,4 +64,9 @@ public class User extends Base {
         roleSet.add(role);
     }
 
+    public boolean hasRole(String roleName) {
+        return roleSet.stream()
+                .anyMatch(role -> roleName.equals(role.getName()));
+    }
+
 }
