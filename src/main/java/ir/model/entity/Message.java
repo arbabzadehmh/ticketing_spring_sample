@@ -19,7 +19,15 @@ import java.util.List;
 @ToString
 
 @Entity(name = "messageEntity")
-@Table(name = "message_tbl")
+@Table(
+        name = "message_tbl",
+        indexes = {
+                @Index(
+                        name = "idx_message_ticket_datetime",
+                        columnList = "ticket_id, date_time"
+                )
+        }
+)
 @Where(clause = "deleted = false")
 public class Message extends Base {
     @Id
@@ -39,6 +47,12 @@ public class Message extends Base {
 
     @Column(name = "sender_role_name", nullable = false)
     private String senderRoleName;
+
+    @Column(name = "seen_by_admin")
+    private boolean seenByAdmin = false;
+
+    @Column(name = "seen_by_customer")
+    private boolean seenByCustomer = false;
 
     @Column(name = "ticket_id", nullable = false)
     private Long ticketId;

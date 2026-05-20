@@ -2,6 +2,7 @@ package ir.service.impl;
 
 import ir.controller.exception.FileStorageException;
 import ir.controller.exception.TicketClosedException;
+import ir.controller.exception.TicketExpiredException;
 import ir.model.entity.*;
 import ir.model.enums.FileType;
 import ir.model.enums.TicketStatus;
@@ -10,6 +11,10 @@ import ir.repository.MessageRepository;
 import ir.repository.TicketRepository;
 import ir.service.MessageService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -38,7 +44,7 @@ public class MessageServiceImpl implements MessageService {
         this.ticketRepository = ticketRepository;
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = TicketExpiredException.class)
     @Override
     public Message save(Long ticketId,
                         String content,
@@ -56,16 +62,26 @@ public class MessageServiceImpl implements MessageService {
             ticket.setStatus(TicketStatus.Closed);
             ticketRepository.save(ticket);
 
-            throw new TicketClosedException();
+            throw new TicketExpiredException();
         }
+
+        String role = getUserRole(principal);  // متدی که رول کاربر رو بده
 
         // ساختن Message جدید
         Message message = Message.builder()
                 .content(content)
                 .dateTime(LocalDateTime.now())
                 .senderUsername(principal.getName())
-                .senderRoleName(getUserRole(principal)) // متدی که رول کاربر رو بده
+                .senderRoleName(role)
                 .ticketId(ticketId)
+                .seenByAdmin(
+                        role.equals("ROLE_ADMIN") ||
+                                role.equals("ROLE_MANAGER")
+                )
+
+                .seenByCustomer(
+                        role.equals("ROLE_CUSTOMER")
+                )
                 .build();
 
         messageRepository.save(message);
@@ -143,15 +159,25 @@ public class MessageServiceImpl implements MessageService {
             ticket.setStatus(TicketStatus.Closed);
             ticketRepository.save(ticket);
 
-            throw new TicketClosedException();
+            throw new TicketExpiredException();
         }
+
+        String role = getUserRole(principal);
 
         Message message = Message.builder()
                 .content("")
                 .dateTime(LocalDateTime.now())
                 .senderUsername(principal.getName())
-                .senderRoleName(getUserRole(principal))
+                .senderRoleName(role)
                 .ticketId(ticketId)
+                .seenByAdmin(
+                        role.equals("ROLE_ADMIN") ||
+                                role.equals("ROLE_MANAGER")
+                )
+
+                .seenByCustomer(
+                        role.equals("ROLE_CUSTOMER")
+                )
                 .build();
 
         messageRepository.save(message);
@@ -206,8 +232,37 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Page<Message> findByTicketId(Long ticketId, int page, int size) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("dateTime").descending()
+        );
+
+        return messageRepository.findByTicketId(ticketId, pageable);
+    }
+
+    @Override
     public Message findById(Long id) {
         return messageRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    @Override
+    public void markMessagesAsSeen(Long ticketId, Principal principal) {
+
+        String role = getUserRole(principal);
+
+        if (role.equals("ROLE_CUSTOMER")) {
+
+            messageRepository.markSeenByCustomer(ticketId);
+
+        } else {
+
+            messageRepository.markSeenByAdmin(ticketId);
+
+        }
     }
 
 //    @Override
@@ -225,10 +280,10 @@ public class MessageServiceImpl implements MessageService {
 //        return messageRepository.findByTicketOrderByDateTime(ticket);
 //    }
 
-    @Override
-    public List<Message> findByTicketId(Long ticketId) {
-        return messageRepository.findByTicketIdOrderByDateTime(ticketId);
-    }
+//    @Override
+//    public List<Message> findByTicketId(Long ticketId) {
+//        return messageRepository.findByTicketIdOrderByDateTime(ticketId);
+//    }
 
     private void updateTicketStatusOnNewMessage(Ticket ticket, Message message) {
 
@@ -239,9 +294,16 @@ public class MessageServiceImpl implements MessageService {
 
         // 3) تعیین وضعیت بر اساس role فرستنده
         if (message.getSenderRoleName().equals("ROLE_CUSTOMER")) {
-            ticket.setStatus(TicketStatus.NotSeen);
+            ticket.setAdminUnread(true);
+            ticket.setCustomerUnread(false);
+
+            ticket.setStatus(TicketStatus.WaitingForAdmin);
+
         } else if (message.getSenderRoleName().equals("ROLE_ADMIN") || message.getSenderRoleName().equals("ROLE_MANAGER")) {
-            ticket.setStatus(TicketStatus.Responded);
+            ticket.setCustomerUnread(true);
+            ticket.setAdminUnread(false);
+
+            ticket.setStatus(TicketStatus.WaitingForCustomer);
         }
 
         ticketRepository.save(ticket);

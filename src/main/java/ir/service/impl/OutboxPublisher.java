@@ -39,11 +39,29 @@ public class OutboxPublisher {
 //        });
 //    }
 
+//    @PostConstruct
+//    public void testKafka() {
+//
+//        kafkaTemplate.send("test-topic", "hello")
+//                .whenComplete((r, ex) -> {
+//
+//                    if (ex != null) {
+//                        System.out.println("KAFKA FAILED");
+//                        ex.printStackTrace();
+//                    } else {
+//                        System.out.println("KAFKA SUCCESS");
+//                    }
+//
+//                });
+//    }
+
 
     @Scheduled(fixedDelayString = "${outbox.publisher.delay:5000}")
     @Transactional
     public void publish() {
 
+//        System.out.println("PUBLISH METHOD RUNNING");
+//
 //        System.out.println(">>>>>>>>>>>> requestTopic =" +  requestTopic);
 
         List<OutboxEvent> list = outboxRepo.findByPublishedFalseOrderByCreatedAtAsc();

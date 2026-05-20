@@ -54,8 +54,10 @@
                     <tr th:each="section : ${sections.content}">
                         <td th:text="${section.title}"></td>
                         <td>
-                            <span th:if="${section.parentSection != null}" th:text="${section.parentSection.title}"></span>
-                            <span th:unless="${section.parentSection != null}">—</span>
+                            <span th:if="${section.parentSectionTitle != null}"
+                                  th:text="${section.parentSectionTitle}"></span>
+
+                            <span th:unless="${section.parentSectionTitle != null}">—</span>
                         </td>
 
                         <td th:text="${section.buildingTitle != null ? section.buildingTitle : '—'}"></td>
@@ -66,7 +68,8 @@
                                         sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
                                         th:data-id="${section.id}"
                                         th:data-title="${section.title}"
-                                        th:data-parent-id="${section.parentSection != null ? section.parentSection.id : ''}">
+                                        th:data-parent-id="${section.parentSectionId != null ? section.parentSectionId : ''}"
+                                        th:data-version="${section.version}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"

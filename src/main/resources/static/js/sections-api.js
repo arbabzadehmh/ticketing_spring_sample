@@ -1,5 +1,7 @@
 let firstLoad = true;
 
+let currentEditingSectionId = null;
+
 function loadSections(page = 0) {
 
     const container = document.getElementById('sections-table-container');
@@ -112,19 +114,26 @@ function renderSectionsTable(sections, roles) {
         const canEdit = roles.includes("ROLE_ADMIN") || roles.includes("ROLE_MANAGER");
 
         const row = document.createElement('tr');
+
         row.innerHTML = `
             <td>${s.title}</td>
-            <td>${s.parentSection ? s.parentSection.title : '—'}</td>
+
+            <td>${s.parentSectionTitle ? s.parentSectionTitle : '—'}</td>
+
             <td>${s.buildingTitle ? s.buildingTitle : '—'}</td>
+
             <td>
                 ${canEdit ? `
                     <button class="btn btn-sm btn-warning btn-edit"
                         data-id="${s.id}"
                         data-title="${s.title}"
-                        data-parent="${s.parentSection ? s.parentSection.id : ''}">
+                        data-parent="${s.parentSectionId ? s.parentSectionId : ''}"
+                        data-version="${s.version}">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn btn-sm btn-danger btn-delete" data-id="${s.id}">
+
+                    <button class="btn btn-sm btn-danger btn-delete"
+                        data-id="${s.id}">
                         <i class="fas fa-trash"></i>
                     </button>
                 ` : ''}
@@ -168,6 +177,10 @@ async function handleSectionSubmit(e) {
         parentSection: parentSectionId ? { id: parentSectionId } : null
     };
 
+    if (id) {
+        section.version = document.getElementById('sectionVersion').value;
+    }
+
     const url = id ? `/rest/sections/${id}` : '/rest/sections';
     const method = id ? 'PUT' : 'POST';
 
@@ -179,6 +192,14 @@ async function handleSectionSubmit(e) {
         });
 
         const data = await handleResponse(response, id ? 'edit' : 'create');
+
+        if (id) {
+            await fetch(`/rest/sections/${id}/edit-stop`, {
+                method: 'POST'
+            });
+        }
+
+        currentEditingSectionId = null;
 
         bootstrap.Modal.getInstance(document.getElementById('sectionModal')).hide();
         showToast('success', data.message || (id ? 'بخش ویرایش شد' : 'بخش ثبت شد'));
@@ -319,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isAdd = event.relatedTarget && event.relatedTarget.classList.contains('btn-add');
             if (isAdd) {
                 modalTitle.textContent = modalTitle.dataset.titleAdd;
+                document.getElementById('sectionForm').reset();
                 document.getElementById('sectionId').value = '';
                 document.getElementById('title').value = '';
                 if (document.getElementById('parentSection')) {
@@ -327,14 +349,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        sectionModal.addEventListener('hide.bs.modal', () => {
+        sectionModal.addEventListener('hidden.bs.modal', async () => {
+
+            const id = currentEditingSectionId;
+
+            currentEditingSectionId = null;
+
+            if (!id) return;
+
+            try {
+                await fetch(`/rest/sections/${id}/edit-stop`, {
+                    method: 'POST'
+                });
+            } catch (e) {
+                console.error('edit-stop error', e);
+            }
+
             modalTitle.textContent = modalTitle.dataset.titleAdd;
+
             const focusedElement = sectionModal.querySelector(':focus');
             if (focusedElement) focusedElement.blur();
         });
     }
 
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', async (e) => {
         const btnDelete = e.target.closest('.btn-delete, .btn-danger');
         if (btnDelete) {
             handleSectionDelete(e);
@@ -342,14 +380,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const btnEdit = e.target.closest('.btn-edit');
+
         if (btnEdit) {
-            modalTitle.textContent = modalTitle.dataset.titleEdit;
-            document.getElementById('sectionId').value = btnEdit.dataset.id;
-            document.getElementById('title').value = btnEdit.dataset.title;
-            if (document.getElementById('parentSection')) {
-                document.getElementById('parentSection').value = btnEdit.dataset.parent || '';
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // جلوگیری از چند کلیک سریع
+            if (btnEdit.dataset.loading === 'true') {
+                return;
             }
-            new bootstrap.Modal(sectionModal).show();
+
+            btnEdit.dataset.loading = 'true';
+
+            const sectionId = btnEdit.dataset.id;
+
+            try {
+
+                const lockResponse = await fetch(`/rest/sections/${sectionId}/edit-start`, {
+                    method: 'POST'
+                });
+
+                let lockData;
+                let rawText = await lockResponse.text();
+
+                try {
+                    lockData = JSON.parse(rawText);
+                } catch (e) {
+                    lockData = { error: rawText };
+                }
+
+                if (!lockResponse.ok) {
+
+                    btnEdit.dataset.loading = 'false';
+
+                    showToast(
+                        'danger',
+                        lockData.error || 'این بخش توسط کاربر دیگری در حال ویرایش است !'
+                    );
+
+                    return;
+                }
+
+                currentEditingSectionId = sectionId;
+
+                modalTitle.textContent =
+                    modalTitle.dataset.titleEdit;
+
+                document.getElementById('sectionId').value =
+                    btnEdit.dataset.id;
+
+                document.getElementById('title').value =
+                    btnEdit.dataset.title;
+
+                document.getElementById('sectionVersion').value =
+                    btnEdit.dataset.version || '';
+
+                if (document.getElementById('parentSection')) {
+
+                    document.getElementById('parentSection').value =
+                        btnEdit.dataset.parent || '';
+                }
+
+                // فقط همین
+                const modalInstance =
+                    bootstrap.Modal.getOrCreateInstance(sectionModal);
+
+                modalInstance.show();
+
+            } catch (error) {
+
+                console.error('edit-start error:', error);
+
+                showToast(
+                    'danger',
+                    'خطا در بررسی قفل ویرایش'
+                );
+
+            } finally {
+
+                btnEdit.dataset.loading = 'false';
+            }
+
             return;
         }
 

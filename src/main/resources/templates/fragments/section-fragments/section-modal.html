@@ -16,6 +16,7 @@
                 <form id="sectionForm">
                     <div class="modal-body">
                         <input type="hidden" id="sectionId"> <!-- فقط برای حالت ویرایش -->
+                        <input type="hidden" id="sectionVersion" name="version"> <!-- فقط برای حالت ویرایش -->
                         <div class="mb-3">
                             <label for="title" class="form-label" th:text="#{sections.name}"></label>
                             <input type="text" class="form-control" id="title" name="title">

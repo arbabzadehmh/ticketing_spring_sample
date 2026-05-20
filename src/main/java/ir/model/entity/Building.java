@@ -51,10 +51,14 @@ public class Building extends Base{
     @ToString.Exclude
     private List<Section> sectionList = new ArrayList<>();
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public void addSection(Section section) {
         if (sectionList == null) sectionList = new ArrayList<>();
         sectionList.add(section);
         section.setBuilding(this);
     }
-    
+
 }

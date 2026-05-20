@@ -1,13 +1,16 @@
 package ir.service.impl;
 
 import ir.controller.exception.*;
+import ir.dto.SectionDto;
 import ir.dto.SectionFilterDto;
+import ir.dto.SectionListDto;
 import ir.model.entity.Building;
 import ir.model.entity.Section;
 import ir.repository.BuildingRepository;
 import ir.repository.SectionRepository;
 import ir.service.SectionService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,8 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -26,11 +31,6 @@ import java.util.Set;
 public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
     private final BuildingRepository buildingRepository;
-
-//    @PostConstruct
-//    public void init() {
-//        findAllSections();
-//    }
 
 
     @Transactional
@@ -77,8 +77,15 @@ public class SectionServiceImpl implements SectionService {
     @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public Section update(Long id, Section section) {
+
         Section existingSection = sectionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Section not found"));
+
+
+        if (!Objects.equals(existingSection.getVersion(), section.getVersion())) {
+            throw new OptimisticLockException();
+        }
+
 
         if (sectionRepository.existsByTitle(section.getTitle())
                 && !existingSection.getTitle().equals(section.getTitle())) {
@@ -124,6 +131,7 @@ public class SectionServiceImpl implements SectionService {
         existingSection.setTitle(section.getTitle().toUpperCase());
 
         return sectionRepository.save(existingSection);
+
     }
 
 
@@ -166,6 +174,8 @@ public class SectionServiceImpl implements SectionService {
     }
 
 
+
+
     @Transactional(readOnly = true)
     @Cacheable(value = "sections")
     @Override
@@ -176,8 +186,8 @@ public class SectionServiceImpl implements SectionService {
     @Transactional(readOnly = true)
     @Cacheable(value = "sectionsPageable")
     @Override
-    public Page<Section> findAll(Pageable pageable) {
-        return sectionRepository.findAll(pageable);
+    public Page<SectionListDto> findAll(Pageable pageable) {
+        return sectionRepository.findAllDto(pageable);
     }
 
     @Transactional(readOnly = true)
@@ -205,13 +215,13 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public Page<Section> findByTitleContaining(String title, Pageable pageable) {
-        return sectionRepository.findByTitleContainingIgnoreCase(title, pageable);
+    public Page<SectionListDto> findByTitleContaining(String title, Pageable pageable) {
+        return sectionRepository.findByTitleContainingDto(title, pageable);
     }
 
     @Override
-    public Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable) {
-        return sectionRepository.findByParentSection_TitleContainingIgnoreCase(parentTitle, pageable);
+    public Page<SectionListDto> findByParentSectionTitleContaining(String parentTitle, Pageable pageable) {
+        return sectionRepository.findByParentSectionTitleContainingDto(parentTitle, pageable);
     }
 
     private void collectChildIds(Section section, Set<Long> ids) {

@@ -1,10 +1,14 @@
 package ir.controller.api;
 
 import ir.controller.exception.ValidationException;
+
 import ir.dto.SectionDto;
+import ir.dto.SectionListDto;
+import ir.dto.mapper.SectionMapper;
 import ir.model.entity.Section;
 import ir.repository.SectionRepository;
 import ir.service.SectionService;
+import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -15,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,29 +31,39 @@ public class SectionApi {
 
     private final SectionService sectionService;
     private final MessageSource messageSource;
+    private final EntityLockService lockService;
+    private final SectionMapper sectionMapper;
 
-    public SectionApi(SectionService sectionService, MessageSource messageSource) {
+    public SectionApi(SectionService sectionService, MessageSource messageSource, EntityLockService lockService, SectionMapper sectionMapper) {
         this.sectionService = sectionService;
         this.messageSource = messageSource;
+        this.lockService = lockService;
+        this.sectionMapper = sectionMapper;
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    public ResponseEntity<List<Section>> getAvailableParents(@RequestParam(required = false) Long id) {
+    public ResponseEntity<List<SectionDto>> getAvailableParents(@RequestParam(required = false) Long id) {
+
         List<Section> allSections = sectionService.findAll();
 
         if (id != null) {
             Section section = sectionService.findById(id);
+
             Set<Long> excludedIds = new HashSet<>();
             excludedIds.add(section.getId());
             collectChildIds(section, excludedIds);
 
             allSections = allSections.stream()
                     .filter(s -> !excludedIds.contains(s.getId()))
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
-        return ResponseEntity.ok(allSections);
+        List<SectionDto> result = allSections.stream()
+                .map(sectionMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(result);
     }
 
     private void collectChildIds(Section section, Set<Long> ids) {
@@ -69,7 +85,7 @@ public class SectionApi {
         Sort sort = Sort.by("title").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Section> sections;
+        Page<SectionListDto> sections;
         if (sectionTitle != null && !sectionTitle.isEmpty()) {
             sections = sectionService.findByTitleContaining(sectionTitle, pageable);
         } else if (parentSectionTitle != null && !parentSectionTitle.isEmpty()) {
@@ -80,15 +96,6 @@ public class SectionApi {
 
         return ResponseEntity.ok(sections);
     }
-
-//    @GetMapping("/dto-for-building")
-//    public List<SectionDto> getAllForBuilding() {
-//        return sectionService.findAll()
-//                .stream()
-//                .map(s -> new SectionDto(s.getId(), s.getTitle()))
-//                .toList();
-//    }
-
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
@@ -110,6 +117,21 @@ public class SectionApi {
         String message = messageSource.getMessage("sections.create.success", null, locale);
 
         return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PostMapping("/{id}/edit-start")
+    public ResponseEntity<?> startSectionEdit(@PathVariable Long id,
+                          Principal principal) {
+
+        lockService.lock("section", id, principal.getName());
+        return ResponseEntity.ok(Map.of("message", "locked"));
+    }
+
+    @PostMapping("/{id}/edit-stop")
+    public void stopSectionEdit(@PathVariable Long id,
+                         Principal principal) {
+
+        lockService.unlock("section", id, principal.getName());
     }
 
     @PutMapping("/{id}")

@@ -66,17 +66,26 @@ management:
       exposure:
         include: health,metrics,prometheus  # Expose useful endpoints
 
+  endpoint:
+    health:
+      show-details: always
+
+  health:
+    redis:
+      enabled: false
+
+
 # Logging configuration
 logging:
   level:
     root: INFO
     com.spring_jpa_cache: DEBUG
-    org.springframework.security: DEBUG  # Debug Spring Security
-    org.hibernate.SQL: DEBUG            # Show SQL queries
-    org.hibernate.orm.jdbc.bind: TRACE  # Show parameter binding
-    org.hibernate.orm.jdbc.extract: TRACE  # Show result extraction
-    org.springframework.transaction: DEBUG  # Transaction management
-    org.hibernate.engine.transaction: DEBUG  # Transaction details
+    org.springframework.security: INFO  # Debug Spring Security
+    org.hibernate.SQL: OFF            # Show SQL queries
+    org.hibernate.orm.jdbc.bind: OFF  # Show parameter binding
+    org.hibernate.orm.jdbc.extract: OFF  # Show result extraction
+    org.springframework.transaction: OFF  # Transaction management
+    org.hibernate.engine.transaction: OFF  # Transaction details
     #    com.zaxxer.hikari: DEBUG           # HikariCP pool details
     #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
     org.springframework.jdbc: DEBUG    # JDBC operations
@@ -84,6 +93,8 @@ logging:
     org.springframework.mail: DEBUG
     ir.client.AddressClient: DEBUG
     net.javacrumbs.shedlock: DEBUG
+    org.apache.kafka: WARN
+    org.springframework.data.redis: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
@@ -138,12 +149,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update           # Update schema in production
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         use_sql_comments: true
+        default_batch_fetch_size: 50
         jdbc:
           batch_size: 50          # Batch size for performance
   data:
@@ -215,12 +227,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.OracleDialect
         format_sql: true
         use_sql_comments: true
+        default_batch_fetch_size: 50
 
 #  datasource:
 #    url: jdbc:h2:mem:spring_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -245,7 +258,7 @@ spring:
       host: localhost
       port: 6379
   cache:
-    type: simple
+    type: redis
 #  h2:
 #    console:
 #      enabled: true              # Enable H2 console for dev

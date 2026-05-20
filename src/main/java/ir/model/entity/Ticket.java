@@ -46,6 +46,12 @@ public class Ticket extends Base{
     @Column(name = "score")
     private Integer score;
 
+    @Column(name = "admin_unread")
+    private boolean adminUnread;
+
+    @Column(name = "customer_unread")
+    private boolean customerUnread;
+
     @ManyToOne
     @JoinColumn(name = "section_id", foreignKey = @ForeignKey(name = "fk_ticket_section"))
     private Section section;

@@ -23,7 +23,7 @@ public interface ProfileService {
     Page<Profile> findByLastNameLike(String lastName, Pageable pageable);
     Page<Profile> findByUserUsernameLike(String username, Pageable pageable);
     Profile uploadOrUpdateProfilePicture(Long profileId, MultipartFile file, String username);
-    void deleteProfilePicture(Long profileId);
+    Profile deleteProfilePicture(Long profileId);
     String getProfilePictureBase64(Long profileId);
     Pair<byte[], FileType> getProfilePictureBytes(Long profileId);
 }

@@ -53,4 +53,5 @@ public class ProfileUserDto {
     private boolean enabled;
     private boolean deleted;
     private LocalDateTime credentialsExpiryDate;
+    private Long version;
 }

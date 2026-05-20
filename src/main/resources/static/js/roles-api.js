@@ -1,5 +1,7 @@
 let firstLoad = true;
 
+let currentEditingRoleName = null;
+
 // -------------------- Load Roles --------------------
 function loadRoles(page = 0) {
     const container = document.getElementById('roles-table-container');
@@ -38,11 +40,11 @@ function loadRoles(page = 0) {
 
                 // REMOVED: هیچ initXYZ اینجا صدا زده نمی‌شه. (delegation داریم)
                 // اگر فرم‌های داخل مودال‌ها وجود دارن، submitشون رو یکبار bind می‌کنیم
-                const editForm = document.getElementById('roleEditForm');
-                if (editForm && !editForm.dataset.bound) {
-                    editForm.addEventListener('submit', handleEditRoleSubmit);
-                    editForm.dataset.bound = 'true'; // CHANGED: جلوگیری از دوباره بایند شدن
-                }
+                // const editForm = document.getElementById('roleEditForm');
+                // if (editForm && !editForm.dataset.bound) {
+                //     editForm.addEventListener('submit', handleEditRoleSubmit);
+                //     editForm.dataset.bound = 'true'; // CHANGED: جلوگیری از دوباره بایند شدن
+                // }
 
             })
             .catch(err => showToast('danger', err.message || 'خطا در دریافت داده‌ها'));
@@ -97,7 +99,8 @@ function renderRolesTable(roles) {
       <td>
         <button class="btn btn-sm btn-warning btn-edit"
           data-id="${r.name}"
-          data-permissions='${permissions}'>
+          data-permissions='${permissions}'
+          data-version="${r.version}">
           <i class="fas fa-edit"></i>
         </button>
         <button class="btn btn-sm btn-danger btn-delete"
@@ -171,6 +174,7 @@ async function handleEditRoleSubmit(e) {
 
     const role = {
         name: document.getElementById('editName').value.trim(),
+        version : document.getElementById('editRoleVersion').value,
         permissionSet: Array.from(document.querySelectorAll('#editPermissionsDropdownMenu .permission-checkbox:checked'))
             .map(cb => ({ permissionName: cb.value }))
     };
@@ -183,6 +187,16 @@ async function handleEditRoleSubmit(e) {
         });
 
         const data = await handleResponse(response, 'edit');
+
+        try {
+            await fetch(`/rest/roles/${id}/edit-stop`, {
+                method: 'POST'
+            });
+        } catch (e) {
+            console.error('unlock error', e);
+        }
+
+        currentEditingRoleName = null;
 
         bootstrap.Modal.getInstance(document.getElementById('roleEditModal'))?.hide();
         showToast('success', data.message || 'نقش با موفقیت ویرایش شد');
@@ -348,18 +362,96 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // کلیک‌ها (delegation)
-    document.body.addEventListener('click', e => {
+    document.body.addEventListener('click', async e => {
         const btnDelete = e.target.closest('.btn-delete, .btn-danger');
-        if (btnDelete) { handleRoleDelete(e); return; }
+        if (btnDelete) {
+            handleRoleDelete(e);
+            return;
+        }
 
         const btnEdit = e.target.closest('.btn-edit');
+
         if (btnEdit) {
-            const row = btnEdit.closest('tr');
-            document.getElementById('editRoleName').value = btnEdit.dataset.id || '';
-            document.getElementById('editName').value = row ? row.cells[0].textContent.trim() : '';
-            const selected = btnEdit.dataset.permissions ? btnEdit.dataset.permissions.split(',') : [];
-            loadPermissionsForEditModal(selected);
-            new bootstrap.Modal(document.getElementById('roleEditModal')).show();
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // جلوگیری از چند کلیک سریع
+            if (btnEdit.dataset.loading === 'true') {
+                return;
+            }
+
+            btnEdit.dataset.loading = 'true';
+
+            const roleName = btnEdit.dataset.id;
+
+            try {
+
+                const lockResponse = await fetch(
+                    `/rest/roles/${roleName}/edit-start`,
+                    {
+                        method: 'POST'
+                    }
+                );
+
+                let lockData;
+                const rawText = await lockResponse.text();
+
+                try {
+                    lockData = JSON.parse(rawText);
+                } catch {
+                    lockData = { error: rawText };
+                }
+
+                if (!lockResponse.ok) {
+
+                    showToast(
+                        'danger',
+                        lockData.error || 'این نقش در حال ویرایش است'
+                    );
+
+                    return;
+                }
+
+                currentEditingRoleName = roleName;
+
+                const row = btnEdit.closest('tr');
+
+                document.getElementById('editRoleName').value =
+                    roleName || '';
+
+                document.getElementById('editName').value =
+                    row ? row.cells[0].textContent.trim() : '';
+
+                document.getElementById('editRoleVersion').value =
+                    btnEdit.dataset.version || '';
+
+                const selected = btnEdit.dataset.permissions
+                    ? btnEdit.dataset.permissions.split(',')
+                    : [];
+
+                loadPermissionsForEditModal(selected);
+
+                bootstrap.Modal
+                    .getOrCreateInstance(
+                        document.getElementById('roleEditModal')
+                    )
+                    .show();
+
+            } catch (error) {
+
+                console.error('role edit-start error:', error);
+
+                showToast(
+                    'danger',
+                    'خطا در بررسی قفل ویرایش'
+                );
+
+            } finally {
+
+                btnEdit.dataset.loading = 'false';
+            }
+
             return;
         }
 
@@ -380,5 +472,44 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('change', e => {
         if (e.target.id === 'pageSize') loadRoles(0);
     });
+
+
+    const roleEditModal = document.getElementById('roleEditModal');
+
+    if (roleEditModal) {
+
+        roleEditModal.addEventListener(
+            'hidden.bs.modal',
+            async () => {
+
+                const roleName = currentEditingRoleName;
+
+                currentEditingRoleName = null;
+
+                if (!roleName) return;
+
+                try {
+
+                    await fetch(
+                        `/rest/roles/${roleName}/edit-stop`,
+                        {
+                            method: 'POST'
+                        }
+                    );
+
+                } catch (e) {
+
+                    console.error(
+                        'role edit-stop error',
+                        e
+                    );
+                }
+
+                document.getElementById('roleEditForm')?.reset();
+
+                clearValidationErrors();
+            }
+        );
+    }
 
 });

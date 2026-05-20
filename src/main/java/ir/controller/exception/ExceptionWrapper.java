@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import jakarta.persistence.OptimisticLockException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
 import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
@@ -35,6 +37,8 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof DuplicateUsernameException) {
             return messageSource.getMessage("error.username.duplicate", null, locale);
+        } else if (e instanceof EntityLockedException) {
+            return messageSource.getMessage("error.entity.locked", null, locale);
         } else if (e instanceof DuplicateRoleException) {
             return messageSource.getMessage("error.role.duplicate", null, locale);
         } else if (e instanceof DuplicatePermissionException) {
@@ -57,6 +61,8 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.file.storage", null, locale);
         } else if (e instanceof TicketClosedException) {
             return messageSource.getMessage("error.ticket.closed", null, locale);
+        } else if (e instanceof TicketExpiredException) {
+            return messageSource.getMessage("error.ticket.closed", null, locale);
         } else if (e instanceof TicketIsAlreadyClosedException) {
             return messageSource.getMessage("error.ticket.already.closed", null, locale);
         } else if (e instanceof TicketIsAlreadyScoredException) {
@@ -65,6 +71,9 @@ public class ExceptionWrapper {
             return messageSource.getMessage("error.building.duplicate", null, locale);
         } else if (e instanceof AddressEmptyException) {
             return messageSource.getMessage("error.address.empty", null, locale);
+        } else if (e instanceof OptimisticLockException ||
+                e instanceof ObjectOptimisticLockingFailureException) {
+            return messageSource.getMessage("error.concurrent.update", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

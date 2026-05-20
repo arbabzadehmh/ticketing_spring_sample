@@ -8,6 +8,7 @@ import ir.model.entity.User;
 import ir.model.enums.FileType;
 import ir.service.ProfileService;
 import ir.service.UserService;
+import ir.service.impl.EntityLockService;
 import ir.validation.OnCreate;
 import ir.validation.OnUpdate;
 import org.springframework.context.MessageSource;
@@ -26,10 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -39,11 +37,13 @@ public class ProfileApi {
     private final ProfileService profileService;
     private final MessageSource messageSource;
     private final UserService userService;
+    private final EntityLockService lockService;
 
-    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService, PasswordEncoder passwordEncoder) {
+    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService, PasswordEncoder passwordEncoder, EntityLockService lockService) {
         this.profileService = profileService;
         this.messageSource = messageSource;
         this.userService = userService;
+        this.lockService = lockService;
     }
 
     @GetMapping
@@ -160,6 +160,21 @@ public class ProfileApi {
         ));
     }
 
+    @PostMapping("/{id}/edit-start")
+    public ResponseEntity<?> startProfileEdit(@PathVariable Long id,
+                                              Principal principal) {
+
+        lockService.lock("profile", id, principal.getName());
+        return ResponseEntity.ok(Map.of("message", "locked"));
+    }
+
+    @PostMapping("/{id}/edit-stop")
+    public void stopProfileEdit(@PathVariable Long id,
+                                Principal principal) {
+
+        lockService.unlock("profile", id, principal.getName());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProfile(
             @PathVariable Long id,
@@ -208,10 +223,21 @@ public class ProfileApi {
 
     // حذف عکس پروفایل
     @DeleteMapping("/{profileId}/picture")
-    public ResponseEntity<Map<String, String>> deleteProfilePicture(@PathVariable Long profileId, Locale locale) {
-        profileService.deleteProfilePicture(profileId);
+    public ResponseEntity<Map<String, Object>> deleteProfilePicture(
+            @PathVariable Long profileId,
+            Locale locale
+    ) {
+
+        Profile updatedProfile = profileService.deleteProfilePicture(profileId);
+
         String message = messageSource.getMessage("profiles.picture.delete.success", null, locale);
-        return ResponseEntity.ok(Map.of("message", message));
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "message", message,
+                        "version", updatedProfile.getVersion()
+                )
+        );
     }
 
     // دریافت Base64 عکس پروفایل برای نمایش در مرورگر

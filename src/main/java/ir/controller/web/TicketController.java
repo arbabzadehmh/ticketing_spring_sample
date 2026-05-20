@@ -45,14 +45,14 @@ public class TicketController {
     private final TicketService ticketService;
     private final MessageSource messageSource;
     private final SectionService sectionService;
-    private final MessageRepository messageRepository;
+    private final MessageService messageService;
     private final UserService userService;
 
-    public TicketController(TicketService ticketService, MessageSource messageSource, SectionService sectionService, MessageRepository messageRepository, UserService userService) {
+    public TicketController(TicketService ticketService, MessageSource messageSource, SectionService sectionService, MessageRepository messageRepository, MessageService messageService, UserService userService) {
         this.ticketService = ticketService;
         this.messageSource = messageSource;
         this.sectionService = sectionService;
-        this.messageRepository = messageRepository;
+        this.messageService = messageService;
         this.userService = userService;
     }
 
@@ -97,14 +97,19 @@ public class TicketController {
 
 
     @GetMapping("/{ticketId}")
-    public String showTicketMessages(@PathVariable Long ticketId, Model model) {
+    public String showTicketMessages(
+            @PathVariable Long ticketId,
+            Model model
+    ) {
 
         Ticket ticket = ticketService.findById(ticketId);
-        List<Message> messageList = messageRepository.findByTicketIdOrderByDateTime(ticketId);
+
+        Page<Message> page = messageService.findByTicketId(ticketId, 0, 50);
 
         model.addAttribute("ticket", ticket);
-        model.addAttribute("messages", messageList);
-        return "message"; // صفحه کامل message.html
+        model.addAttribute("messages", page.getContent());
+
+        return "message";
     }
 
 

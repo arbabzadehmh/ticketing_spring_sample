@@ -31,8 +31,14 @@ public class MessageApi {
     }
 
     @GetMapping("/{ticketId}")
-    public List<Message> getMessages(@PathVariable Long ticketId) {
-        return messageService.findByTicketId(ticketId);
+    public ResponseEntity<?> getMessages(
+            @PathVariable Long ticketId,
+            @RequestParam int page,
+            @RequestParam int size
+    ) {
+        return ResponseEntity.ok(
+                messageService.findByTicketId(ticketId, page, size)
+        );
     }
 
     @PostMapping("/{ticketId}")
@@ -83,5 +89,16 @@ public class MessageApi {
 
         String message = messageSource.getMessage("tickets.score.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PutMapping("/seen/{ticketId}")
+    public ResponseEntity<?> markSeen(
+            @PathVariable Long ticketId,
+            Principal principal
+    ) {
+
+        messageService.markMessagesAsSeen(ticketId, principal);
+
+        return ResponseEntity.ok().build();
     }
 }

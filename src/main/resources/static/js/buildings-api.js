@@ -1,5 +1,7 @@
 let firstLoad = true;
 
+let currentEditingBuildingId = null;
+
 let createPhones = [];
 let editPhones = [];
 
@@ -122,7 +124,8 @@ function renderBuildingsTable(buildings) {
           data-phone="${b.phones ? b.phones.join(',') : ''}"
           data-section-ids="${Array.isArray(b.sectionIds) ? b.sectionIds.join(',') : ''}"
           data-section="${Array.isArray(b.sections) ? b.sections.join(',') : ''}"
-          data-address-id="${b.fullAddress}">
+          data-address-id="${b.fullAddress}"
+          data-version="${b.version}">
           <i class="fas fa-edit"></i>
         </button>
         <button class="btn btn-sm btn-danger btn-delete"
@@ -247,6 +250,7 @@ function renderPhones() {
         phonesList.appendChild(badge);
     });
 }
+
 // -------------------------------------------------------------------------
 
 function renderPhonesForEdit() {
@@ -304,17 +308,6 @@ function loadSectionsForCreateModal() {
 }
 
 
-// const buildingCreateModal = document.getElementById('buildingCreateModal');
-//
-// if (buildingCreateModal && !buildingCreateModal.dataset.bound) {
-//
-//     buildingCreateModal.addEventListener('shown.bs.modal', () => {
-//         loadSectionsForCreateModal();
-//         loadAddressesForCreateModal();
-//     });
-//
-//     buildingCreateModal.dataset.bound = 'true';
-// }
 
 // ----------------------------------------------------------
 function loadAddressesForCreateModal() {
@@ -396,7 +389,8 @@ async function handleEditBuildingSubmit(e) {
         sectionList: Array.from(
             document.querySelectorAll('#editSectionsContainer .section-checkbox:checked')
         ).map(cb => ({id: cb.value})),
-        addressId: addressId || null
+        addressId: addressId || null,
+        version: document.getElementById('editBuildingVersion').value
     };
 
     const payload = {
@@ -404,22 +398,32 @@ async function handleEditBuildingSubmit(e) {
         addressDto
     };
 
-    try{
-    const response = await fetch('/rest/buildings', {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
+    try {
+        const response = await fetch('/rest/buildings', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
 
-    const data = await handleResponse(response, 'edit');
+        const data = await handleResponse(response, 'edit');
 
-    bootstrap.Modal
-        .getInstance(document.getElementById('buildingEditModal'))
-        ?.hide();
+        try {
+            await fetch(`/rest/buildings/${building.id}/edit-stop`, {
+                method: 'POST'
+            });
+        } catch (e) {
+            console.error('unlock error', e);
+        }
 
-    showToast('success', data.message || 'ویرایش با موفقیت انجام شد');
+        currentEditingBuildingId = null;
 
-    setTimeout(() => loadBuildings(), 4000);
+        bootstrap.Modal
+            .getInstance(document.getElementById('buildingEditModal'))
+            ?.hide();
+
+        showToast('success', data.message || 'ویرایش با موفقیت انجام شد');
+
+        setTimeout(() => loadBuildings(), 4000);
     } catch (error) {
         if (error.message !== 'Validation errors') {
             console.error('Building creation error:', error);
@@ -427,6 +431,7 @@ async function handleEditBuildingSubmit(e) {
         }
     }
 }
+
 // -----------------------------------------------------------------
 function loadSectionsForEditModal(selectedSectionIds = []) {
 
@@ -451,7 +456,7 @@ function loadSectionsForEditModal(selectedSectionIds = []) {
                            type="checkbox"
                            value="${section.id}"
                            id="edit-section-${section.id}"
-                           ${selectedSectionIds.includes(section.id) ? 'checked' : ''}
+                           ${selectedSectionIds.includes(section.id) ? 'checked' : ''}>
                     <label class="form-check-label" for="edit-section-${section.id}">
                         ${section.title}
                     </label>
@@ -507,31 +512,6 @@ function loadAddressesForEditModal(fullAddress = '') {
 }
 
 
-
-// function loadAddressesForEditModal(fullAddress = '') {
-//     fetch('/rest/addresses')
-//         .then(response => {
-//             if (!response.ok) throw new Error('خطا در دریافت آدرس‌ها');
-//             return response.json();
-//         })
-//         .then(response => {
-//             const addresses = response.body ?? response;
-//             const select = document.getElementById('editAddressSelect');
-//             if (!select) return;
-//
-//             select.innerHTML = `<option value="">${fullAddress || '---'}</option>`; // fullAddress نمایش داده میشه اما هیچ value انتخاب نشده
-//
-//             addresses.forEach(addr => {
-//                 const option = document.createElement('option');
-//                 option.value = addr.id;
-//                 option.textContent = formatAddress(addr);
-//                 select.appendChild(option);
-//             });
-//         })
-//         .catch(err => console.error('Error loading addresses for edit modal:', err));
-// }
-
-
 // -------------------- Handle Server Response --------------------
 async function handleResponse(response, mode) {
     const data = await response.json();
@@ -547,58 +527,6 @@ async function handleResponse(response, mode) {
     }
     return data;
 }
-
-// -------------------- Validation helpers --------------------
-// function displayValidationErrors(errors, mode) {
-//     clearValidationErrors();
-//
-//     for (const field in errors) {
-//         // querySelector با name کامل (مثلاً "addressDto.street")
-//         const input = document.querySelector(`[name="${field}"]`);
-//         if (input) {
-//             input.classList.add('is-invalid');
-//             const errorDiv = document.createElement('div');
-//             errorDiv.className = 'invalid-feedback';
-//             errorDiv.textContent = errors[field];
-//             input.parentNode.appendChild(errorDiv);
-//         }
-//     }
-// }
-
-// function displayValidationErrors(errors, mode) {
-//     clearValidationErrors();
-//
-//     // تعیین modal بر اساس mode
-//     const modal = mode === 'edit'
-//         ? document.getElementById('buildingEditModal')
-//         : document.getElementById('buildingCreateModal');
-//
-//     if (!modal) return;
-//
-//     console.log('Errors:', errors);
-//     console.log('Modal:', modal);
-//
-//     for (const field in errors) {
-//         // پیدا کردن input داخل modal
-//         const input = modal.querySelector(`[name="${field}"]`);
-//         if (input) {
-//             input.classList.add('is-invalid');
-//
-//             // اضافه کردن div برای نمایش پیام خطا
-//             const errorDiv = document.createElement('div');
-//             errorDiv.className = 'invalid-feedback';
-//             errorDiv.textContent = errors[field];
-//
-//             // اگر قبلاً خطایی بود پاکش کن
-//             const existingError = input.parentNode.querySelector('.invalid-feedback');
-//             if (existingError) existingError.remove();
-//
-//             input.parentNode.appendChild(errorDiv);
-//         } else {
-//             console.warn(`Input not found for field: ${field}`);
-//         }
-//     }
-// }
 
 
 function displayValidationErrors(errors, mode) {
@@ -708,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!value) return;
 
         if (createPhones.includes(value)) {
-            showToast('warning', duplicatePhoneText || 'این شماره قبلا اضافه شده');
+            showToast('warning', duplicatePhoneText || 'این شماره تلفن قبلا اضافه شده');
             return;
         }
 
@@ -722,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!value) return;
 
         if (editPhones.includes(value)) {
-            showToast('warning', 'این شماره قبلاً اضافه شده');
+            showToast('warning', duplicatePhoneText || 'این شماره تفن قبلاً اضافه شده');
             return;
         }
 
@@ -755,7 +683,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-
     // اگر آدرس جدید فعال شد → select ریست شود
     document.getElementById('editAddNewAddressBtn')
         ?.addEventListener('click', () => {
@@ -778,7 +705,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ?.classList.add('d-none');
             }
         });
-
 
 
     // فرم‌ها
@@ -809,7 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // کلیک‌ها (delegation)
-    document.body.addEventListener('click', e => {
+    document.body.addEventListener('click', async e => {
         const btnDelete = e.target.closest('.btn-delete, .btn-danger');
         if (btnDelete) {
             handleBuildingDelete(e);
@@ -843,35 +769,90 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const btnEdit = e.target.closest('.btn-edit');
+
         if (btnEdit) {
-            const tr = btnEdit.closest('tr');
 
-            // editPhones = [];
-            // renderPhonesForEdit();
+            e.preventDefault();
+            e.stopPropagation();
 
-            document.getElementById('editBuildingId').value = btnEdit.dataset.id;
+            // جلوگیری از چند کلیک سریع
+            if (btnEdit.dataset.loading === 'true') {
+                return;
+            }
 
-            //  title
-            document.getElementById('editTitle').value = btnEdit.dataset.title || '';
+            btnEdit.dataset.loading = 'true';
 
-            //  تلفن‌ها
-            editPhones = btnEdit.dataset.phone ? btnEdit.dataset.phone.split(',') : [];
-            renderPhonesForEdit(); // باید مشابه renderPhones باشد اما برای edit modal
+            const buildingId = btnEdit.dataset.id;
 
-            //  Sections تیک خورده
-            const sectionIds = btnEdit.dataset.sectionIds ? btnEdit.dataset.sectionIds.split(',').map(Number) : [];
-            loadSectionsForEditModal(sectionIds);
+            try {
 
-            //  آدرس select پیش‌فرض
-            const fullAddress = tr.cells[3].textContent.trim(); // ستون fullAddress در جدول
-            loadAddressesForEditModal(fullAddress);
+                const lockResponse = await fetch(
+                    `/rest/buildings/${buildingId}/edit-start`, {
+                        method: 'POST'
+                    }
+                );
 
-            //  فرم آدرس جدید همیشه خام باشه
-            document.getElementById('editNewAddressContainer').classList.add('d-none');
-            document.querySelectorAll('#editNewAddressContainer input').forEach(input => input.value = '');
+                let lockData;
+                const rawText = await lockResponse.text();
 
-            // نمایش modal
-            new bootstrap.Modal(document.getElementById('buildingEditModal')).show();
+                try {
+                    lockData = JSON.parse(rawText);
+                } catch {
+                    lockData = {error: rawText};
+                }
+
+                if (!lockResponse.ok) {
+                    showToast('danger', lockData.error || 'این ساختمان در حال ویرایش است');
+                    return;
+                }
+
+                currentEditingBuildingId = buildingId;
+
+                const tr = btnEdit.closest('tr');
+
+                // id
+                document.getElementById('editBuildingId').value = buildingId || '';
+
+                // title
+                document.getElementById('editTitle').value = btnEdit.dataset.title || '';
+
+                // version
+                document.getElementById('editBuildingVersion').value = btnEdit.dataset.version || '';
+
+                // phones
+                editPhones = btnEdit.dataset.phone ? btnEdit.dataset.phone.split(',') : [];
+
+                renderPhonesForEdit();
+
+                // section ids
+                const sectionIds = btnEdit.dataset.sectionIds ? btnEdit.dataset.sectionIds.split(',').map(Number) : [];
+
+                loadSectionsForEditModal(sectionIds);
+
+                // address
+                const fullAddress = tr ? tr.cells[3].textContent.trim() : '';
+
+                loadAddressesForEditModal(fullAddress);
+
+                // reset new address form
+                document.getElementById('editNewAddressContainer')?.classList.add('d-none');
+
+                document.querySelectorAll('#editNewAddressContainer input').forEach(input => input.value = '');
+
+                // show modal
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('buildingEditModal')).show();
+
+            } catch (error) {
+
+                console.error('building edit-start error:', error);
+
+                showToast('danger', 'خطا در بررسی قفل ویرایش');
+
+            } finally {
+
+                btnEdit.dataset.loading = 'false';
+            }
+
             return;
         }
 
@@ -893,4 +874,42 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.id === 'pageSize') loadBuildings(0);
     });
 
+
+    const buildingEditModal = document.getElementById('buildingEditModal');
+
+    if (buildingEditModal) {
+
+        buildingEditModal.addEventListener(
+            'hidden.bs.modal',
+            async () => {
+
+                const id = currentEditingBuildingId;
+
+                currentEditingBuildingId = null;
+
+                if (!id) return;
+
+                try {
+
+                    await fetch(
+                        `/rest/buildings/${id}/edit-stop`,
+                        {
+                            method: 'POST'
+                        }
+                    );
+
+                } catch (e) {
+
+                    console.error(
+                        'building edit-stop error',
+                        e
+                    );
+                }
+
+                document.getElementById('buildingEditForm')?.reset();
+
+                clearValidationErrors();
+            }
+        );
+    }
 });

@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +40,13 @@ public class Section extends Base {
     @Column(name="title", length = 50, unique = true)
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_section_id",nullable = true,foreignKey = @ForeignKey(name = "fk_section_parent_id"))
 //    @ToString.Exclude
     private Section parentSection;
 
     @JsonIgnore
-    @OneToMany( fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "parentSection")
+    @OneToMany( fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "parentSection")
     @ToString.Exclude
     private List<Section> childSectionList;
 
@@ -55,6 +56,10 @@ public class Section extends Base {
     @ToString.Exclude
     private Building building;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public void addChildSection(Section childSection){
         if (childSectionList == null){
             childSectionList = new ArrayList<>();
@@ -62,14 +67,14 @@ public class Section extends Base {
         childSectionList.add(childSection);
     }
 
-    @JsonProperty("buildingId")
-    public Long getBuildingId() {
-        return building != null ? building.getId() : null;
-    }
-
-    @JsonProperty("buildingTitle")
-    public String getBuildingTitle() {
-        return building != null ? building.getTitle() : null;
-    }
+//    @JsonProperty("buildingId")
+//    public Long getBuildingId() {
+//        return building != null ? building.getId() : null;
+//    }
+//
+//    @JsonProperty("buildingTitle")
+//    public String getBuildingTitle() {
+//        return building != null ? building.getTitle() : null;
+//    }
 
 }

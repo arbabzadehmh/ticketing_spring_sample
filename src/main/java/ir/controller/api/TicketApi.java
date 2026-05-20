@@ -118,6 +118,15 @@ public class TicketApi {
         return ResponseEntity.ok(Map.of("message", message));
     }
 
+    @PutMapping("/{id}/mark-as-read")
+    public ResponseEntity<?> markAsRead(@PathVariable Long id,
+                                        Principal principal) {
+
+        ticketService.markAsRead(id, principal);
+
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('TICKET_DELETE')")
     public ResponseEntity<?> deleteTicket(@PathVariable Long id, Locale locale){

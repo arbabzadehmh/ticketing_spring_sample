@@ -15,6 +15,7 @@ import ir.repository.UserRepository;
 import ir.service.RoleService;
 import ir.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.OptimisticLockException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -111,6 +113,10 @@ public class ProfileService implements ir.service.ProfileService {
 
         Profile existingProfile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
+
+        if (!Objects.equals(existingProfile.getVersion(), dto.getVersion())) {
+            throw new OptimisticLockException();
+        }
 
         if (isAdminOrManager) {
             // اگر ادمین بود، همه‌چیز به‌جز username قابل آپدیت
@@ -241,7 +247,7 @@ public class ProfileService implements ir.service.ProfileService {
 
     @Transactional
     @Override
-    public void deleteProfilePicture(Long profileId) {
+    public Profile deleteProfilePicture(Long profileId) {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 
@@ -249,8 +255,9 @@ public class ProfileService implements ir.service.ProfileService {
             fileStorageService.deleteById(profile.getProfilePicture().getMongoFileId());
             attachmentRepository.delete(profile.getProfilePicture());
             profile.setProfilePicture(null);
-            profileRepository.save(profile);
+            return profileRepository.save(profile);
         }
+        return profile;
     }
 
     // دریافت Base64 برای نمایش در مرورگر

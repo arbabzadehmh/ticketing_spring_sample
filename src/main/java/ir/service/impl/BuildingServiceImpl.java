@@ -16,7 +16,9 @@ import ir.service.AddressClient;
 import ir.service.BuildingService;
 import ir.service.SectionService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.OptimisticLockException;
 import lombok.SneakyThrows;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +60,7 @@ public class BuildingServiceImpl implements BuildingService {
             throw new DuplicateBuildingException();
         }
 
-        if(building.getAddressId() == null && addressDto == null) {
+        if (building.getAddressId() == null && addressDto == null) {
             throw new AddressEmptyException();
         }
 
@@ -77,6 +79,10 @@ public class BuildingServiceImpl implements BuildingService {
         //  گرفتن building موجود
         Building existing = buildingRepository.findById(building.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Building not found"));
+
+        if (!Objects.equals(existing.getVersion(), building.getVersion())) {
+            throw new OptimisticLockException();
+        }
 
         //  جلوگیری از عنوان تکراری (به جز خود building)
         if (buildingRepository.existsByTitleAndIdNot(
@@ -153,6 +159,7 @@ public class BuildingServiceImpl implements BuildingService {
 
 
     @Transactional
+    @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public void deleteById(Long id) {
         Building building = buildingRepository
@@ -177,7 +184,6 @@ public class BuildingServiceImpl implements BuildingService {
                 .build();
 
         savedBuilding = buildingRepository.save(savedBuilding);
-
 
 
         final Building finalSavedBuilding = savedBuilding;
@@ -340,7 +346,8 @@ public class BuildingServiceImpl implements BuildingService {
                         .toList(),
                 addressFormatter.format(
                         addressMap.get(b.getAddressId())
-                )
+                ),
+                b.getVersion()
         );
     }
 

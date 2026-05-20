@@ -27,6 +27,20 @@
         </encoder>
     </appender>
 
+    <!-- ===== Async File Appender ===== -->
+    <appender name="ASYNC_FILE"
+              class="ch.qos.logback.classic.AsyncAppender">
+
+        <queueSize>5000</queueSize>
+
+        <discardingThreshold>0</discardingThreshold>
+
+        <neverBlock>true</neverBlock>
+
+        <appender-ref ref="FILE"/>
+
+    </appender>
+
     <!-- ===== Root logger ===== -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -30,4 +31,5 @@ public interface TicketService {
     void scoreTicket(Long id, Integer score);
     Page<Ticket> findAllById(List<Long> ids, Pageable pageable);
     long unreadTicketCount(User user);
+    void markAsRead(Long ticketId, Principal principal);
 }

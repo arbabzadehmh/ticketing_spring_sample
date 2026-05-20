@@ -7,12 +7,14 @@ import ir.repository.PermissionRepository;
 import ir.repository.RoleRepository;
 import ir.service.RoleService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.OptimisticLockException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,6 +54,10 @@ public class RoleServiceImpl implements RoleService {
     public Role update(String name, Role updatedRole) {
         Role existingRole = roleRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found"));
+
+        if (!Objects.equals(existingRole.getVersion(), updatedRole.getVersion())) {
+            throw new OptimisticLockException();
+        }
 
         Set<Permission> permissions = updatedRole.getPermissionSet().stream()
                 .map(p -> permissionRepository.findByPermissionName(p.getPermissionName())

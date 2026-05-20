@@ -8,6 +8,7 @@ public record BuildingTableDto(
         List<String> phones,
         List<String> sections,
         List<Long> sectionIds,
-        String fullAddress
+        String fullAddress,
+        Long version
 )
 {}

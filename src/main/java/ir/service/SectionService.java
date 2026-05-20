@@ -1,6 +1,8 @@
 package ir.service;
 
+import ir.dto.SectionDto;
 import ir.dto.SectionFilterDto;
+import ir.dto.SectionListDto;
 import ir.model.entity.Section;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +15,13 @@ public interface SectionService {
     Section update(Long id,Section section);
     void deleteById(Long id);
     List<Section> findAll();
-    Page<Section> findAll(Pageable pageable);
+    Page<SectionListDto> findAll(Pageable pageable);
     List<SectionFilterDto> findAllForFilter();
     Section findById(Long id);
     List<Section> findSectionByTitle(String title);
     List<Section> findByParentSection(Section section);
-    Page<Section> findByTitleContaining(String title, Pageable pageable);
-    Page<Section> findByParentSectionTitleContaining(String parentTitle, Pageable pageable);
+    Page<SectionListDto> findByTitleContaining(String title, Pageable pageable);
+    Page<SectionListDto> findByParentSectionTitleContaining(String parentTitle, Pageable pageable);
     List<Section> saveAll(List<Section> sections);
-
 
 }

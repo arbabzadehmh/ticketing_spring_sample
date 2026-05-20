@@ -435,7 +435,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnView = e.target.closest('.btn-open');
         if (btnView) {
             const id = btnView.dataset.id;
-            if (id) window.location.href = `/tickets/${id}`;
+
+            if (id) {
+
+                fetch(`/rest/tickets/${id}/mark-as-read`, {
+                    method: 'PUT'
+                }).finally(() => {
+                    window.location.href = `/tickets/${id}`;
+                });
+
+            }
+
             return;
         }
     });

@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -124,10 +125,10 @@ public class SecurityConfig {
                 // 5. Authorization Rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/building/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/resetPass").permitAll()
+                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/building/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/webfonts/**", "/resetPass").permitAll()
                         .requestMatchers("/rest/profiles/register").permitAll()
                         .requestMatchers("/rest/profiles/reset-password/**").permitAll()
-                        .requestMatchers("/admins/**").hasRole("ADMIN")
+                        .requestMatchers("/admins/**", "/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/roles/**", "/rest/roles/**", "/permissions/**", "/rest/permissions", "/reports/**").hasAnyRole("ADMIN", "MANAGER")
                         .anyRequest().authenticated()
                 )
@@ -159,7 +160,10 @@ public class SecurityConfig {
                 // 8. HTTPS Enforcement
                 .requiresChannel(channel -> channel
                         .anyRequest().requiresSecure()
-                );
+                )
+
+                // 9. HTTP Basic for Prometheus / Actuator
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

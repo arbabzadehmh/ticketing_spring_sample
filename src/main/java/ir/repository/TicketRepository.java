@@ -27,6 +27,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
     Page<Ticket> findByIdInOrderByDateTime(List<Long> ids, Pageable pageable);
     long countByStatus(TicketStatus status);
     long countByStatusAndCustomer(TicketStatus status, User customer);
+    long countByAdminUnreadTrueAndStatusNot(TicketStatus status);
+    long countByCustomerUnreadTrueAndCustomerAndStatusNot(User customer, TicketStatus status);
 
 
     @Query("""

@@ -56,4 +56,8 @@ public class Profile extends Base {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="attachment_id", foreignKey = @ForeignKey(name = "fk_profile_attachment"))
     private Attachment profilePicture;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 }

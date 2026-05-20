@@ -1,8 +1,9 @@
-<div th:fragment="buildings-table">
+<div th:fragment="buildings-table" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="card shadow">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h3 class="mb-0" th:text="#{buildings.title}"></h3>
-            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#buildingCreateModal">
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#buildingCreateModal"
+                    sec:authorize="hasAuthority('BUILDING_CREATE')">
                 <i class="fas fa-plus me-2"></i>
                 <span th:text="#{buildings.add}"></span>
             </button>
@@ -40,7 +41,7 @@
                         <th th:text="#{buildings.sections}"></th>
                         <th th:text="#{buildings.phones}"></th>
                         <th th:text="#{buildings.address}"></th>
-                        <th th:text="#{profiles.actions}"></th>
+                        <th th:text="#{profiles.actions}" sec:authorize="hasAnyAuthority('BUILDING_EDIT', 'BUILDING_DELETE')"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,15 +53,18 @@
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
+                                        sec:authorize="hasAuthority('BUILDING_EDIT')"
                                         th:data-id="${building.id}"
                                         th:data-title="${building.title}"
                                         th:data-phone="${#strings.listJoin(building.phones, ',')}"
                                         th:data-section-ids="${#strings.listJoin(building.sectionIds, ',')}"
                                         th:data-section="${#strings.listJoin(building.sections, ',')}"
-                                        th:data-address-id="${building.fullAddress}">
+                                        th:data-address-id="${building.fullAddress}"
+                                        th:data-version="${building.version}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
+                                        sec:authorize="hasAuthority('BUILDING_DELETE')"
                                         th:data-id="${building.id}"
                                         th:data-confirm-text="#{buildings.delete.confirm}">
                                     <i class="fas fa-trash"></i>

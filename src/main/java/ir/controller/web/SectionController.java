@@ -2,6 +2,8 @@ package ir.controller.web;
 
 
 import ir.controller.exception.ValidationException;
+import ir.dto.SectionDto;
+import ir.dto.SectionListDto;
 import ir.model.entity.Role;
 import ir.model.entity.Section;
 import ir.service.SectionService;
@@ -51,7 +53,7 @@ public class SectionController {
         Sort sort = Sort.by("title").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Section> sections = sectionService.findAll(pageable);
+        Page<SectionListDto> sections = sectionService.findAll(pageable);
 
         model.addAttribute("sections", sections);
         model.addAttribute("currentPage", page);

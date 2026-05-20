@@ -37,6 +37,10 @@ public class Role extends Base {
     )
     private Set<Permission> permissionSet = new HashSet<>();
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     public void addPermission(Permission permission) {
         permissionSet.add(permission);
     }

@@ -44,7 +44,8 @@
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-warning btn-edit"
                                         th:data-id="${role.name}"
-                                        th:data-permissions="${#strings.listJoin(role.permissionSet.?[permissionName != null].![permissionName], ',')}">
+                                        th:data-permissions="${#strings.listJoin(role.permissionSet.?[permissionName != null].![permissionName], ',')}"
+                                        th:data-version="${role.version}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"

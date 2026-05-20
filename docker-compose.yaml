@@ -9,7 +9,7 @@ services:
       - "8443:8443"
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
       mongodb:
         condition: service_healthy
       redis:

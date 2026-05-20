@@ -320,3 +320,22 @@ td{
 .small-text {
     font-size: 12px;
 }
+
+.msg-status {
+    margin-inline-start: 5px;
+    white-space: nowrap;
+}
+
+.msg-status .unseen {
+    color: gray;
+    font-size: 11px;
+}
+
+.msg-status .seen {
+    color: #1e90ff;
+    font-size: 11px;
+}
+
+.double-check {
+    margin-left: -4px;
+}

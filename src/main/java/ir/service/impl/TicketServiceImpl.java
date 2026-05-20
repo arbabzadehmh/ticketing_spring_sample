@@ -22,6 +22,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ir.model.entity.Role;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class TicketServiceImpl implements TicketService {
                 Ticket
                         .builder()
                         .title(ticketDto.getTitle())
-                        .status(TicketStatus.NotSeen)
+                        .status(TicketStatus.WaitingForAdmin)
                         .dateTime(LocalDateTime.now())
                         .section(section)
                         .customer(customer)
@@ -184,6 +186,26 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findByIdInOrderByDateTime(ids, pageable);
     }
 
+    @Transactional
+    public void markAsRead(Long ticketId, Principal principal) {
+
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        String username = principal.getName();
+
+        boolean isCustomer =
+                ticket.getCustomer().getUsername().equals(username);
+
+        if (isCustomer) {
+            ticket.setCustomerUnread(false);
+        } else {
+            ticket.setAdminUnread(false);
+        }
+
+        ticketRepository.save(ticket);
+    }
+
     @Override
     public long unreadTicketCount(User user) {
 
@@ -192,12 +214,11 @@ public class TicketServiceImpl implements TicketService {
         boolean isCustomer = user.hasRole("ROLE_CUSTOMER");
 
         if (isAdminOrManager) {
-            return ticketRepository.countByStatus(TicketStatus.NotSeen);
+            return ticketRepository.countByAdminUnreadTrueAndStatusNot(TicketStatus.Closed);
         }
 
         if (isCustomer) {
-            return ticketRepository.countByStatusAndCustomer(
-                    TicketStatus.Responded, user);
+            return ticketRepository.countByCustomerUnreadTrueAndCustomerAndStatusNot(user, TicketStatus.Closed);
         }
 
         return 0;

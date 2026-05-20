@@ -8,6 +8,11 @@
         </div>
 
         <div class="card-body">
+
+            <div class="d-flex justify-content-center align-items-center">
+                <button id="loadOlderBtn" class="btn btn-warning" th:text="#{messages.previous}"></button>
+            </div>
+
             <!-- جایی که پیام‌ها نمایش داده می‌شود -->
             <div id="chat-box" class="chat-box">
                 <div th:each="message : ${messages}"
@@ -58,8 +63,29 @@
                         </div>
                     </div>
 
-                    <small class="text-muted ltr small-text"
-                           th:text="${#temporals.format(message.dateTime, 'yyyy-MM-dd HH:mm')}"></small>
+                    <small class="text-muted ltr small-text">
+                        <span th:text="${#temporals.format(message.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
+
+                        <span class="msg-status">
+
+    <i th:if="${
+        (message.senderRoleName == 'ROLE_ADMIN' or message.senderRoleName == 'ROLE_MANAGER')
+            ? !message.seenByCustomer
+            : !message.seenByAdmin
+      }"
+       class="fas fa-check unseen"></i>
+
+    <span th:if="${
+        (message.senderRoleName == 'ROLE_ADMIN' or message.senderRoleName == 'ROLE_MANAGER')
+            ? message.seenByCustomer
+            : message.seenByAdmin
+      }">
+        <i class="fas fa-check seen"></i>
+        <i class="fas fa-check seen double-check"></i>
+    </span>
+
+</span>
+                    </small>
                 </div>
             </div>
 
@@ -91,15 +117,31 @@
                         <i class="fas fa-close"></i>
                     </button>
 
-                    <button class="btn btn-info mb-1 col-md-9" data-bs-toggle="dropdown" th:text="#{messages.score}" th:disabled="${ticket.score != null}">
+                    <button class="btn btn-info mb-1 col-md-9" data-bs-toggle="dropdown" th:text="#{messages.score}"
+                            th:disabled="${ticket.score != null}">
                         <i class="fas fa-gift"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><button class="dropdown-item btn-score" data-score="5" th:text="#{messages.score.5}"></button></li>
-                        <li><button class="dropdown-item btn-score" data-score="4" th:text="#{messages.score.4}"></button></li>
-                        <li><button class="dropdown-item btn-score" data-score="3" th:text="#{messages.score.3}"></button></li>
-                        <li><button class="dropdown-item btn-score" data-score="2" th:text="#{messages.score.2}"></button></li>
-                        <li><button class="dropdown-item btn-score" data-score="1" th:text="#{messages.score.1}"></button></li>
+                        <li>
+                            <button class="dropdown-item btn-score" data-score="5"
+                                    th:text="#{messages.score.5}"></button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item btn-score" data-score="4"
+                                    th:text="#{messages.score.4}"></button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item btn-score" data-score="3"
+                                    th:text="#{messages.score.3}"></button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item btn-score" data-score="2"
+                                    th:text="#{messages.score.2}"></button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item btn-score" data-score="1"
+                                    th:text="#{messages.score.1}"></button>
+                        </li>
                     </ul>
 
 

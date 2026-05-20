@@ -2,6 +2,8 @@
 
 let firstLoad = true;
 
+let currentEditingProfileId = null;
+
 function loadProfiles(page = 0) {
     const container = document.getElementById('profiles-table-container');
     const pageSizeElement = document.getElementById('pageSize');
@@ -40,10 +42,12 @@ function loadProfiles(page = 0) {
                 document.getElementById('pageSize').value = size;
                 document.getElementById('sortBy').value = sortBy;
 
-                const editForm = document.getElementById('profileEditForm');
-                if (editForm) {
-                    editForm.addEventListener('submit', handleEditProfileSubmit);
-                }
+                // const editForm = document.getElementById('profileEditForm');
+                //
+                // if (editForm && !editForm.dataset.bound) {
+                //     editForm.addEventListener('submit', handleEditProfileSubmit);
+                //     editForm.dataset.bound = 'true';
+                // }
             })
             .catch(error => showToast('danger', error.message || 'خطا در دریافت داده‌ها'));
 
@@ -122,7 +126,8 @@ function renderProfilesTable(profiles) {
                     data-account-non-locked='${p.user?.accountNonLocked}'
                     data-credentials-non-expired='${p.user?.credentialsNonExpired}'
                     data-enabled='${p.user?.enabled}'
-                    data-credentials-expiry-date='${p.user?.credentialsExpiryDate || ''}'>
+                    data-credentials-expiry-date='${p.user?.credentialsExpiryDate || ''}'
+                    data-version="${p.version}">
                     <i class="fas fa-edit"></i>
                 </button>
                 <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}">
@@ -232,7 +237,8 @@ async function handleEditProfileSubmit(e) {
         firstName: document.getElementById('editFirstName').value.trim(),
         lastName: document.getElementById('editLastName').value.trim(),
         email: document.getElementById('editEmail').value.trim(),
-        phone: document.getElementById('editPhone').value.trim()
+        phone: document.getElementById('editPhone').value.trim(),
+        version: document.getElementById('editProfileVersion').value.trim()
     };
 
     // فقط اگر پسورد تغییر کرده باشد به سرور بفرست
@@ -268,20 +274,36 @@ async function handleEditProfileSubmit(e) {
             const formData = new FormData();
             formData.append('file', file);
 
-            await fetch(`/rest/profiles/${id}/picture`, {
+            const uploadResponse = await fetch(`/rest/profiles/${id}/picture`, {
                 method: 'POST',
                 body: formData
             });
+
+            if (!uploadResponse.ok) {
+                throw new Error('خطا در آپلود عکس پروفایل');
+            }
         }
 
-        bootstrap.Modal.getInstance(document.getElementById('profileEditModal')).hide();
+        try {
+            await fetch(`/rest/profiles/${id}/edit-stop`,
+                {
+                    method: 'POST'
+                }
+            );
+        } catch (e) {
+            console.error('profile unlock error', e);
+        }
+
+        currentEditingProfileId = null;
+
+        bootstrap.Modal.getInstance(document.getElementById('profileEditModal'))?.hide();
         showToast('success', data.message || 'پروفایل با موفقیت ویرایش شد');
 
 
         if (isAdmin) {
             //  حالت ادمین
             loadProfiles();
-        } else  {
+        } else {
             //  حالت کاستومر: کارت را از سرور تازه بگیر
             refreshProfileCard(id);
         }
@@ -391,10 +413,15 @@ function loadRolesForCreateModal() {
 
 // بارگذاری نقش‌ها هنگام نمایش مودال
 const profileCreateModal = document.getElementById('profileCreateModal');
-if (profileCreateModal) {
-    profileCreateModal.addEventListener('show.bs.modal', () => {
-        loadRolesForCreateModal();
-    });
+if (profileCreateModal && !profileCreateModal.dataset.bound) {
+    profileCreateModal.addEventListener(
+        'show.bs.modal',
+        () => {
+            loadRolesForCreateModal();
+        }
+    );
+
+    profileCreateModal.dataset.bound = 'true';
 }
 
 // --------------------------------------------------------------
@@ -486,74 +513,172 @@ async function handleProfileDelete(e) {
 }
 
 // =================== افزودن event delegation برای دکمه کارت ===================
-document.body.addEventListener('click', function (e) {
+// =================== افزودن event delegation برای دکمه کارت ===================
+document.body.addEventListener('click', async function (e) {
+
     const btn = e.target.closest('.btn-warning.btn-edit');
     if (!btn) return;
 
-    const modal = document.getElementById('profileEditModal');
-    const isAdmin = document.body.dataset.isAdmin === 'true';
+    e.preventDefault();
+    e.stopPropagation();
 
-    const row = btn.closest('tr'); // پیدا کردن ردیف جدول مربوطه
-
-    if (row) {
-        //  حالت ادمین (جدول)
-        document.getElementById('editProfileId').value = btn.dataset.id;
-        document.getElementById('editFirstName').value = row.cells[0].textContent.trim();
-        document.getElementById('editLastName').value = row.cells[1].textContent.trim();
-        document.getElementById('editEmail').value = row.cells[2].textContent.trim();
-        document.getElementById('editPhone').value = row.cells[3].textContent.trim();
-        document.getElementById('editUsername').value = row.cells[4].textContent.trim();
-    } else {
-        //  حالت Customer (کارت)
-        document.getElementById('editProfileId').value = btn.dataset.id;
-        document.getElementById('editFirstName').value = btn.dataset.firstname;
-        document.getElementById('editLastName').value = btn.dataset.lastname;
-        document.getElementById('editEmail').value = btn.dataset.email;
-        document.getElementById('editPhone').value = btn.dataset.phone;
-        document.getElementById('editUsername').value = btn.dataset.username;
+    // جلوگیری از کلیک پشت سر هم
+    if (btn.dataset.loading === 'true') {
+        return;
     }
 
-    document.getElementById('editPassword').value = '******';
+    btn.dataset.loading = 'true';
 
+    const profileId = btn.dataset.id;
 
-    // ---------------- بخش مربوط به ادمین ----------------
-    if (isAdmin && row) {
-        const roles = btn.dataset.roles ? btn.dataset.roles.split(',') : [];
-        loadRolesForEditModal(roles);
+    try {
 
-        document.getElementById('editAccountNonExpired').value = btn.dataset.accountNonExpired || '';
-        document.getElementById('editAccountNonLocked').value = btn.dataset.accountNonLocked || '';
-        document.getElementById('editCredentialsNonExpired').value = btn.dataset.credentialsNonExpired || '';
-        document.getElementById('editEnabled').value = btn.dataset.enabled || '';
-
-        const expiryDate = btn.dataset.credentialsExpiryDate;
-        const expiryInput = document.getElementById('editCredentialsExpiryDate');
-
-        if (expiryDate && expiryInput) {
-            if (expiryDate.includes(',')) {
-                const parts = expiryDate.split(',').map(Number); // [2026,2,15,12,38,40]
-                const jsDate = new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5] || 0);
-
-                if (!isNaN(jsDate)) {
-                    const yyyy = jsDate.getFullYear();
-                    const mm = String(jsDate.getMonth() + 1).padStart(2, '0');
-                    const dd = String(jsDate.getDate()).padStart(2, '0');
-                    const hh = String(jsDate.getHours()).padStart(2, '0');
-                    const min = String(jsDate.getMinutes()).padStart(2, '0');
-                    expiryInput.value = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
-                } else {
-                    expiryInput.value = '';
-                }
-            } else {
-                expiryInput.value = expiryDate.substring(0, 16);
+        const lockResponse = await fetch(
+            `/rest/profiles/${profileId}/edit-start`,
+            {
+                method: 'POST'
             }
-        } else if (expiryInput) {
-            expiryInput.value = '';
-        }
-    }
-    // -----------------------------------------------------
+        );
 
-    new bootstrap.Modal(modal).show();
+        let lockData;
+        const rawText = await lockResponse.text();
+
+        try {
+            lockData = JSON.parse(rawText);
+        } catch {
+            lockData = {error: rawText};
+        }
+
+        if (!lockResponse.ok) {
+
+            showToast(
+                'danger',
+                lockData.error || 'این پروفایل در حال ویرایش است'
+            );
+
+            return;
+        }
+
+        currentEditingProfileId = profileId;
+
+        const modal = document.getElementById('profileEditModal');
+        const isAdmin = document.body.dataset.isAdmin === 'true';
+
+        const row = btn.closest('tr');
+
+        if (row) {
+
+            // حالت ادمین
+            document.getElementById('editProfileId').value = profileId;
+            document.getElementById('editFirstName').value = row.cells[0].textContent.trim();
+            document.getElementById('editLastName').value = row.cells[1].textContent.trim();
+            document.getElementById('editEmail').value = row.cells[2].textContent.trim();
+            document.getElementById('editPhone').value = row.cells[3].textContent.trim();
+            document.getElementById('editUsername').value = row.cells[4].textContent.trim();
+
+        } else {
+
+            // حالت customer
+            document.getElementById('editProfileId').value = profileId;
+            document.getElementById('editFirstName').value = btn.dataset.firstname;
+            document.getElementById('editLastName').value = btn.dataset.lastname;
+            document.getElementById('editEmail').value = btn.dataset.email;
+            document.getElementById('editPhone').value = btn.dataset.phone;
+            document.getElementById('editUsername').value = btn.dataset.username;
+        }
+
+        document.getElementById('editProfileVersion').value =
+            btn.dataset.version || '';
+
+        document.getElementById('editPassword').value = '******';
+
+        // ---------------- بخش مربوط به ادمین ----------------
+        if (isAdmin && row) {
+
+            const roles = btn.dataset.roles
+                ? btn.dataset.roles.split(',')
+                : [];
+
+            loadRolesForEditModal(roles);
+
+            document.getElementById('editAccountNonExpired').value =
+                btn.dataset.accountNonExpired || '';
+
+            document.getElementById('editAccountNonLocked').value =
+                btn.dataset.accountNonLocked || '';
+
+            document.getElementById('editCredentialsNonExpired').value =
+                btn.dataset.credentialsNonExpired || '';
+
+            document.getElementById('editEnabled').value =
+                btn.dataset.enabled || '';
+
+            const expiryDate = btn.dataset.credentialsExpiryDate;
+
+            const expiryInput =
+                document.getElementById('editCredentialsExpiryDate');
+
+            if (expiryDate && expiryInput) {
+
+                if (expiryDate.includes(',')) {
+
+                    const parts =
+                        expiryDate.split(',').map(Number);
+
+                    const jsDate = new Date(
+                        parts[0],
+                        parts[1] - 1,
+                        parts[2],
+                        parts[3],
+                        parts[4],
+                        parts[5] || 0
+                    );
+
+                    if (!isNaN(jsDate)) {
+
+                        const yyyy = jsDate.getFullYear();
+                        const mm = String(jsDate.getMonth() + 1).padStart(2, '0');
+                        const dd = String(jsDate.getDate()).padStart(2, '0');
+                        const hh = String(jsDate.getHours()).padStart(2, '0');
+                        const min = String(jsDate.getMinutes()).padStart(2, '0');
+
+                        expiryInput.value =
+                            `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+
+                    } else {
+
+                        expiryInput.value = '';
+                    }
+
+                } else {
+
+                    expiryInput.value =
+                        expiryDate.substring(0, 16);
+                }
+
+            } else if (expiryInput) {
+
+                expiryInput.value = '';
+            }
+        }
+
+        bootstrap.Modal
+            .getOrCreateInstance(modal)
+            .show();
+
+    } catch (error) {
+
+        console.error('profile edit-start error:', error);
+
+        showToast(
+            'danger',
+            'خطا در بررسی قفل ویرایش'
+        );
+
+    } finally {
+
+        btn.dataset.loading = 'false';
+    }
 });
 
 // ---------------- حذف پروفایل ----------------
@@ -612,10 +737,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProfiles();
 
     const createForm = document.getElementById('profileCreateForm');
-    if (createForm) createForm.addEventListener('submit', handleCreateProfileSubmit);
+
+    if (createForm && !createForm.dataset.bound) {
+        createForm.addEventListener('submit', handleCreateProfileSubmit);
+        createForm.dataset.bound = 'true';
+    }
 
     const editForm = document.getElementById('profileEditForm');
-    if (editForm) editForm.addEventListener('submit', handleEditProfileSubmit);
+
+    if (editForm && !editForm.dataset.bound) {
+        editForm.addEventListener('submit', handleEditProfileSubmit);
+        editForm.dataset.bound = 'true';
+    }
 
     const imgPreview = document.getElementById('editProfileImagePreview');
     const fileInput = document.getElementById('editProfilePicture');
@@ -656,6 +789,11 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`/rest/profiles/${profileId}/picture`, {method: 'DELETE'});
                 const data = await handleResponse(response, 'delete');
+
+                if (data.version !== undefined) {
+                    document.getElementById('editProfileVersion').value =
+                        data.version;
+                }
 
                 if (currentObjectUrl) {
                     URL.revokeObjectURL(currentObjectUrl);
@@ -709,12 +847,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         //  هنگام بستن مودال (آزادسازی object URL)
-        editModal.addEventListener('hidden.bs.modal', () => {
-            if (currentObjectUrl) {
-                URL.revokeObjectURL(currentObjectUrl);
-                currentObjectUrl = null;
+        // هنگام بستن مودال
+        editModal.addEventListener(
+            'hidden.bs.modal',
+            async () => {
+
+                // آزادسازی preview image
+                if (currentObjectUrl) {
+                    URL.revokeObjectURL(currentObjectUrl);
+                    currentObjectUrl = null;
+                }
+
+                const profileId = currentEditingProfileId;
+
+                currentEditingProfileId = null;
+
+                if (!profileId) return;
+
+                try {
+
+                    await fetch(
+                        `/rest/profiles/${profileId}/edit-stop`,
+                        {
+                            method: 'POST'
+                        }
+                    );
+
+                } catch (e) {
+
+                    console.error(
+                        'profile edit-stop error',
+                        e
+                    );
+                }
+
+                document.getElementById('profileEditForm')?.reset();
+
+                clearValidationErrors();
             }
-        });
+        );
     }
 
     const createFileInput = document.getElementById('createProfilePicture');

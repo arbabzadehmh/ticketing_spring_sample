@@ -3,6 +3,7 @@ package ir.controller.api;
 import ir.controller.exception.ValidationException;
 import ir.model.entity.Role;
 import ir.service.RoleService;
+import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -27,10 +29,12 @@ public class RoleApi {
 
     private final RoleService roleService;
     private final MessageSource messageSource;
+    private final EntityLockService lockService;
 
-    public RoleApi(RoleService roleService, MessageSource messageSource) {
+    public RoleApi(RoleService roleService, MessageSource messageSource, EntityLockService lockService) {
         this.roleService = roleService;
         this.messageSource = messageSource;
+        this.lockService = lockService;
     }
 
     @GetMapping
@@ -84,6 +88,21 @@ public class RoleApi {
         String message = messageSource.getMessage("roles.create.success", null, locale);
 
         return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PostMapping("/{roleName}/edit-start")
+    public ResponseEntity<?> startRoleEdit(@PathVariable String roleName,
+                                       Principal principal) {
+
+        lockService.lock("role", roleName, principal.getName());
+        return ResponseEntity.ok(Map.of("message", "locked"));
+    }
+
+    @PostMapping("/{roleName}/edit-stop")
+    public void stopRoleEdit(@PathVariable String roleName,
+                         Principal principal) {
+
+        lockService.unlock("role", roleName, principal.getName());
     }
 
     @PutMapping("/{name}")
