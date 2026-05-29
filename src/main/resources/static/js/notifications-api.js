@@ -70,7 +70,7 @@ function renderNotificationsTable(notifications) {
         row.innerHTML = `
             <td>${n.title}</td>
             <td>${n.message}</td>
-            <td>${n.isRead}</td>
+            <td>${n.read}</td>
             <td>${formatDateTime(n.createdAt)}</td>
             <td>
                 <button class="btn btn-sm btn-info btn-open" data-link="${n.link}">
@@ -143,6 +143,26 @@ async function handleResponse(response, mode) {
     return data;
 }
 
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
+
+
 // ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     // بارگذاری اولیه
@@ -184,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers[header] = token;
                 }
 
-                await fetch(`/rest/notifications/${id}/read`, {
+                await secureFetch(`/rest/notifications/${id}/read`, {
                     method: 'POST',
                     headers: headers
                 });

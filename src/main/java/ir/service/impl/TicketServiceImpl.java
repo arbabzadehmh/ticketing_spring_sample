@@ -55,9 +55,12 @@ public class TicketServiceImpl implements TicketService {
                         .title(ticketDto.getTitle())
                         .status(TicketStatus.WaitingForAdmin)
                         .dateTime(LocalDateTime.now())
-                        .section(section)
                         .customer(customer)
+                        .adminUnread(true)
+                        .customerUnread(false)
                         .build();
+
+        applySectionSnapshot(ticket, section);
 
         ticket = ticketRepository.save(ticket);
 
@@ -69,6 +72,7 @@ public class TicketServiceImpl implements TicketService {
                         .senderUsername(customer.getUsername())
                         .senderRoleName("ROLE_CUSTOMER")
                         .ticketId(ticket.getId())
+                        .seenByCustomer(true)
                         .build();
 
         messageRepository.save(firstMessage);
@@ -82,10 +86,12 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
 
-        Section section = sectionService.findById(ticketEditDto.getSectionId());
-
-        ticket.setSection(section);
         ticket.setStatus(ticketEditDto.getStatus());
+
+        if (ticketEditDto.getSectionId() != null) {
+            Section section = sectionService.findById(ticketEditDto.getSectionId());
+            applySectionSnapshot(ticket, section);
+        }
 
          return ticketRepository.save(ticket);
     }
@@ -142,8 +148,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<Ticket> findBySection(Section section, Pageable pageable) {
-        return ticketRepository.findBySection_IdOrderByDateTime(section.getId(), pageable);
+    public Page<Ticket> findBySection(Long sectionId, Pageable pageable) {
+        return ticketRepository.findBySectionIdOrderByDateTime(sectionId, pageable);
     }
 
     @Override
@@ -223,5 +229,10 @@ public class TicketServiceImpl implements TicketService {
 
         return 0;
 
+    }
+
+    private void applySectionSnapshot(Ticket ticket, Section section) {
+        ticket.setSectionId(section.getId());
+        ticket.setSectionTitle(section.getTitle());
     }
 }

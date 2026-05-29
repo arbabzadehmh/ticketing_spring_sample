@@ -185,7 +185,7 @@ async function handleSectionSubmit(e) {
     const method = id ? 'PUT' : 'POST';
 
     try {
-        const response = await fetch(url, {
+        const response = await secureFetch(url, {
             method,
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(section)
@@ -194,7 +194,7 @@ async function handleSectionSubmit(e) {
         const data = await handleResponse(response, id ? 'edit' : 'create');
 
         if (id) {
-            await fetch(`/rest/sections/${id}/edit-stop`, {
+            await secureFetch(`/rest/sections/${id}/edit-stop`, {
                 method: 'POST'
             });
         }
@@ -300,7 +300,7 @@ async function handleSectionDelete(e) {
     const id = btn.dataset.id;
 
     try {
-        const response = await fetch(`/rest/sections/${id}`, {method: 'DELETE'});
+        const response = await secureFetch(`/rest/sections/${id}`, {method: 'DELETE'});
         const data = await handleResponse(response, 'delete');
         showToast('success', data.message || 'بخش حذف شد');
         loadSections();
@@ -312,6 +312,26 @@ async function handleSectionDelete(e) {
         }
     }
 }
+
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
+
 
 // ---------------------------------------------------------
 function debounce(fn, delay) {
@@ -358,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!id) return;
 
             try {
-                await fetch(`/rest/sections/${id}/edit-stop`, {
+                await secureFetch(`/rest/sections/${id}/edit-stop`, {
                     method: 'POST'
                 });
             } catch (e) {
@@ -397,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
 
-                const lockResponse = await fetch(`/rest/sections/${sectionId}/edit-start`, {
+                const lockResponse = await secureFetch(`/rest/sections/${sectionId}/edit-start`, {
                     method: 'POST'
                 });
 

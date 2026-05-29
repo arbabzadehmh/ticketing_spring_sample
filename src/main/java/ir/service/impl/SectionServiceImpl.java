@@ -8,6 +8,7 @@ import ir.model.entity.Building;
 import ir.model.entity.Section;
 import ir.repository.BuildingRepository;
 import ir.repository.SectionRepository;
+import ir.repository.TicketRepository;
 import ir.service.SectionService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.OptimisticLockException;
@@ -31,6 +32,8 @@ import java.util.Set;
 public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
     private final BuildingRepository buildingRepository;
+    private final TicketRepository ticketRepository;
+    private final EntityLockService entityLockService;
 
 
     @Transactional
@@ -130,7 +133,14 @@ public class SectionServiceImpl implements SectionService {
 
         existingSection.setTitle(section.getTitle().toUpperCase());
 
-        return sectionRepository.save(existingSection);
+        Section saved = sectionRepository.save(existingSection);
+
+        ticketRepository.updateSectionTitleBySectionId(
+                saved.getId(),
+                saved.getTitle()
+        );
+
+        return saved;
 
     }
 
@@ -139,6 +149,13 @@ public class SectionServiceImpl implements SectionService {
     @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public void deleteById(Long id) {
+
+        String lockOwner = entityLockService.getLockOwner("section", id);
+
+        if (lockOwner != null) {
+            throw new EntityLockedException();
+        }
+
         Section section = sectionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Section not found"));
 
@@ -146,6 +163,8 @@ public class SectionServiceImpl implements SectionService {
         if (section.getChildSectionList() != null && !section.getChildSectionList().isEmpty()) {
             throw new RemovingParentSectionException();
         }
+
+        ticketRepository.markTicketsSectionDeleted(id);
 
         section.setDeleted(true);
 
@@ -164,6 +183,7 @@ public class SectionServiceImpl implements SectionService {
         section.setBuilding(null);
 
         sectionRepository.save(section); // اگر والد ندارد، فقط خودش را ذخیره کن
+
     }
 
     @Transactional

@@ -52,9 +52,11 @@ public class Ticket extends Base{
     @Column(name = "customer_unread")
     private boolean customerUnread;
 
-    @ManyToOne
-    @JoinColumn(name = "section_id", foreignKey = @ForeignKey(name = "fk_ticket_section"))
-    private Section section;
+    @Column(name = "section_id")
+    private Long sectionId;
+
+    @Column(name = "section_title")
+    private String sectionTitle;
 
     @ManyToOne
     @JoinColumn(name="customer", foreignKey = @ForeignKey(name = "fk_ticket_user"))

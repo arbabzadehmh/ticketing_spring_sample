@@ -40,8 +40,7 @@ public final class TicketSpecifications {
                 predicates.add(cb.like(cb.lower(customerJoin.get("username")), "%" + customerUsername.toLowerCase() + "%"));
             }
             if (sectionId != null) {
-                Join<Ticket, Section> sectionJoin = root.join("section", JoinType.LEFT);
-                predicates.add(cb.equal(sectionJoin.get("id"), sectionId));
+                predicates.add(cb.equal(root.get("sectionId"), sectionId));
             }
             if (title != null && !title.isBlank()) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));

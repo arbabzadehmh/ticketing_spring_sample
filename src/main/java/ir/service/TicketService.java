@@ -25,7 +25,7 @@ public interface TicketService {
     Page<Ticket> findByCustomerUsername(Specification<Ticket> spec, String username, Pageable pageable);
     Page<Ticket> findByStatus(TicketStatus status, Pageable pageable);
     Page<Ticket> findByTitleContains(String title, Pageable pageable);
-    Page<Ticket> findBySection(Section section, Pageable pageable);
+    Page<Ticket> findBySection(Long sectionId, Pageable pageable);
     Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable);
     void closeTicket(Long id);
     void scoreTicket(Long id, Integer score);

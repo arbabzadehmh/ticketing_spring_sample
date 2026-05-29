@@ -156,7 +156,7 @@ function renderTicketsTable(tickets, roles) {
 
         const row = document.createElement('tr');
 
-        const sectionName = t.section?.title ?? t.section?.parentSection?.title ?? '-';
+        const sectionName = t.sectionTitle ?? '-';
         const customerName = (t.customer && (t.customer.username || t.customer.fullName)) ? (t.customer.username || t.customer.fullName) : '-';
         const status = t.status || '-';
         const score = t.score || '-';
@@ -186,7 +186,7 @@ function renderTicketsTable(tickets, roles) {
         <button class="btn btn-sm btn-warning btn-edit" 
             data-id="${t.id}"
             data-title="${escapeAttr(t.title || '')}"
-            data-section-id="${t.section ? t.section.id : ''}"
+            data-section-id="${t.sectionId || ''}"
             data-status="${escapeAttr(status)}">
           <i class="fas fa-edit"></i>
         </button>
@@ -254,7 +254,7 @@ async function handleCreateTicketSubmit(e) {
     };
 
     try {
-        const response = await fetch('/rest/tickets', {
+        const response = await secureFetch('/rest/tickets', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ticket)
@@ -287,7 +287,7 @@ async function handleEditTicketSubmit(e) {
     };
 
     try {
-        const response = await fetch(`/rest/tickets/${encodeURIComponent(id)}`, {
+        const response = await secureFetch(`/rest/tickets/${encodeURIComponent(id)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ticket)
@@ -317,7 +317,7 @@ async function handleTicketDelete(e) {
 
     const id = btn.dataset.id;
     try {
-        const response = await fetch(`/rest/tickets/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        const response = await secureFetch(`/rest/tickets/${encodeURIComponent(id)}`, { method: 'DELETE' });
         const data = await handleResponse(response, 'delete');
         showToast('success', data.message || 'تیکت با موفقیت حذف شد');
         loadTickets();
@@ -327,6 +327,25 @@ async function handleTicketDelete(e) {
             showToast('danger', error.message || 'خطا در حذف تیکت');
         }
     }
+}
+
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
 }
 
 // -------------------- Handle Server Response --------------------
@@ -438,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (id) {
 
-                fetch(`/rest/tickets/${id}/mark-as-read`, {
+                secureFetch(`/rest/tickets/${id}/mark-as-read`, {
                     method: 'PUT'
                 }).finally(() => {
                     window.location.href = `/tickets/${id}`;

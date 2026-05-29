@@ -145,9 +145,11 @@ async function handleCreateRoleSubmit(e) {
     };
 
     try {
-        const response = await fetch('/rest/roles', {
+        const response = await secureFetch('/rest/roles', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(role)
         });
 
@@ -180,16 +182,18 @@ async function handleEditRoleSubmit(e) {
     };
 
     try {
-        const response = await fetch(`/rest/roles/${id}`, {
+        const response = await secureFetch(`/rest/roles/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(role)
         });
 
         const data = await handleResponse(response, 'edit');
 
         try {
-            await fetch(`/rest/roles/${id}/edit-stop`, {
+            await secureFetch(`/rest/roles/${id}/edit-stop`, {
                 method: 'POST'
             });
         } catch (e) {
@@ -323,7 +327,9 @@ async function handleRoleDelete(e) {
 
     const id = btn.dataset.id;
     try {
-        const response = await fetch(`/rest/roles/${id}`, { method: 'DELETE' });
+        const response = await secureFetch(`/rest/roles/${id}`, {
+            method: 'DELETE'
+        });
         const data = await handleResponse(response, 'delete');
         showToast('success', data.message || 'نقش با موفقیت حذف شد');
         loadRoles();
@@ -333,6 +339,25 @@ async function handleRoleDelete(e) {
             showToast('danger', error.message || 'خطا در حذف نقش');
         }
     }
+}
+
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
 }
 
 // -------------------- Debounce & Search --------------------
@@ -387,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
 
-                const lockResponse = await fetch(
+                const lockResponse = await secureFetch(
                     `/rest/roles/${roleName}/edit-start`,
                     {
                         method: 'POST'
@@ -490,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 try {
 
-                    await fetch(
+                    await secureFetch(
                         `/rest/roles/${roleName}/edit-stop`,
                         {
                             method: 'POST'

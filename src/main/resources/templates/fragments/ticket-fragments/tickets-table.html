@@ -47,7 +47,7 @@
                     <tbody>
                     <tr th:each="ticket : ${tickets.content}">
                         <td th:text="${ticket.title}"></td>
-                        <td th:text="${ticket.section.title}"></td>
+                        <td th:text="${ticket.sectionTitle}"></td>
                         <td th:text="${ticket.customer.username}" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"></td>
                         <td th:text="${ticket.status}"></td>
                         <td th:text="${ticket.score}"></td>
@@ -63,7 +63,7 @@
                                 <button class="btn btn-sm btn-warning btn-edit"
                                         sec:authorize="hasAuthority('TICKET_EDIT')"
                                         th:data-id="${ticket.id}"
-                                        th:data-section-id="${ticket.section.id}"
+                                        th:data-section-id="${ticket.sectionId}"
                                         th:data-status="${ticket.status}">
                                     <i class="fas fa-edit"></i>
                                 </button>

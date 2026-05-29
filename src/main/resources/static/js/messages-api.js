@@ -131,6 +131,25 @@ function createMessageElement(message) {
     return msgDiv;
 }
 
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
+
 /* =========================
    MAIN
 ========================= */
@@ -143,6 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const ocrBtn = document.getElementById('ocrSendBtn');
     const ticketCloseBtn = document.getElementById('ticketCloseBtn');
     const loadOlderBtn = document.getElementById('loadOlderBtn');
+
+    const ocrProcessingTextElem = document.getElementById('ocrProcessingText');
+    const ocrProcessingText = ocrProcessingTextElem ? ocrProcessingTextElem.textContent.trim() : "Ocr processing";
 
     document.querySelectorAll('.btn-score').forEach(btn => {
         btn.addEventListener('click', handleTicketScore);
@@ -173,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (file) formData.append("files", file);
 
         try {
-            const response = await fetch(`/rest/messages/${ticketId}`, {
+            const response = await secureFetch(`/rest/messages/${ticketId}`, {
                 method: "POST",
                 body: formData
             });
@@ -218,18 +240,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch(`/rest/messages/ocr/${ticketId}`, {
+            showToast('info', ocrProcessingText || 'در حال پردازش OCR ...');
+
+            const response = await secureFetch(`/rest/messages/ocr/${ticketId}`, {
                 method: "POST",
                 body: formData
             });
 
             const message = await response.json();
             addMessageToDOM(message);
+
+            setTimeout(async () => {
+                await reloadMessages();
+            }, 5000);
+
+            tempInput.remove();
         });
 
         document.body.appendChild(tempInput);
         tempInput.click();
-        tempInput.remove();
     });
 
     /* ---------------- load older ---------------- */
@@ -243,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ticketId = document.getElementById("ticketId").value;
 
         try {
-            const response = await fetch(`/rest/messages/ticket-close/${ticketId}`, {
+            const response = await secureFetch(`/rest/messages/ticket-close/${ticketId}`, {
                 method: 'PUT'
             });
 
@@ -306,7 +335,7 @@ async function markMessagesAsSeen() {
     const ticketId = document.getElementById("ticketId").value;
 
     try {
-        await fetch(`/rest/messages/seen/${ticketId}`, {
+        await secureFetch(`/rest/messages/seen/${ticketId}`, {
             method: 'PUT'
         });
     } catch (e) {
@@ -341,7 +370,7 @@ async function handleTicketScore(e) {
     const ticketId = document.getElementById("ticketId").value;
 
     try {
-        const response = await fetch(`/rest/messages/ticket-score/${ticketId}`, {
+        const response = await secureFetch(`/rest/messages/ticket-score/${ticketId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -368,4 +397,29 @@ function disableScoreButtons() {
         btn.disabled = true;
         btn.classList.add('disabled');
     });
+}
+
+async function reloadMessages() {
+
+    const ticketId = document.getElementById("ticketId").value;
+
+    const response = await fetch(
+        `/rest/messages/${ticketId}?page=0&size=50`
+    );
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+
+    const messages = data.content || data;
+
+    const chatBox = document.getElementById('chat-box');
+
+    chatBox.innerHTML = '';
+
+    messages.reverse().forEach(message => {
+        chatBox.appendChild(createMessageElement(message));
+    });
+
+    chatBox.scrollTop = chatBox.scrollHeight;
 }

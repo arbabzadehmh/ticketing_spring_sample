@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.controller.exception.AddressEmptyException;
 import ir.controller.exception.DuplicateBuildingException;
 import ir.controller.exception.DuplicateSectionException;
+import ir.controller.exception.EntityLockedException;
 import ir.dto.AddressDto;
 import ir.dto.BuildingTableDto;
 import ir.event.AddressCreateRequestEvent;
@@ -41,8 +42,9 @@ public class BuildingServiceImpl implements BuildingService {
     private final AddressFormatter addressFormatter;
     private final SectionRepository sectionRepository;
     private final SectionService sectionService;
+    private final EntityLockService entityLockService;
 
-    public BuildingServiceImpl(BuildingRepository buildingRepository, OutboxRepository outboxRepo, ObjectMapper objectMapper, AddressClient addressClient, AddressFormatter addressFormatter, SectionRepository sectionRepository, SectionService sectionService) {
+    public BuildingServiceImpl(BuildingRepository buildingRepository, OutboxRepository outboxRepo, ObjectMapper objectMapper, AddressClient addressClient, AddressFormatter addressFormatter, SectionRepository sectionRepository, SectionService sectionService, EntityLockService entityLockService) {
         this.buildingRepository = buildingRepository;
         this.outboxRepository = outboxRepo;
         this.objectMapper = objectMapper;
@@ -50,6 +52,7 @@ public class BuildingServiceImpl implements BuildingService {
         this.addressFormatter = addressFormatter;
         this.sectionRepository = sectionRepository;
         this.sectionService = sectionService;
+        this.entityLockService = entityLockService;
     }
 
     @Transactional
@@ -162,6 +165,13 @@ public class BuildingServiceImpl implements BuildingService {
     @CacheEvict(cacheNames = {"sections", "sectionsPageable", "sectionsFilter"}, allEntries = true)
     @Override
     public void deleteById(Long id) {
+
+        String lockOwner = entityLockService.getLockOwner("building", id);
+
+        if (lockOwner != null) {
+            throw new EntityLockedException();
+        }
+
         Building building = buildingRepository
                 .findById(id).orElseThrow(() -> new EntityNotFoundException("Building not found"));
 

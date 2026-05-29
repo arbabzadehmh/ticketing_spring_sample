@@ -88,13 +88,15 @@ logging:
     org.hibernate.engine.transaction: OFF  # Transaction details
     #    com.zaxxer.hikari: DEBUG           # HikariCP pool details
     #    com.zaxxer.hikari.pool: TRACE      # HikariCP pool more details
-    org.springframework.jdbc: DEBUG    # JDBC operations
-    org.springframework.cache: TRACE
-    org.springframework.mail: DEBUG
-    ir.client.AddressClient: DEBUG
-    net.javacrumbs.shedlock: DEBUG
+    org.springframework.jdbc: WARN    # JDBC operations
+    org.springframework.cache: WARN
+    org.springframework.mail: WARN
+    ir.client.AddressClient: WARN
+    net.javacrumbs.shedlock: WARN
     org.apache.kafka: WARN
     org.springframework.data.redis: WARN
+    org.mongodb.driver: WARN
+    com.mongodb: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
@@ -140,12 +142,13 @@ spring:
     password: mft123
     driver-class-name: org.postgresql.Driver
     hikari:
-      minimum-idle: 1
-      maximum-pool-size: 5        # Max connections in pool
+      minimum-idle: 5
+      maximum-pool-size: 20        # Max connections in pool
       connection-timeout: 30000    # 30 seconds timeout
       idle-timeout: 60000
       max-lifetime: 1800000
       initialization-fail-timeout: 0  # No fail on init
+      leak-detection-threshold: 20000
   jpa:
     hibernate:
       ddl-auto: update           # Update schema in production
@@ -160,9 +163,8 @@ spring:
           batch_size: 50          # Batch size for performance
   data:
     mongodb:
-      host: mongodb
-      port: 27017
-      database: spring_db_photos
+      auto-index-creation: true
+      uri: mongodb://mongodb:27017/spring_db_photos?maxPoolSize=100&minPoolSize=10&waitQueueTimeoutMS=10000&connectTimeoutMS=10000&socketTimeoutMS=60000
     redis:
       host: redis
       port: 6379
@@ -191,6 +193,12 @@ server:
           secure: true             # Only over HTTPS
           same-site: strict        # Prevent CSRF via cross-site requests
 
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 20
+    accept-count: 100
+    connection-timeout: 20000
 
 # Development/Testing profile (H2)
 ---
@@ -224,6 +232,11 @@ spring:
     password: mha123
     driver-class-name: oracle.jdbc.OracleDriver
 
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      leak-detection-threshold: 20000
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -251,9 +264,8 @@ spring:
 #        use_sql_comments: true
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: spring_db_photos
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/spring_db_photos?maxPoolSize=100&minPoolSize=10&waitQueueTimeoutMS=10000&connectTimeoutMS=10000&socketTimeoutMS=60000
     redis:
       host: localhost
       port: 6379
@@ -284,3 +296,9 @@ server:
         secure: true             # Only over HTTPS
         same-site: strict        # Prevent CSRF via cross-site requests
 
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 20
+    accept-count: 100
+    connection-timeout: 20000

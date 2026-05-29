@@ -1,6 +1,7 @@
 package ir.service.impl;
 
 import ir.controller.exception.DuplicateRoleException;
+import ir.controller.exception.EntityLockedException;
 import ir.model.entity.Permission;
 import ir.model.entity.Role;
 import ir.repository.PermissionRepository;
@@ -23,10 +24,12 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
+    private final EntityLockService entityLockService;
 
-    public RoleServiceImpl(RoleRepository roleRepository, PermissionRepository permissionRepository) {
+    public RoleServiceImpl(RoleRepository roleRepository, PermissionRepository permissionRepository, EntityLockService entityLockService) {
         this.roleRepository = roleRepository;
         this.permissionRepository = permissionRepository;
+        this.entityLockService = entityLockService;
     }
 
     @Transactional
@@ -67,13 +70,19 @@ public class RoleServiceImpl implements RoleService {
 
         existingRole.setPermissionSet(permissions);
 
-        System.out.println(existingRole);
         return roleRepository.save(existingRole);
     }
 
     @Transactional
     @Override
     public void deleteByName(String roleName) {
+
+        String lockOwner = entityLockService.getLockOwner("role", roleName);
+
+        if (lockOwner != null) {
+            throw new EntityLockedException();
+        }
+
         Role role = roleRepository.findByName(roleName)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found"));
 

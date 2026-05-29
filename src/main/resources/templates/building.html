@@ -7,7 +7,10 @@
   <title th:text="#{buildings.title}"></title>
   <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
 </head>
-<body data-bs-theme="light" th:attr="data-is-admin=${isAdmin}">
+<body data-bs-theme="light"
+      th:attr=
+              "data-is-admin=${isAdmin},
+               data-permissions=${#authorization.expression('isAuthenticated()') ? #authentication.principal.authorities : null}">
 <!-- نوار بالایی -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 

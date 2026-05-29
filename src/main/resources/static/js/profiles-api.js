@@ -189,7 +189,7 @@ async function handleCreateProfileSubmit(e) {
     }
 
     try {
-        const response = await fetch(url, {
+        const response = await secureFetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profile)
@@ -204,7 +204,7 @@ async function handleCreateProfileSubmit(e) {
             const formData = new FormData();
             formData.append('file', file);
 
-            await fetch(`/rest/profiles/${data.id}/picture`, {
+            await secureFetch(`/rest/profiles/${data.id}/picture`, {
                 method: 'POST',
                 body: formData
             });
@@ -259,7 +259,7 @@ async function handleEditProfileSubmit(e) {
     }
 
     try {
-        const response = await fetch(`/rest/profiles/${id}`, {
+        const response = await secureFetch(`/rest/profiles/${id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profile)
@@ -274,7 +274,7 @@ async function handleEditProfileSubmit(e) {
             const formData = new FormData();
             formData.append('file', file);
 
-            const uploadResponse = await fetch(`/rest/profiles/${id}/picture`, {
+            const uploadResponse = await secureFetch(`/rest/profiles/${id}/picture`, {
                 method: 'POST',
                 body: formData
             });
@@ -285,7 +285,7 @@ async function handleEditProfileSubmit(e) {
         }
 
         try {
-            await fetch(`/rest/profiles/${id}/edit-stop`,
+            await secureFetch(`/rest/profiles/${id}/edit-stop`,
                 {
                     method: 'POST'
                 }
@@ -495,7 +495,7 @@ async function handleProfileDelete(e) {
 
     const id = btn.dataset.id;
     try {
-        const response = await fetch(`/rest/profiles/${id}`, {
+        const response = await secureFetch(`/rest/profiles/${id}`, {
             method: 'DELETE',
         });
 
@@ -510,6 +510,25 @@ async function handleProfileDelete(e) {
             showToast('danger', error.message || 'خطا در حذف پروفایل');
         }
     }
+}
+
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
 }
 
 // =================== افزودن event delegation برای دکمه کارت ===================
@@ -533,7 +552,7 @@ document.body.addEventListener('click', async function (e) {
 
     try {
 
-        const lockResponse = await fetch(
+        const lockResponse = await secureFetch(
             `/rest/profiles/${profileId}/edit-start`,
             {
                 method: 'POST'
@@ -787,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!profileId) return;
 
             try {
-                const response = await fetch(`/rest/profiles/${profileId}/picture`, {method: 'DELETE'});
+                const response = await secureFetch(`/rest/profiles/${profileId}/picture`, {method: 'DELETE'});
                 const data = await handleResponse(response, 'delete');
 
                 if (data.version !== undefined) {
@@ -866,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 try {
 
-                    await fetch(
+                    await secureFetch(
                         `/rest/profiles/${profileId}/edit-stop`,
                         {
                             method: 'POST'

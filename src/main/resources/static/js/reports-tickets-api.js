@@ -64,7 +64,7 @@ function loadTickets(page = 0, extraParams = {}) {
             return res.json();
         })
         .then(data => {
-            renderTicketsTable(data.content, roles);
+            renderTicketsTable(data.content);
             renderPagination(data, currentPage);
 
             const ps = document.getElementById('pageSize');
@@ -92,7 +92,7 @@ function renderTicketsTable(tickets) {
 
         const row = document.createElement('tr');
 
-        const sectionName = t.section?.title ?? t.section?.parentSection?.title ?? '-';
+        const sectionName = t.sectionTitle ?? '-';
         const customerName = (t.customer && (t.customer.username || t.customer.fullName)) ? (t.customer.username || t.customer.fullName) : '-';
         const status = t.status || '-';
         const score = t.score || '-';

@@ -67,7 +67,10 @@ public class SecurityConfig {
                 // 2. CSRF Protection
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/**")
+                        .ignoringRequestMatchers(
+                                "/h2-console/**",
+                                "/actuator/**"
+                        )
                 )
 
                 // 3. Headers (XSS & Clickjacking)
@@ -125,7 +128,7 @@ public class SecurityConfig {
                 // 5. Authorization Rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/building/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/webfonts/**", "/resetPass").permitAll()
+                        .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/buildings/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/webfonts/**", "/resetPass").permitAll()
                         .requestMatchers("/rest/profiles/register").permitAll()
                         .requestMatchers("/rest/profiles/reset-password/**").permitAll()
                         .requestMatchers("/admins/**", "/actuator/**").hasRole("ADMIN")
@@ -186,7 +189,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("https://localhost:8443"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "X-XSRF-TOKEN"));
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);

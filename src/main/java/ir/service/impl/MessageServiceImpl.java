@@ -11,6 +11,8 @@ import ir.repository.MessageRepository;
 import ir.repository.TicketRepository;
 import ir.service.MessageService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -29,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@Slf4j
 public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final FileStorageService fileStorageService;
@@ -202,8 +207,25 @@ public class MessageServiceImpl implements MessageService {
                     .message(message)
                     .build();
 
-            ocrService.extractTextSync(attachment);
             attachmentRepository.save(attachment);
+            attachmentRepository.flush();
+
+            Long attachmentId = attachment.getId();
+
+            TransactionSynchronizationManager.registerSynchronization(
+                    new TransactionSynchronization() {
+
+                        @Override
+                        public void afterCommit() {
+
+                            try {
+                                ocrService.extractTextAsync(attachmentId);
+                            } catch (TaskRejectedException ex) {
+                                log.warn("OCR queue full");
+                            }
+                        }
+                    }
+            );
 
             message.addAttachment(attachment);
             messageRepository.save(message);

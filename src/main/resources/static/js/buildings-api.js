@@ -22,6 +22,11 @@ function loadBuildings(page = 0) {
     const pageSizeElement = document.getElementById('pageSize');
     const searchBuildingTitleElement = document.getElementById('searchBuildingTitle');
 
+    let rawPermissions = document.body.dataset.permissions || '';
+
+// حذف براکت‌ها و فاصله‌های اضافی
+    const permissions = rawPermissions ? rawPermissions.replace(/^\[|\]$/g, '').split(',').map(r => r.trim()) : [];
+
     if (!container || !pageSizeElement) {
         console.log('%cBuildings table not found, skipping loadBuildings()', 'color: orange;');
         return;
@@ -80,7 +85,7 @@ function loadBuildings(page = 0) {
             return res.json();
         })
         .then(data => {
-            renderBuildingsTable(data.content);
+            renderBuildingsTable(data.content, permissions);
             renderPagination(data, currentPage);
 
             const ps = document.getElementById('pageSize');
@@ -95,13 +100,16 @@ function loadBuildings(page = 0) {
 }
 
 // -------------------- Render Table --------------------
-function renderBuildingsTable(buildings) {
+function renderBuildingsTable(buildings, permissions) {
     const tableBody = document.querySelector("#buildings-table tbody");
     if (!tableBody) return;
 
     tableBody.innerHTML = '';
 
     buildings.forEach(b => {
+        const canEdit = permissions.includes("BUILDING_EDIT");
+        const canDelete = permissions.includes("BUILDING_DELETE");
+
         const row = document.createElement('tr');
 
         const sections = Array.isArray(b.sections)
@@ -118,6 +126,7 @@ function renderBuildingsTable(buildings) {
       <td>${escapeHtml(phones)}</td>
       <td>${escapeHtml(b.fullAddress ?? '-')}</td>
       <td>
+       ${canEdit ? `
         <button class="btn btn-sm btn-warning btn-edit"
           data-id="${b.id}"
           data-title="${b.title}"
@@ -128,10 +137,14 @@ function renderBuildingsTable(buildings) {
           data-version="${b.version}">
           <i class="fas fa-edit"></i>
         </button>
+        ` : ''}
+        
+        ${canDelete ? `
         <button class="btn btn-sm btn-danger btn-delete"
           data-id="${b.id}">
           <i class="fas fa-trash"></i>
         </button>
+         ` : ''}
       </td>
     `;
         tableBody.appendChild(row);
@@ -203,7 +216,7 @@ async function handleCreateBuildingSubmit(e) {
     };
 
     try {
-        const response = await fetch('/rest/buildings', {
+        const response = await secureFetch('/rest/buildings', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
@@ -399,7 +412,7 @@ async function handleEditBuildingSubmit(e) {
     };
 
     try {
-        const response = await fetch('/rest/buildings', {
+        const response = await secureFetch('/rest/buildings', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
@@ -408,7 +421,7 @@ async function handleEditBuildingSubmit(e) {
         const data = await handleResponse(response, 'edit');
 
         try {
-            await fetch(`/rest/buildings/${building.id}/edit-stop`, {
+            await secureFetch(`/rest/buildings/${building.id}/edit-stop`, {
                 method: 'POST'
             });
         } catch (e) {
@@ -597,7 +610,7 @@ async function handleBuildingDelete(e) {
 
     const id = btn.dataset.id;
     try {
-        const response = await fetch(`/rest/buildings/${id}`, {method: 'DELETE'});
+        const response = await secureFetch(`/rest/buildings/${id}`, {method: 'DELETE'});
         const data = await handleResponse(response, 'delete');
         showToast('success', data.message || 'ساختمان با موفقیت حذف شد');
         loadBuildings();
@@ -609,6 +622,24 @@ async function handleBuildingDelete(e) {
     }
 }
 
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
 // -------------------- Debounce & Search --------------------
 function debounce(fn, delay) {
     let timeoutId;
@@ -786,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
 
-                const lockResponse = await fetch(
+                const lockResponse = await secureFetch(
                     `/rest/buildings/${buildingId}/edit-start`, {
                         method: 'POST'
                     }
@@ -891,7 +922,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 try {
 
-                    await fetch(
+                    await secureFetch(
                         `/rest/buildings/${id}/edit-stop`,
                         {
                             method: 'POST'

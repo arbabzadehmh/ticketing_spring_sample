@@ -20,7 +20,7 @@ async function handleCreateProfileSubmit(e) {
 
 
     try {
-        const response = await fetch(url, {
+        const response = await secureFetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profile)
@@ -42,7 +42,24 @@ async function handleCreateProfileSubmit(e) {
     }
 }
 
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
 
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
 
 // -------------------- Handle Server Response --------------------
 async function handleResponse(response, mode) {

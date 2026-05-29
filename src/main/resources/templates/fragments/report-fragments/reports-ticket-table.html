@@ -32,7 +32,7 @@
                     <tbody>
                     <tr th:each="ticket : ${tickets.content}">
                         <td th:text="${ticket.title}"></td>
-                        <td th:text="${ticket.section.title}"></td>
+                        <td th:text="${ticket.sectionTitle}"></td>
                         <td th:text="${ticket.customer.username}"></td>
                         <td th:text="${ticket.status}"></td>
                         <td th:text="${ticket.score}"></td>

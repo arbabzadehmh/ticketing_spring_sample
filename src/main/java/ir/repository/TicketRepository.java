@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,7 +24,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
     Page<Ticket> findByCustomerUsernameOrderByDateTime(String username, Pageable pageable);
     Page<Ticket> findByStatusOrderByDateTime(TicketStatus status, Pageable pageable);
     Page<Ticket> findByScoreIsLessThanEqualOrderByDateTime(Integer score, Pageable pageable);
-    Page<Ticket> findBySection_IdOrderByDateTime(Long id, Pageable pageable);
+    Page<Ticket> findBySectionIdOrderByDateTime(Long sectionId, Pageable pageable);
     Page<Ticket> findByIdInOrderByDateTime(List<Long> ids, Pageable pageable);
     long countByStatus(TicketStatus status);
     long countByStatusAndCustomer(TicketStatus status, User customer);
@@ -63,5 +64,21 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
             @Param("end") LocalDateTime end
     );
 
+
+    @Modifying
+    @Query("""
+    UPDATE ticketEntity t
+    SET t.sectionTitle = :title
+    WHERE t.sectionId = :sectionId
+""")
+    void updateSectionTitleBySectionId(Long sectionId, String title);
+
+    @Modifying
+    @Query("""
+    UPDATE ticketEntity t
+    SET t.sectionTitle = 'DELETED SECTION'
+    WHERE t.sectionId = :sectionId
+""")
+    void markTicketsSectionDeleted(Long sectionId);
 
 }

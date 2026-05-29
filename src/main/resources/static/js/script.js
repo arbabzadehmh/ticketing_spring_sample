@@ -37,16 +37,18 @@ function toggleSidebar() {
 
 function initLanguageSwitcher() {
     const languageSwitcher = document.getElementById('languageSwitcher');
+
     if (languageSwitcher) {
+
         languageSwitcher.addEventListener('change', function () {
+
             const selectedLang = this.value;
-            fetch('/admin/change-language', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `lang=${selectedLang}`
-            }).then(() => location.reload());
+
+            const currentUrl = new URL(window.location.href);
+
+            currentUrl.searchParams.set('lang', selectedLang);
+
+            window.location.href = currentUrl.toString();
         });
     }
 }

@@ -1,5 +1,6 @@
 package ir.service.impl;
 
+import ir.controller.exception.EntityLockedException;
 import ir.controller.exception.FileReadException;
 import ir.controller.exception.FileStorageException;
 import ir.dto.ProfileUserDto;
@@ -44,8 +45,9 @@ public class ProfileService implements ir.service.ProfileService {
     private final PasswordEncoder passwordEncoder;
     private final AttachmentRepository attachmentRepository;
     private final FileStorageService fileStorageService;
+    private final EntityLockService entityLockService;
 
-    public ProfileService(ProfileRepository profileRepository, ProfileMapper profileMapper, RoleService roleService, UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder, AttachmentRepository attachmentRepository, FileStorageService fileStorageService) {
+    public ProfileService(ProfileRepository profileRepository, ProfileMapper profileMapper, RoleService roleService, UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder, AttachmentRepository attachmentRepository, FileStorageService fileStorageService, EntityLockService entityLockService) {
         this.profileRepository = profileRepository;
         this.profileMapper = profileMapper;
         this.roleService = roleService;
@@ -53,6 +55,7 @@ public class ProfileService implements ir.service.ProfileService {
         this.passwordEncoder = passwordEncoder;
         this.attachmentRepository = attachmentRepository;
         this.fileStorageService = fileStorageService;
+        this.entityLockService = entityLockService;
     }
 
     @Transactional
@@ -155,6 +158,13 @@ public class ProfileService implements ir.service.ProfileService {
     @Transactional
     @Override
     public void deleteById(Long id) {
+
+        String lockOwner = entityLockService.getLockOwner("profile", id);
+
+        if (lockOwner != null) {
+            throw new EntityLockedException();
+        }
+
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 

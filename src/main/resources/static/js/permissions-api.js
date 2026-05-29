@@ -127,9 +127,11 @@ async function handlePermissionSubmit(e) {
     const method = id ? 'PUT' : 'POST';
 
     try {
-        const response = await fetch(url, {
+        const response = await secureFetch(url, {
             method,
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(permission)
         });
 
@@ -218,7 +220,9 @@ async function handlePermissionDelete(e) {
     const id = btn.dataset.id;
 
     try {
-        const response = await fetch(`/rest/permissions/${id}`, {method: 'DELETE'});
+        const response = await secureFetch(`/rest/permissions/${id}`, {
+            method: 'DELETE'
+        });
         const data = await handleResponse(response, 'delete');
         showToast('success', data.message || 'دسترسی حذف شد');
         loadPermissions();
@@ -228,6 +232,25 @@ async function handlePermissionDelete(e) {
             showToast('danger', error.message || 'خطا در حذف دسترسی');
         }
     }
+}
+
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
 }
 
 // ---------------------------------------------------------

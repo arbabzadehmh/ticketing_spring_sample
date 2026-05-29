@@ -7,7 +7,7 @@ async function handleResetPassword(e) {
     const username = document.getElementById('username').value.trim();
 
     try {
-        const response = await fetch(`/rest/profiles/reset-password/${username}`, {
+        const response = await secureFetch(`/rest/profiles/reset-password/${username}`, {
             method: 'POST',
         });
 
@@ -29,6 +29,24 @@ async function handleResetPassword(e) {
     }
 }
 
+// ---------------------------------------------------------
+function getCsrfToken() {
+    return document.querySelector("meta[name='_csrf']").content;
+}
+
+function getCsrfHeader() {
+    return document.querySelector("meta[name='_csrf_header']").content;
+}
+
+async function secureFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        [getCsrfHeader()]: getCsrfToken()
+    };
+
+    return fetch(url, options);
+}
 
 
 // -------------------- Handle Server Response --------------------

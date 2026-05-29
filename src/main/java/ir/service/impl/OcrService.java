@@ -4,11 +4,14 @@ package ir.service.impl;
 import ir.controller.exception.OcrException;
 import ir.model.entity.Attachment;
 import ir.repository.AttachmentRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.tess4j.Tesseract;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,6 +19,7 @@ import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class OcrService {
 
     private final FileStorageService fileStorageService;
@@ -54,13 +58,23 @@ public class OcrService {
         }
     }
 
-    public String extractTextSync(Attachment attachment) {
+    @Async("ocrExecutor")
+    @Transactional
+    public void extractTextAsync(Long attachmentId) {
         try {
+
+            Attachment attachment = attachmentRepository.findById(attachmentId)
+                    .orElseThrow(() -> new EntityNotFoundException("Attachment not found"));
+
             GridFsResource res = fileStorageService.getResource(attachment.getMongoFileId());
-            if (res == null) return "";
+            if (res == null) {
+                return;
+            }
 
             BufferedImage image = ImageIO.read(res.getInputStream());
-            if (image == null) return ""; // not an image
+            if (image == null) {
+                return; // not an image
+            }
 
             Tesseract t = new Tesseract();
             t.setDatapath(tessDataPath);
@@ -71,9 +85,10 @@ public class OcrService {
             attachment.setExtractedText(text);
             attachmentRepository.save(attachment);
 
-            return text;
         } catch (Exception e) {
-            throw new OcrException();
+            log.error("OCR FAILED attachmentId={}",
+                    attachmentId, e);
+
         }
     }
 
