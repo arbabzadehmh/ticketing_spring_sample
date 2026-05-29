@@ -1,5 +1,7 @@
 let firstLoad = true;
 
+let currentEditingPermissionId = null;
+
 function loadPermissions(page = 0) {
     const container = document.getElementById('permissions-table-container');
     const pageSizeElement = document.getElementById('pageSize');
@@ -82,7 +84,8 @@ function renderPermissionsTable(permissions) {
             <td>
                 <button class="btn btn-sm btn-warning btn-edit"
                     data-id="${p.id}"
-                    data-name='${p.permissionName}'>
+                    data-name='${p.permissionName}'
+                    data-version="${p.version}">
                     <i class="fas fa-edit"></i>
                 </button>
                 <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}">
@@ -123,6 +126,10 @@ async function handlePermissionSubmit(e) {
     const id = document.getElementById('permissionId').value;
     const permission = {permissionName: document.getElementById('permissionName').value.trim()};
 
+    if (id) {
+        permission.version = document.getElementById('permissionVersion').value;
+    }
+
     const url = id ? `/rest/permissions/${id}` : '/rest/permissions';
     const method = id ? 'PUT' : 'POST';
 
@@ -136,6 +143,14 @@ async function handlePermissionSubmit(e) {
         });
 
         const data = await handleResponse(response, id ? 'edit' : 'create');
+
+        if (id) {
+            await secureFetch(`/rest/permissions/${id}/edit-stop`, {
+                method: 'POST'
+            });
+        }
+
+        currentEditingPermissionId = null;
 
         bootstrap.Modal.getInstance(document.getElementById('permissionModal')).hide();
         showToast('success', data.message || (id ? 'دسترسی ویرایش شد' : 'دسترسی ثبت شد'));
@@ -288,15 +303,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // بستن مودال
-        permissionModal.addEventListener('hide.bs.modal', () => {
+        permissionModal.addEventListener('hidden.bs.modal', async () => {
+
+            const id = currentEditingPermissionId;
+
+            currentEditingPermissionId = null;
+
+            if (!id) return;
+
+            try {
+                await secureFetch(`/rest/permissions/${id}/edit-stop`, {
+                    method: 'POST'
+                });
+            } catch (e) {
+                console.error('edit-stop error', e);
+            }
+
             modalTitle.textContent = modalTitle.dataset.titleAdd;
+
             const focusedElement = permissionModal.querySelector(':focus');
             if (focusedElement) focusedElement.blur();
         });
     }
 
     // --- delegation کلیک‌ها ---
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', async (e) => {
         const btnDelete = e.target.closest('.btn-delete, .btn-danger');
         if (btnDelete) {
             handlePermissionDelete(e);
@@ -304,12 +335,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const btnEdit = e.target.closest('.btn-edit');
+
         if (btnEdit) {
-            const modalTitle = document.querySelector('#permissionModalLabel');
-            modalTitle.textContent = modalTitle.dataset.titleEdit;
-            document.getElementById('permissionId').value = btnEdit.dataset.id;
-            document.getElementById('permissionName').value = btnEdit.dataset.name;
-            new bootstrap.Modal(document.getElementById('permissionModal')).show();
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            // جلوگیری از چند کلیک سریع
+            if (btnEdit.dataset.loading === 'true') {
+                return;
+            }
+
+            btnEdit.dataset.loading = 'true';
+
+            const permissionId = btnEdit.dataset.id;
+
+            try {
+
+                const lockResponse = await secureFetch(`/rest/permissions/${permissionId}/edit-start`, {
+                    method: 'POST'
+                });
+
+                let lockData;
+                let rawText = await lockResponse.text();
+
+                try {
+                    lockData = JSON.parse(rawText);
+                } catch (e) {
+                    lockData = { error: rawText };
+                }
+
+                if (!lockResponse.ok) {
+
+                    btnEdit.dataset.loading = 'false';
+
+                    showToast(
+                        'danger',
+                        lockData.error || 'این بخش توسط کاربر دیگری در حال ویرایش است !'
+                    );
+
+                    return;
+                }
+
+                currentEditingPermissionId = permissionId;
+
+                modalTitle.textContent =
+                    modalTitle.dataset.titleEdit;
+
+                document.getElementById('permissionId').value = btnEdit.dataset.id;
+                document.getElementById('permissionName').value = btnEdit.dataset.name;
+                document.getElementById('permissionVersion').value = btnEdit.dataset.version || '';
+
+                // فقط همین
+                const modalInstance =
+                    bootstrap.Modal.getOrCreateInstance(permissionModal);
+
+                modalInstance.show();
+
+            } catch (error) {
+
+                console.error('edit-start error:', error);
+
+                showToast(
+                    'danger',
+                    'خطا در بررسی قفل ویرایش'
+                );
+
+            } finally {
+
+                btnEdit.dataset.loading = 'false';
+            }
+
             return;
         }
 

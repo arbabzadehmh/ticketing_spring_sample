@@ -161,6 +161,7 @@ public class ProfileApi {
     }
 
     @PostMapping("/{id}/edit-start")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<?> startProfileEdit(@PathVariable Long id,
                                               Principal principal) {
 
@@ -169,6 +170,7 @@ public class ProfileApi {
     }
 
     @PostMapping("/{id}/edit-stop")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public void stopProfileEdit(@PathVariable Long id,
                                 Principal principal) {
 

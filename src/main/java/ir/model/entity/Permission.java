@@ -29,4 +29,8 @@ public class Permission extends Base {
     @Pattern(regexp = "^$|^[A-Za-z0-9_\\s-]{2,50}$", message = "{validation.permissionPattern}")
     @Column(name = "permission", nullable = false, unique = true, length = 100)
     private String permissionName;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 }

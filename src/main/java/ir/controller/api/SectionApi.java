@@ -120,6 +120,7 @@ public class SectionApi {
     }
 
     @PostMapping("/{id}/edit-start")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<?> startSectionEdit(@PathVariable Long id,
                           Principal principal) {
 
@@ -128,6 +129,7 @@ public class SectionApi {
     }
 
     @PostMapping("/{id}/edit-stop")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public void stopSectionEdit(@PathVariable Long id,
                          Principal principal) {
 

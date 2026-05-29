@@ -16,6 +16,7 @@
                 <form id="permissionForm">
                     <div class="modal-body">
                         <input type="hidden" id="permissionId"> <!-- فقط برای حالت ویرایش -->
+                        <input type="hidden" id="permissionVersion" name="permissionVersion">
                         <div class="mb-3">
                             <label for="permissionName" class="form-label" th:text="#{permissions.name}"></label>
                             <input type="text" class="form-control" id="permissionName" name="permissionName">

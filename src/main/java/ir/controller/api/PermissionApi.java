@@ -4,6 +4,7 @@ import ir.controller.exception.ValidationException;
 import ir.model.entity.Permission;
 import ir.model.entity.Role;
 import ir.service.PermissionService;
+import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -28,10 +30,12 @@ public class PermissionApi {
 
     private final PermissionService permissionService;
     private final MessageSource messageSource;
+    private final EntityLockService lockService;
 
-    public PermissionApi(PermissionService permissionService, MessageSource messageSource) {
+    public PermissionApi(PermissionService permissionService, MessageSource messageSource, EntityLockService lockService) {
         this.permissionService = permissionService;
         this.messageSource = messageSource;
+        this.lockService = lockService;
     }
 
     @GetMapping
@@ -85,6 +89,21 @@ public class PermissionApi {
         String message = messageSource.getMessage("permissions.create.success", null, locale);
 
         return ResponseEntity.ok(Map.of("message", message));
+    }
+
+    @PostMapping("/{id}/edit-start")
+    public ResponseEntity<?> startPermissionEdit(@PathVariable Long id,
+                                               Principal principal) {
+
+        lockService.lock("permission", id, principal.getName());
+        return ResponseEntity.ok(Map.of("message", "locked"));
+    }
+
+    @PostMapping("/{id}/edit-stop")
+    public void stopPermissionEdit(@PathVariable Long id,
+                                 Principal principal) {
+
+        lockService.unlock("permission", id, principal.getName());
     }
 
     @PutMapping("/{id}")

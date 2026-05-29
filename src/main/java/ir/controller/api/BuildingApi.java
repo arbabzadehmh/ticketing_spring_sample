@@ -83,6 +83,7 @@ public class BuildingApi {
     }
 
     @PostMapping("/{id}/edit-start")
+    @PreAuthorize("hasAuthority('BUILDING_EDIT')")
     public ResponseEntity<?> startBuildingEdit(@PathVariable Long id,
                                               Principal principal) {
 
@@ -91,6 +92,7 @@ public class BuildingApi {
     }
 
     @PostMapping("/{id}/edit-stop")
+    @PreAuthorize("hasAuthority('BUILDING_EDIT')")
     public void stopBuildingEdit(@PathVariable Long id,
                                 Principal principal) {
 
