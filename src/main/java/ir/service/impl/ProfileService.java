@@ -21,6 +21,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.util.Pair;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -138,6 +141,17 @@ public class ProfileService implements ir.service.ProfileService {
                 existingProfile.getUser().setPassword(passwordEncoder.encode(dto.getPassword()));
             }
         } else {
+
+            String currentUsername = SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getName();
+
+            String ownerUsername = existingProfile.getUser().getUsername();
+
+            if (!currentUsername.equals(ownerUsername)) {
+                throw new AccessDeniedException("Access denied");
+            }
+
             // اگر مشتری بود، فقط اطلاعات پروفایل خودش را تغییر دهد
             existingProfile.setFirstName(dto.getFirstName());
             existingProfile.setLastName(dto.getLastName());
@@ -228,6 +242,8 @@ public class ProfileService implements ir.service.ProfileService {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 
+        validateProfileAccess(profile);
+
         try {
             // حذف عکس قبلی در GridFS و دیتابیس
             if (profile.getProfilePicture() != null) {
@@ -260,6 +276,8 @@ public class ProfileService implements ir.service.ProfileService {
     public Profile deleteProfilePicture(Long profileId) {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
+
+        validateProfileAccess(profile);
 
         if (profile.getProfilePicture() != null) {
             fileStorageService.deleteById(profile.getProfilePicture().getMongoFileId());
@@ -296,6 +314,8 @@ public class ProfileService implements ir.service.ProfileService {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found"));
 
+        validateProfileAccess(profile);
+
         Attachment att = profile.getProfilePicture();
         if (att == null)
             throw new EntityNotFoundException("Profile picture not found");
@@ -328,6 +348,27 @@ public class ProfileService implements ir.service.ProfileService {
                 return FileType.TXT;
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public void validateProfileAccess(Profile profile) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        boolean isAdminOrManager = authentication.getAuthorities().stream()
+                .anyMatch(a ->
+                        "ROLE_ADMIN".equals(a.getAuthority()) ||
+                                "ROLE_MANAGER".equals(a.getAuthority()));
+
+        if (!isAdminOrManager) {
+
+            String currentUsername = authentication.getName();
+
+            if (!currentUsername.equals(profile.getUser().getUsername())) {
+                throw new AccessDeniedException("Access denied");
+            }
         }
     }
 }

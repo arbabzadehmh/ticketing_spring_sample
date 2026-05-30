@@ -19,6 +19,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ir.model.entity.Role;
@@ -26,6 +29,7 @@ import ir.model.entity.Role;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -118,7 +122,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket findById(Long id) {
-        return ticketRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+
+        validateTicketAccess(ticket);
+
+        return ticket;
     }
 
     @Override
@@ -234,5 +243,30 @@ public class TicketServiceImpl implements TicketService {
     private void applySectionSnapshot(Ticket ticket, Section section) {
         ticket.setSectionId(section.getId());
         ticket.setSectionTitle(section.getTitle());
+    }
+
+    private void validateTicketAccess(Ticket ticket) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String currentUsername = auth.getName();
+
+        boolean isAdmin =
+                auth.getAuthorities().stream()
+                        .anyMatch(a ->
+                                a.getAuthority().equals("ROLE_ADMIN") ||
+                                        a.getAuthority().equals("ROLE_MANAGER")
+                        );
+
+        boolean isOwner =
+                ticket.getCustomer() != null &&
+                        Objects.equals(
+                                ticket.getCustomer().getUsername(),
+                                currentUsername
+                        );
+
+        if (!isAdmin && !isOwner) {
+            throw new AccessDeniedException("Access denied");
+        }
     }
 }

@@ -47,6 +47,7 @@ public class ProfileApi {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<?> getProfiles(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -73,22 +74,6 @@ public class ProfileApi {
             profiles = profileService.findAll(pageable);
         }
 
-//        profiles.forEach(p -> {
-//            if (p.getProfilePicture() != null) {
-//                Attachment att = new Attachment();
-//                att.setId(p.getProfilePicture().getId());
-//                att.setMongoFileId(p.getProfilePicture().getMongoFileId());
-//                att.setFileName(null);    // null کن
-//                att.setFileSize(null);    //  null کن
-//                att.setFileType(null);    //  null کن
-//                att.setAttachTime(null);  //  null کن
-//                att.setDescription(null); //  null کن
-//                att.setExtractedText(null); //  null کن
-//                att.setProfile(null);       //  null کن
-//                att.setMessage(null);
-//                p.setProfilePicture(att);
-//            }
-//        });
 
         return ResponseEntity.ok(profiles);
     }
@@ -146,9 +131,6 @@ public class ProfileApi {
             throw new ValidationException(errors);
         }
 
-//        if ("error".equalsIgnoreCase(profileDto.getFirstName())) {
-//            throw new RuntimeException("شبیه‌سازی خطای سرور!");
-//        }
 
         Profile savedProfile = profileService.createProfileByAdmin(profileDto);
 
@@ -161,18 +143,22 @@ public class ProfileApi {
     }
 
     @PostMapping("/{id}/edit-start")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<?> startProfileEdit(@PathVariable Long id,
-                                              Principal principal) {
+    public ResponseEntity<?> startProfileEdit(@PathVariable Long id, Principal principal) {
+
+        Profile profile = profileService.findById(id);
+
+        profileService.validateProfileAccess(profile);
 
         lockService.lock("profile", id, principal.getName());
         return ResponseEntity.ok(Map.of("message", "locked"));
     }
 
     @PostMapping("/{id}/edit-stop")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public void stopProfileEdit(@PathVariable Long id,
-                                Principal principal) {
+    public void stopProfileEdit(@PathVariable Long id, Principal principal) {
+
+        Profile profile = profileService.findById(id);
+
+        profileService.validateProfileAccess(profile);
 
         lockService.unlock("profile", id, principal.getName());
     }
@@ -242,22 +228,6 @@ public class ProfileApi {
         );
     }
 
-    // دریافت Base64 عکس پروفایل برای نمایش در مرورگر
-//    @GetMapping("/{profileId}/picture")
-//    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long profileId) {
-//        String base64 = profileService.getProfilePictureBase64(profileId);
-//        if (base64 == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        byte[] imageBytes = java.util.Base64.getDecoder().decode(base64);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS).cachePublic());
-//        headers.setContentType(MediaType.IMAGE_JPEG); // یا IMAGE_PNG بر اساس نوع تصویر
-//
-//        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-//    }
 
     @GetMapping("/{profileId}/picture")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long profileId) {

@@ -26,4 +26,5 @@ public interface ProfileService {
     Profile deleteProfilePicture(Long profileId);
     String getProfilePictureBase64(Long profileId);
     Pair<byte[], FileType> getProfilePictureBytes(Long profileId);
+    void validateProfileAccess(Profile profile);
 }

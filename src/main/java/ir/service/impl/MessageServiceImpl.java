@@ -10,6 +10,7 @@ import ir.repository.AttachmentRepository;
 import ir.repository.MessageRepository;
 import ir.repository.TicketRepository;
 import ir.service.MessageService;
+import ir.service.TicketService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskRejectedException;
@@ -40,13 +41,15 @@ public class MessageServiceImpl implements MessageService {
     private final AttachmentRepository attachmentRepository;
     private final OcrService ocrService;
     private final TicketRepository ticketRepository;
+    private final TicketService ticketService;
 
-    public MessageServiceImpl(MessageRepository messageRepository, FileStorageService fileStorageService, AttachmentRepository attachmentRepository, OcrService ocrService, TicketRepository ticketRepository) {
+    public MessageServiceImpl(MessageRepository messageRepository, FileStorageService fileStorageService, AttachmentRepository attachmentRepository, OcrService ocrService, TicketRepository ticketRepository, TicketService ticketService) {
         this.messageRepository = messageRepository;
         this.fileStorageService = fileStorageService;
         this.attachmentRepository = attachmentRepository;
         this.ocrService = ocrService;
         this.ticketRepository = ticketRepository;
+        this.ticketService = ticketService;
     }
 
     @Transactional(noRollbackFor = TicketExpiredException.class)
@@ -255,6 +258,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Page<Message> findByTicketId(Long ticketId, int page, int size) {
+
+        Ticket ticket = ticketService.findById(ticketId);
 
         Pageable pageable = PageRequest.of(
                 page,

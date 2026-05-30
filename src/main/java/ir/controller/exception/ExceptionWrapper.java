@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.OptimisticLockException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
-import java.nio.file.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import java.sql.SQLException;
 import java.util.Locale;
 
