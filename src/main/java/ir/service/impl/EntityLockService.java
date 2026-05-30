@@ -1,12 +1,14 @@
 package ir.service.impl;
 
 import ir.controller.exception.EntityLockedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 
+@Slf4j
 @Service
 public class EntityLockService {
 
@@ -31,77 +33,119 @@ public class EntityLockService {
     // START LOCK
     public void lock(String entity, Long id, String username) {
 
-        String redisKey = key(entity, id);
+        try {
 
-        Boolean success = redisTemplate.opsForValue()
-                .setIfAbsent(redisKey, username, Duration.ofMinutes(2));
+            String redisKey = key(entity, id);
 
-        if (Boolean.FALSE.equals(success)) {
-            String lockedBy = redisTemplate.opsForValue().get(redisKey);
+            Boolean success = redisTemplate.opsForValue()
+                    .setIfAbsent(redisKey, username, Duration.ofMinutes(2));
 
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start lock " + lockedBy);
+            if (Boolean.FALSE.equals(success)) {
+                String lockedBy = redisTemplate.opsForValue().get(redisKey);
 
-            throw new EntityLockedException();
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start lock " + lockedBy);
+
+                throw new EntityLockedException();
+            }
+
+        } catch (EntityLockedException e) {
+            throw e;
+        } catch (Exception e) {
+            log.warn("Redis unavailable. Lock skipped.");
         }
     }
 
     public void lock(String entity, String id, String username) {
 
-        String redisKey = key(entity, id);
+        try {
 
-        Boolean success = redisTemplate.opsForValue()
-                .setIfAbsent(redisKey, username, Duration.ofMinutes(2));
+            String redisKey = key(entity, id);
 
-        if (Boolean.FALSE.equals(success)) {
+            Boolean success = redisTemplate.opsForValue()
+                    .setIfAbsent(redisKey, username, Duration.ofMinutes(2));
 
-            String lockedBy =
-                    redisTemplate.opsForValue().get(redisKey);
+            if (Boolean.FALSE.equals(success)) {
 
-            System.out.println(">>>>>>>> lock " + lockedBy);
+                String lockedBy =
+                        redisTemplate.opsForValue().get(redisKey);
 
-            throw new EntityLockedException();
+                System.out.println(">>>>>>>> lock " + lockedBy);
+
+                throw new EntityLockedException();
+            }
+
+        } catch (EntityLockedException e) {
+            throw e;
+        } catch (Exception e) {
+            log.warn("Redis unavailable. Lock skipped.");
         }
     }
 
     // CHECK LOCK
     public String getLockOwner(String entity, Long id) {
 
-        return redisTemplate.opsForValue().get(key(entity, id));
+        try {
+
+            return redisTemplate.opsForValue().get(key(entity, id));
+
+        } catch (Exception e){
+            log.warn("Redis unavailable. Lock check skipped.");
+            return null;
+        }
     }
 
     public String getLockOwner(String entity, String id) {
 
-        return redisTemplate.opsForValue().get(key(entity, id));
+        try {
+
+            return redisTemplate.opsForValue().get(key(entity, id));
+
+        }  catch (Exception e){
+            log.warn("Redis unavailable. Lock check skipped.");
+            return null;
+        }
     }
 
     // UNLOCK
     public void unlock(String entity, Long id, String username) {
 
-        String redisKey = key(entity, id);
+        try {
 
-        String owner = redisTemplate.opsForValue().get(redisKey);
+            String redisKey = key(entity, id);
 
-        if (owner != null && owner.equals(username)) {
-            redisTemplate.delete(redisKey);
+            String owner = redisTemplate.opsForValue().get(redisKey);
 
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> unlock " + owner);
+            if (owner != null && owner.equals(username)) {
+                redisTemplate.delete(redisKey);
+
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> unlock " + owner);
 
 
+            }
+
+        } catch (Exception e) {
+            log.warn("Redis unavailable. Unlock skipped.");
         }
     }
 
     public void unlock(String entity, String id, String username) {
 
-        String redisKey = key(entity, id);
+        try {
 
-        String owner =
-                redisTemplate.opsForValue().get(redisKey);
+            String redisKey = key(entity, id);
 
-        if (owner != null && owner.equals(username)) {
+            String owner =
+                    redisTemplate.opsForValue().get(redisKey);
 
-            redisTemplate.delete(redisKey);
+            if (owner != null && owner.equals(username)) {
 
-            System.out.println(">>>>>>>> unlock " + owner);
+                redisTemplate.delete(redisKey);
+
+                System.out.println(">>>>>>>> unlock " + owner);
+            }
+
+        } catch (Exception e) {
+            log.warn("Redis unavailable. Unlock skipped.");
         }
     }
 

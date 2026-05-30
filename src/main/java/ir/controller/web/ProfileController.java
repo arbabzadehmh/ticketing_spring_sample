@@ -9,6 +9,7 @@ import ir.service.RoleService;
 import ir.service.UserService;
 import ir.service.ProfileService;
 import ir.service.impl.FileStorageService;
+import ir.service.impl.PasswordResetService;
 import ir.validation.OnCreate;
 import ir.validation.OnUpdate;
 import org.springframework.context.MessageSource;
@@ -40,12 +41,14 @@ public class ProfileController {
     private final FileStorageService fileStorageService;
     private final UserService userService;
     private final MessageSource messageSource;
+    private final PasswordResetService resetService;
 
-    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper, FileStorageService fileStorageService, MessageSource messageSource) {
+    public ProfileController(ProfileService profileService, UserService userService, RoleService roleService, ProfileMapper profileMapper, FileStorageService fileStorageService, MessageSource messageSource, PasswordResetService resetService) {
         this.profileService = profileService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
         this.messageSource = messageSource;
+        this.resetService = resetService;
     }
 
     @GetMapping
@@ -113,6 +116,21 @@ public class ProfileController {
 
         model.addAttribute("profile", profile);
         return "fragments/profile-fragments/profile-card :: profile-card";
+    }
+
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPage(@RequestParam String token, Model model) {
+
+        resetService.validateToken(token);
+
+        model.addAttribute("token", token);
+
+        return "reset-password";
     }
 
 }

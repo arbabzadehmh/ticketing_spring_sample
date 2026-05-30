@@ -130,7 +130,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/home", "/login", "/logout", "/h2-console/**", "/public/**", "/sections", "/buildings", "/rest/sections/get-all", "/rest/buildings/get-all", "/icons/**", "/css/**", "/js/**", "/fonts/**", "/webfonts/**", "/resetPass").permitAll()
                         .requestMatchers("/rest/profiles/register").permitAll()
-                        .requestMatchers("/rest/profiles/reset-password/**").permitAll()
+                        .requestMatchers("/rest/profiles/reset-password/**", "/rest/profiles/forgot-password/**", "/profiles/reset-password", "/profiles/forgot-password").permitAll()
                         .requestMatchers("/admins/**", "/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/roles/**", "/rest/roles/**", "/permissions/**", "/rest/permissions", "/reports/**").hasAnyRole("ADMIN", "MANAGER")
                         .anyRequest().authenticated()

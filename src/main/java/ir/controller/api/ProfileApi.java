@@ -1,14 +1,19 @@
 package ir.controller.api;
 
 import ir.controller.exception.ValidationException;
+import ir.dto.ForgotPasswordDto;
 import ir.dto.ProfileUserDto;
+import ir.dto.ResetPasswordDto;
 import ir.model.entity.Attachment;
+import ir.model.entity.PasswordResetToken;
 import ir.model.entity.Profile;
 import ir.model.entity.User;
 import ir.model.enums.FileType;
 import ir.service.ProfileService;
 import ir.service.UserService;
+import ir.service.impl.AuthService;
 import ir.service.impl.EntityLockService;
+import ir.service.impl.PasswordResetService;
 import ir.validation.OnCreate;
 import ir.validation.OnUpdate;
 import org.springframework.context.MessageSource;
@@ -38,12 +43,16 @@ public class ProfileApi {
     private final MessageSource messageSource;
     private final UserService userService;
     private final EntityLockService lockService;
+    private final PasswordResetService resetService;
+    private final AuthService authService;
 
-    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService, PasswordEncoder passwordEncoder, EntityLockService lockService) {
+    public ProfileApi(ProfileService profileService, MessageSource messageSource, UserService userService, PasswordEncoder passwordEncoder, EntityLockService lockService, PasswordResetService resetService, AuthService authService) {
         this.profileService = profileService;
         this.messageSource = messageSource;
         this.userService = userService;
         this.lockService = lockService;
+        this.resetService = resetService;
+        this.authService = authService;
     }
 
     @GetMapping
@@ -103,15 +112,57 @@ public class ProfileApi {
         ));
     }
 
-    @PostMapping("/reset-password/{username}")
-    public ResponseEntity<?> resetPassword(@PathVariable String username, Locale locale) {
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordDto dto, Locale locale) {
 
-        String resetPassword = userService.resetPassword(username);
+        authService.requestReset(dto.getUsername());
+
+        String message = messageSource.getMessage("users.password.reset.email.sent", null, locale);
+
+        return ResponseEntity.ok(
+                Map.of("message", message)
+        );
+    }
+
+
+//    @PostMapping("/reset-password/{username}")
+//    public ResponseEntity<?> resetPassword(@PathVariable String username, Locale locale) {
+//
+//        String resetPassword = userService.resetPassword(username);
+//
+//        String message = messageSource.getMessage("users.password.reset.success", null, locale);
+//
+//        return ResponseEntity.ok(Map.of(
+//                "resetPass", resetPassword,
+//                "message", message
+//        ));
+//    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(
+            @Validated(OnCreate.class) @RequestBody ResetPasswordDto dto,
+            BindingResult bindingResult,
+            Locale locale
+    ) {
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error ->
+                    errors.put(error.getField(), error.getDefaultMessage())
+            );
+            throw new ValidationException(errors);
+        }
+
+        PasswordResetToken token = resetService.validateToken(dto.getToken());
+
+        userService.changePassword(token.getUsername(), dto.getNewPassword());
+
+        resetService.markAsUsed(token);
 
         String message = messageSource.getMessage("users.password.reset.success", null, locale);
 
         return ResponseEntity.ok(Map.of(
-                "resetPass", resetPassword,
+                "username", token.getUsername(),
                 "message", message
         ));
     }

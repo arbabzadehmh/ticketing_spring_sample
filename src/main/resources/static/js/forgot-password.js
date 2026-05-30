@@ -1,38 +1,25 @@
-
-
-async function handleResetPassword(e) {
+async function handleForgotPassword(e) {
     e.preventDefault();
 
-    const token = document.getElementById('token').value;
-    const newPassword = document.getElementById('newPassword').value.trim();
+    const username =
+        document.getElementById('username').value.trim();
 
-    try {
-        const response = await secureFetch(`/rest/profiles/reset-password`, {
+    const response = await secureFetch(
+        '/rest/profiles/forgot-password',
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: token,
-                newPassword: newPassword
+                username: username
             })
-        });
-
-        const data = await handleResponse(response, 'edit'); // مدیریت پاسخ با متد استاندارد
-
-        // موفقیت
-        // bootstrap.Modal.getInstance(document.getElementById('profileRegisterModal')).hide();
-        showToast('success', data.message || 'رمز عبور با موفقیت بازیابی شد');
-
-        setTimeout(() => window.location.replace("/login"), 5000);
-
-    } catch (error) {
-        // خطاهای اعتبارسنجی قبلاً در handleResponse نمایش داده شدند
-        if (error.message !== 'Validation errors') {
-            console.error('Password resetting error:', error);
-            showToast('danger', error.message || 'خطا در بازیابی رمز عبور');
         }
-    }
+    );
+
+    const data = await handleResponse(response);
+
+    showToast('success', data.message);
 }
 
 // ---------------------------------------------------------
@@ -85,12 +72,18 @@ function debounce(fn, delay) {
     };
 }
 
+// -----------------------------------------------------------
 
-// -------------------- DOMContentLoaded --------------------
 document.addEventListener('DOMContentLoaded', () => {
 
+    const form =
+        document.getElementById('forgotPasswordForm');
 
-    const resetPassForm = document.getElementById('resetPasswordForm');
-    if (resetPassForm) resetPassForm.addEventListener('submit', handleResetPassword);
+    if(form) {
+        form.addEventListener(
+            'submit',
+            handleForgotPassword
+        );
+    }
 
 });

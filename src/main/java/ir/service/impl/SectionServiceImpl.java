@@ -1,7 +1,6 @@
 package ir.service.impl;
 
 import ir.controller.exception.*;
-import ir.dto.SectionDto;
 import ir.dto.SectionFilterDto;
 import ir.dto.SectionListDto;
 import ir.model.entity.Building;
@@ -25,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 
 @RequiredArgsConstructor
 @Service

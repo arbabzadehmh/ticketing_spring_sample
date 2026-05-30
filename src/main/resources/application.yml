@@ -176,6 +176,8 @@ address:
   service:
     url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
 
+app:
+  base-url: https://100.67.246.36:8443
 
 server:
   port: 8443                     # HTTPS port
@@ -279,6 +281,9 @@ spring:
 address:
   service:
     url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
+
+app:
+  base-url: https://100.67.246.36:8443
 
 server:
   port: 8443                     # HTTPS port
