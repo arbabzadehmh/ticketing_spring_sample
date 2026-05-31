@@ -74,6 +74,12 @@ public class ExceptionWrapper {
         } else if (e instanceof OptimisticLockException ||
                 e instanceof ObjectOptimisticLockingFailureException) {
             return messageSource.getMessage("error.concurrent.update", null, locale);
+        } else if (e instanceof ExpiredPasswordTokenException) {
+            return messageSource.getMessage("error.token.expired", null, locale);
+        } else if (e instanceof UsedPasswordTokenException) {
+            return messageSource.getMessage("error.token.used", null, locale);
+        } else if (e instanceof InvalidPasswordTokenException) {
+            return messageSource.getMessage("error.token.invalid", null, locale);
         } else if (e instanceof SQLException) {
             return messageSource.getMessage("error.database", null, locale);
         } else if (e instanceof AccessDeniedException) {

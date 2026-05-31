@@ -1,5 +1,8 @@
 package ir.service.impl;
 
+import ir.controller.exception.ExpiredPasswordTokenException;
+import ir.controller.exception.InvalidPasswordTokenException;
+import ir.controller.exception.UsedPasswordTokenException;
 import ir.model.entity.PasswordResetToken;
 import ir.repository.PasswordResetTokenRepository;
 import org.springframework.stereotype.Service;
@@ -42,14 +45,14 @@ public class PasswordResetService {
     public PasswordResetToken validateToken(String token) {
 
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
+                .orElseThrow(InvalidPasswordTokenException::new);
 
         if (resetToken.isUsed()) {
-            throw new RuntimeException("Token already used");
+            throw new UsedPasswordTokenException();
         }
 
         if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Token expired");
+            throw new ExpiredPasswordTokenException();
         }
 
         return resetToken;
