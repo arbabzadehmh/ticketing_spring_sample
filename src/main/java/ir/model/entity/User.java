@@ -61,6 +61,9 @@ public class User extends Base {
     private LocalDateTime credentialsExpiryDate;
 
     public void addRole(Role role){
+        if (roleSet == null) {
+            roleSet = new HashSet<>();
+        }
         roleSet.add(role);
     }
 
