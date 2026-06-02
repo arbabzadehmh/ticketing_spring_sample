@@ -54,8 +54,6 @@ outbox:
     delay: 2000
 
 app:
-  ocr:
-    tessdata-path: src/main/resources/tessdata   # مسیر فایل‌های زبان Tesseract
   file:
     upload-dir: uploads                          # مسیر ذخیره فایل‌ها
 
@@ -177,7 +175,10 @@ address:
     url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
 
 app:
-  base-url: https://100.67.246.36:8443
+  base-url: https://100.94.54.4:8443
+
+  ocr:
+    tessdata-path: /usr/share/tesseract-ocr/5/tessdata
 
 server:
   port: 8443                     # HTTPS port
@@ -284,6 +285,9 @@ address:
 
 app:
   base-url: https://100.67.246.36:8443
+
+  ocr:
+    tessdata-path: src/main/resources/tessdata
 
 server:
   port: 8443                     # HTTPS port

@@ -43,7 +43,7 @@ public class EntityLockService {
             if (Boolean.FALSE.equals(success)) {
                 String lockedBy = redisTemplate.opsForValue().get(redisKey);
 
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start lock " + lockedBy);
+                log.info("Lock started by : " + lockedBy);
 
                 throw new EntityLockedException();
             }
@@ -69,7 +69,7 @@ public class EntityLockService {
                 String lockedBy =
                         redisTemplate.opsForValue().get(redisKey);
 
-                System.out.println(">>>>>>>> lock " + lockedBy);
+                log.info("Lock started by : " + lockedBy);
 
                 throw new EntityLockedException();
             }
@@ -118,7 +118,7 @@ public class EntityLockService {
             if (owner != null && owner.equals(username)) {
                 redisTemplate.delete(redisKey);
 
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> unlock " + owner);
+                log.info("Record unlocked by :  " + owner);
 
 
             }
@@ -141,7 +141,7 @@ public class EntityLockService {
 
                 redisTemplate.delete(redisKey);
 
-                System.out.println(">>>>>>>> unlock " + owner);
+                log.info("Record unlocked by :  " + owner);
             }
 
         } catch (Exception e) {

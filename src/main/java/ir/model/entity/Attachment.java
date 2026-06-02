@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Where;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
@@ -52,7 +54,8 @@ public class Attachment extends Base{
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "extracted_text", columnDefinition = "clob")
+    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
+    @Column(name = "extracted_text")
     private String extractedText;
 
     @OneToOne(mappedBy = "profilePicture", fetch = FetchType.LAZY)
