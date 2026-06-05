@@ -2,7 +2,6 @@ package ir.service;
 
 import ir.dto.TicketCreateDto;
 import ir.dto.TicketEditDto;
-import ir.model.entity.Section;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
 import ir.model.enums.TicketStatus;

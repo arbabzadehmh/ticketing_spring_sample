@@ -160,7 +160,6 @@ function renderPagination(data, currentPage = 0) { // اضافه کردن curren
     }
 }
 
-// ***************************************************************************************
 
 // -------------------- Create Profile --------------------
 const isAdmin = document.body.dataset.isAdmin === 'true';
@@ -531,7 +530,7 @@ async function secureFetch(url, options = {}) {
     return fetch(url, options);
 }
 
-// =================== افزودن event delegation برای دکمه کارت ===================
+
 // =================== افزودن event delegation برای دکمه کارت ===================
 document.body.addEventListener('click', async function (e) {
 

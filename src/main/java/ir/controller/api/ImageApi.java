@@ -2,37 +2,24 @@ package ir.controller.api;
 
 
 import ir.dto.ImageView;
-import ir.model.entity.Attachment;
 import ir.model.entity.ImageEntity;
-import ir.repository.ImageRepository;
-import ir.service.impl.FileStorageService;
 import ir.service.impl.ImageService;
-import ir.service.impl.OcrService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
-import java.util.Base64;
-
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 
 @RestController
@@ -60,8 +47,6 @@ public class ImageApi {
         ImageEntity saved = imageService.saveImage(file);
         String message = messageSource.getMessage("image.upload.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
-
-//        return ResponseEntity.ok(Map.of("message", message, "id", saved.getId()));
     }
 
 

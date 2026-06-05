@@ -1,6 +1,5 @@
 package ir.service.impl;
 
-import ir.model.entity.User;
 import ir.repository.ProfileRepository;
 import ir.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,8 +35,6 @@ public class AuthService {
 
 
         String link = baseUrl + "/profiles/reset-password?token=" + token;
-
-        System.out.println("LINK = " + link);
 
         emailService.sendEmail(
                 profileRepository.findEmailByUserUsername(username),

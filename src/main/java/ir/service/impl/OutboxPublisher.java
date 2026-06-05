@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.model.entity.OutboxEvent;
 import ir.repository.OutboxRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Component
 public class OutboxPublisher {
 
@@ -71,7 +73,7 @@ public class OutboxPublisher {
                 e.setPublished(true);
                 outboxRepo.save(e);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.error(ex.getMessage());
             }
         }
     }

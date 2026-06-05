@@ -1,5 +1,7 @@
 # Common application settings
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: ticketing_spring_sample
   profiles:
@@ -34,7 +36,7 @@ spring:
 
 
   kafka:
-    bootstrap-servers: 100.99.137.56:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
       group-id: building-service-updater
       auto-offset-reset: earliest
@@ -118,8 +120,8 @@ spring:
   mail:
     host: smtp.zoho.com
     port: 587
-    username: ticketing_spring_sample@zohomail.com
-    password: ${ZOHO_MAIL_PASSWORD}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -136,8 +138,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://postgres:5432/spring_db
-    username: mft
-    password: mft123
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 5
@@ -172,10 +174,10 @@ spring:
 
 address:
   service:
-    url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
+    url: ${ADDRESS_SERVICE_URL}
 
 app:
-  base-url: https://100.94.54.4:8443
+  base-url: ${PROD_APP_BASE_URL}
 
   ocr:
     tessdata-path: /usr/share/tesseract-ocr/5/tessdata
@@ -185,7 +187,7 @@ server:
   ssl:
      enabled: true
      key-store: classpath:ticketingssl.jks
-     key-store-password: mha123
+     key-store-password: ${SSL_KEYSTORE_PASSWORD}
      key-alias: ticketingkey
      key-store-type: JKS
   servlet:
@@ -214,7 +216,7 @@ spring:
     host: smtp.zoho.com
     port: 587
     username: ticketing_spring_sample@zohomail.com
-    password: VGvURGmNtHdR
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -231,8 +233,8 @@ spring:
 
   datasource:                                           # for H2 database--> comment lines 85-99
     url: jdbc:oracle:thin:@localhost:1521:xe            # and uncomment lines 101-114, 125-128
-    username: ticketing_spring
-    password: mha123
+    username: ${DEV_DB_USERNAME}
+    password: ${DEV_DB_PASSWORD}
     driver-class-name: oracle.jdbc.OracleDriver
 
     hikari:
@@ -281,10 +283,10 @@ spring:
 
 address:
   service:
-    url: ${ADDRESS_SERVICE_URL:http://100.99.137.56}
+    url: ${ADDRESS_SERVICE_URL}
 
 app:
-  base-url: https://100.67.246.36:8443
+  base-url: ${DEV_APP_BASE_URL}
 
   ocr:
     tessdata-path: src/main/resources/tessdata
@@ -294,7 +296,7 @@ server:
   ssl:
     enabled: true
     key-store: classpath:ticketingssl.jks
-    key-store-password: mha123
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
     key-alias: ticketingkey
     key-store-type: JKS
   servlet:

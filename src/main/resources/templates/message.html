@@ -30,16 +30,9 @@
 <!-- فوتر -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- مودال افزودن/ویرایش مشتری -->
-<!--<div th:replace="~{fragments/section-fragments/section-modal :: section-modal}"></div>-->
-
 <!-- اسکریپت‌ها -->
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
-<!--****************************************  Alternative 1 : use sections.js instead of sections-api.js-->
-<!--<script th:src="@{/js/messages.js}"></script>-->
-
-<!--****************************************  Alternative 2 :-->
 <script th:src="@{/js/messages-api.js}"></script>
 </body>
 </html>

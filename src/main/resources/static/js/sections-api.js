@@ -79,33 +79,6 @@ function loadSections(page = 0) {
 }
 
 // -------------------- Render Table --------------------
-// function renderSectionsTable(sections) {
-//     const tableBody = document.querySelector("#sections-table tbody");
-//     tableBody.innerHTML = '';
-//
-//     sections.forEach(s => {
-//         const row = document.createElement('tr');
-//
-//         row.innerHTML = `
-//             <td>${s.title}</td>
-//             <td>${s.parentSection ? s.parentSection.title : '-'}</td>
-//             <td>
-//                 <button class="btn btn-sm btn-warning btn-edit"
-//                     data-id="${s.id}"
-//                     data-title="${s.title}"
-//                     data-parent="${s.parentSection ? s.parentSection.id : ''}">
-//                     <i class="fas fa-edit"></i>
-//                 </button>
-//                 <button class="btn btn-sm btn-danger btn-delete" data-id="${s.id}">
-//                     <i class="fas fa-trash"></i>
-//                 </button>
-//             </td>
-//         `;
-//
-//         tableBody.appendChild(row);
-//     });
-// }
-
 function renderSectionsTable(sections, roles) {
     const tableBody = document.querySelector("#sections-table tbody");
     tableBody.innerHTML = '';

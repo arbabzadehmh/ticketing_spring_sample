@@ -1,8 +1,6 @@
 package ir.repository;
 
 import ir.model.entity.Building;
-import ir.model.entity.Role;
-import ir.model.entity.Section;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

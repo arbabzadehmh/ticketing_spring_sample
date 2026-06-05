@@ -1,8 +1,6 @@
 package ir.service;
 
 import ir.model.entity.Message;
-import ir.model.entity.Ticket;
-import ir.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +15,5 @@ public interface MessageService {
     List<Message> findAll();
     Page<Message> findByTicketId(Long ticketId, int page, int size);
     Message findById(Long id);
-//    List<Message> findByUser(User user);
-//    List<Message> findByUserUsername(String username);
-//    List<Message> findByTicket(Ticket ticket);
-//    List<Message> findByTicketId(Long ticketId);
     void markMessagesAsSeen(Long ticketId, Principal principal);
 }

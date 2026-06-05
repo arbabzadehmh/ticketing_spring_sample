@@ -22,7 +22,7 @@ public class SectionCacheWarmup implements ApplicationListener<ApplicationReadyE
             sectionService.findAll();               // کش‌سازی اینجا به‌درستی فعال می‌شود
             sectionService.findAll(PageRequest.of(0, 50));
             sectionService.findAllForFilter();
-            log.info("**************************************************************  cache sections  ***************************************************************");
+            log.info(" ---------->  cache sections");
 
         } catch (Exception e){
             log.warn("Cache warmup skipped");

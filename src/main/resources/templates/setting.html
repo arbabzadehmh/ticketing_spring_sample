@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en"
+      dir="ltr"
+      th:attr="lang=${#locale.language}, dir=${#locale.language == 'fa' ? 'rtl' : 'ltr'}">
+<head>
+  <title th:text="#{setting.title}"></title>
+  <th:block th:replace="~{fragments/head-tags :: head-tags}"></th:block>
+</head>
+<body data-bs-theme="light">
+
+<!-- نوار بالایی -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- سایدبار -->
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<!-- محتوای اصلی -->
+<main class="main-content p-5">
+  <div class="container-fluid p-5 justify-content-center bg-secondary-subtle">
+    <h1 sec:authorize="isAuthenticated()">
+      <span th:text="#{navbar.settings}"></span>
+    </h1>
+
+  </div>
+
+  <div class="container-fluid p-5 justify-content-center bg-secondary-subtle">
+    <h1 >
+      <span th:text="#{about}"></span>
+    </h1>
+
+
+
+    <div class="card mt-3" dir="ltr">
+      <div class="card-body text-start">
+
+        <h5>
+          First stable production-ready release built with Spring Boot
+        </h5>
+
+        <h5 class="card-title">
+          Ticketing Spring Sample
+        </h5>
+
+        <p class="mb-1">
+          <strong>Version:</strong> 1.0.0
+        </p>
+
+        <p class="mb-1">
+          <strong>Build:</strong> 2026.06
+        </p>
+
+        <p class="mb-3">
+          <strong>Author:</strong> Mohammad Hossein Arbabzadeh
+        </p>
+
+        <a href="https://github.com/arbabzadehmh/ticketing_spring_sample"
+           target="_blank"
+           class="btn btn-primary">
+          <i class="fab fa-github me-2"></i>
+          GitHub Repository
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- فوتر -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+
+<script th:src="@{/js/permissions-api.js}"></script>
+</body>
+</html>

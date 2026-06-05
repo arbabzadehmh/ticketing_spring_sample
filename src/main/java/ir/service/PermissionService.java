@@ -13,4 +13,5 @@ public interface PermissionService {
     Page<Permission> findAll(Pageable pageable);
     List<Permission> findAll();
     Page<Permission> findByPermissionNameContaining(String permissionName, Pageable pageable);
+    Permission findByName(String name);
 }

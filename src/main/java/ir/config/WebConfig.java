@@ -23,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/logout").setViewName("logout");
         registry.addViewController("/error").setViewName("error");
         registry.addViewController("/resetPass").setViewName("forgot-password");
+        registry.addViewController("/setting").setViewName("setting");
     }
 
     // هندل کردن منابع استاتیک (CSS, JS, تصاویر و ...)

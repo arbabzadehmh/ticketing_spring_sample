@@ -19,8 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -30,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -291,26 +288,6 @@ public class MessageServiceImpl implements MessageService {
 
         }
     }
-
-//    @Override
-//    public List<Message> findByUser(User user) {
-//        return messageRepository.findByUserOrderByDateTime(user);
-//    }
-
-//    @Override
-//    public List<Message> findByUserUsername(String username) {
-//        return messageRepository.findByUserUsernameOrderByDateTime(username);
-//    }
-
-//    @Override
-//    public List<Message> findByTicket(Ticket ticket) {
-//        return messageRepository.findByTicketOrderByDateTime(ticket);
-//    }
-
-//    @Override
-//    public List<Message> findByTicketId(Long ticketId) {
-//        return messageRepository.findByTicketIdOrderByDateTime(ticketId);
-//    }
 
     private void updateTicketStatusOnNewMessage(Ticket ticket, Message message) {
 

@@ -4,7 +4,6 @@ import ir.model.entity.User;
 import ir.service.NotificationService;
 import ir.service.TicketService;
 import ir.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;

@@ -4,7 +4,6 @@ package ir.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.controller.exception.AddressEmptyException;
 import ir.controller.exception.DuplicateBuildingException;
-import ir.controller.exception.DuplicateSectionException;
 import ir.controller.exception.EntityLockedException;
 import ir.dto.AddressDto;
 import ir.dto.BuildingTableDto;
@@ -21,7 +20,6 @@ import jakarta.persistence.OptimisticLockException;
 import lombok.SneakyThrows;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -219,40 +217,6 @@ public class BuildingServiceImpl implements BuildingService {
 
         return savedBuilding;
     }
-
-//    private Building saveWithNewAddress(Building building, AddressDto addressDto) {
-//
-//        try{
-//            Building savedBuilding = Building.builder()
-//                    .title(building.getTitle())
-//                    .phoneNumbers(building.getPhoneNumbers())
-//                    .sectionList(building.getSectionList())
-//                    .build();
-//
-//    savedBuilding = buildingRepository.save(savedBuilding);
-
-//            // prepare AddressCreateRequestEvent
-//            AddressCreateRequestEvent ev = new AddressCreateRequestEvent();
-//            ev.eventId = UUID.randomUUID().toString();
-//            ev.buildingId = savedBuilding.getId();
-//            ev.address = addressDto;
-//            ev.createdAt = Instant.now().toEpochMilli();
-//
-//            String payload = objectMapper.writeValueAsString(ev);
-//
-//            OutboxEvent out = new OutboxEvent();
-//            out.setAggregateType("BUILDING");
-//            out.setAggregateId(savedBuilding.getId());
-//            out.setEventType("ADDRESS_CREATE_REQUEST");
-//            out.setPayload(payload);
-//            out.setPublished(false);
-//            outboxRepository.save(out);
-//
-//            return savedBuilding;
-//        } catch (JsonProcessingException e){
-//            throw new RuntimeException("Failed to serialize event", e);
-//        }
-//    }
 
     @SneakyThrows
     private Building saveWithNewAddress(Building building, AddressDto addressDto) {

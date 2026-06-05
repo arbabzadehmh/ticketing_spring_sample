@@ -1,6 +1,5 @@
 package ir.service.impl;
 
-import ir.controller.exception.TicketClosedException;
 import ir.controller.exception.TicketIsAlreadyClosedException;
 import ir.controller.exception.TicketIsAlreadyScoredException;
 import ir.dto.TicketCreateDto;
@@ -24,7 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ir.model.entity.Role;
 
 import java.security.Principal;
 import java.time.LocalDateTime;

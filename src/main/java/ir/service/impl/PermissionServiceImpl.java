@@ -71,6 +71,11 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionRepository.findByPermissionNameContainingIgnoreCase(permissionName, pageable);
     }
 
+    @Override
+    public Permission findByName(String name) {
+        return permissionRepository.findByPermissionName(name).orElseThrow(() -> new EntityNotFoundException("Permission not found"));
+    }
+
     @Transactional
     @Override
     public void deleteById(Long id) {

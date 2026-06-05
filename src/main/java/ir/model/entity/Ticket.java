@@ -12,8 +12,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @NoArgsConstructor
 @Getter

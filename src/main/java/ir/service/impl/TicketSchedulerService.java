@@ -1,12 +1,10 @@
 package ir.service.impl;
 
 import ir.model.entity.LowScoreTicketReport;
-import ir.model.entity.Profile;
 import ir.model.entity.Ticket;
 import ir.model.entity.User;
 import ir.model.enums.TicketStatus;
 import ir.repository.LowScoreTicketReportRepository;
-import ir.repository.ProfileRepository;
 import ir.repository.TicketRepository;
 import ir.repository.UserRepository;
 import ir.service.NotificationService;

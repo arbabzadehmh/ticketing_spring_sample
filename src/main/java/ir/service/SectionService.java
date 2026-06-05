@@ -1,6 +1,5 @@
 package ir.service;
 
-import ir.dto.SectionDto;
 import ir.dto.SectionFilterDto;
 import ir.dto.SectionListDto;
 import ir.model.entity.Section;
@@ -8,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SectionService {
     Section save(Section section);

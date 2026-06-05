@@ -6,7 +6,6 @@ import ir.dto.SectionDto;
 import ir.dto.SectionListDto;
 import ir.dto.mapper.SectionMapper;
 import ir.model.entity.Section;
-import ir.repository.SectionRepository;
 import ir.service.SectionService;
 import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;
@@ -19,11 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/sections")

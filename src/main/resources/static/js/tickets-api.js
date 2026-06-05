@@ -443,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // set edit modal fields
             const id = btnEdit.dataset.id || '';
             document.getElementById('editTicketId').value = id;
-            document.getElementById('editTitle').value = btnEdit.dataset.title ? btnEdit.dataset.title : (row ? row.cells[1].textContent.trim() : '');
+            document.getElementById('editTitle').value = btnEdit.dataset.title ? btnEdit.dataset.title : (row ? row.cells[0].textContent.trim() : '');
             document.getElementById('editStatus').value = btnEdit.dataset.status || '';
             document.getElementById('editSection').value = btnEdit.dataset.sectionId || '';
 

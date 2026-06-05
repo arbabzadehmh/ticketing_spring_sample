@@ -2,7 +2,6 @@ package ir.controller.api;
 
 import ir.controller.exception.ValidationException;
 import ir.model.entity.Permission;
-import ir.model.entity.Role;
 import ir.service.PermissionService;
 import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;

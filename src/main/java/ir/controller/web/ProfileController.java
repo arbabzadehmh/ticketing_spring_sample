@@ -1,8 +1,5 @@
 package ir.controller.web;
 
-
-import ir.controller.exception.ValidationException;
-import ir.dto.ProfileUserDto;
 import ir.dto.mapper.ProfileMapper;
 import ir.model.entity.Profile;
 import ir.service.RoleService;
@@ -10,8 +7,6 @@ import ir.service.UserService;
 import ir.service.ProfileService;
 import ir.service.impl.FileStorageService;
 import ir.service.impl.PasswordResetService;
-import ir.validation.OnCreate;
-import ir.validation.OnUpdate;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -21,12 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 

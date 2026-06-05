@@ -74,25 +74,6 @@ public class SecurityConfig {
                 )
 
                 // 3. Headers (XSS & Clickjacking)
-//                .headers(headers -> {
-//                    headers
-//                            .addHeaderWriter(new StaticHeadersWriter("Content-Security-Policy",
-//                                    "default-src 'self'; script-src 'self'; object-src 'none'; style-src 'self'; img-src 'self'; frame-ancestors 'self';"))
-//                            .addHeaderWriter(new StaticHeadersWriter("X-Content-Type-Options", "nosniff"))
-//                            .addHeaderWriter(new StaticHeadersWriter("X-XSS-Protection", "1; mode=block"))
-//                            .addHeaderWriter(new StaticHeadersWriter("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"))
-//                            .addHeaderWriter(new StaticHeadersWriter("Pragma", "no-cache"))
-//                            .addHeaderWriter(new StaticHeadersWriter("Expires", "0"))
-//                            .defaultsDisabled();
-//                    if (isDevProfile) {
-//                        headers.frameOptions(frame -> frame.disable());
-//                    } else {
-//                        headers.frameOptions(frame -> frame.sameOrigin())
-//                                .addHeaderWriter(new StaticHeadersWriter("Strict-Transport-Security", "max-age=31536000; includeSubDomains"));
-//                    }
-//                })
-
-                // 3. Headers (XSS & Clickjacking)
                 .headers(headers -> {
                     headers
                             .addHeaderWriter(new StaticHeadersWriter("Content-Security-Policy",

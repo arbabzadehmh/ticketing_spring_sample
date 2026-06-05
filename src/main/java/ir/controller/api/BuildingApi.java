@@ -1,11 +1,7 @@
 package ir.controller.api;
 
-import ir.controller.exception.ValidationException;
-import ir.dto.AddressDto;
 import ir.dto.BuildingCreateRequest;
 import ir.dto.BuildingTableDto;
-import ir.model.entity.Building;
-import ir.model.entity.Role;
 import ir.service.BuildingService;
 import ir.service.impl.EntityLockService;
 import jakarta.validation.Valid;
@@ -50,7 +46,7 @@ public class BuildingApi {
         Sort sort = Sort.by("title").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<BuildingTableDto> buildings= buildingService.findAllForTable(pageable, searchBuildingTitle);
+        Page<BuildingTableDto> buildings = buildingService.findAllForTable(pageable, searchBuildingTitle);
 
         return ResponseEntity.ok(buildings);
     }
@@ -85,7 +81,7 @@ public class BuildingApi {
     @PostMapping("/{id}/edit-start")
     @PreAuthorize("hasAuthority('BUILDING_EDIT')")
     public ResponseEntity<?> startBuildingEdit(@PathVariable Long id,
-                                              Principal principal) {
+                                               Principal principal) {
 
         lockService.lock("building", id, principal.getName());
         return ResponseEntity.ok(Map.of("message", "locked"));
@@ -94,7 +90,7 @@ public class BuildingApi {
     @PostMapping("/{id}/edit-stop")
     @PreAuthorize("hasAuthority('BUILDING_EDIT')")
     public void stopBuildingEdit(@PathVariable Long id,
-                                Principal principal) {
+                                 Principal principal) {
 
         lockService.unlock("building", id, principal.getName());
     }

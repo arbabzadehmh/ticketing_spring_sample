@@ -1,24 +1,17 @@
 package ir.controller.web;
 
-import ir.controller.exception.ValidationException;
 import ir.model.entity.Permission;
 import ir.service.PermissionService;
-import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/permissions")
@@ -32,11 +25,6 @@ public class PermissionController {
         this.permissionService = permissionService;
         this.messageSource = messageSource;
     }
-
-    //****************************************  Alternative 2 : In Alternative 1, all requests
-// go through the WebController.In Alternative 2, however, the first request is handled by
-// the WebController, while subsequent requests are routed to the RestController.
-// All POST, PUT, and DELETE operations are handled exclusively by the RestController. (Alt 2)
 
     @GetMapping
     public String listPermissions(
@@ -58,91 +46,5 @@ public class PermissionController {
                 ? "fragments/permission-fragments/permissions-table :: permissions-table"
                 : "permission";
     }
-
-
-
-//****************************************  Alternative 1 :
-
-//    @GetMapping
-//    public String permissionsList(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size,
-//            @RequestParam(required = false) String searchPermissionName,
-//            @RequestParam(required = false) Boolean fragment,
-//            Model model
-//    ) {
-//        if (size <= 0) size = 10;
-//
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("permissionName").ascending());
-//
-//        Page<Permission> permissions;
-//        if (searchPermissionName != null && !searchPermissionName.isEmpty()) {
-//            permissions = permissionService.findByPermissionNameContaining(searchPermissionName, pageable);
-//        } else {
-//            permissions = permissionService.findAll(pageable);
-//        }
-//
-//        model.addAttribute("permissions", permissions);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", permissions.getTotalPages());
-//
-//        return fragment != null && fragment
-//                ? "fragments/permission-fragments/permissions-table :: permissions-table"
-//                : "permission";
-//    }
-//
-//    @PostMapping
-//    @ResponseBody
-//    public ResponseEntity<?> savePermission(
-//            @Valid @RequestBody Permission permission,
-//            BindingResult bindingResult,
-//            Locale locale
-//    ){
-//
-//        if (bindingResult.hasErrors()) {
-//            Map<String, String> errors = new HashMap<>();
-//            bindingResult.getFieldErrors().forEach(error ->
-//                    errors.put(error.getField(), error.getDefaultMessage())
-//            );
-//            throw new ValidationException(errors);
-//        }
-//
-//        permissionService.save(permission);
-//
-//        String message = messageSource.getMessage("permissions.create.success", null, locale);
-//
-//        return ResponseEntity.ok(Map.of("message", message));
-//    }
-//
-//    @PutMapping("/{id}")
-//    @ResponseBody
-//    public ResponseEntity<?> updatePermission(
-//            @PathVariable Long id,
-//            @Valid @RequestBody Permission permission,
-//            BindingResult bindingResult,
-//            Locale locale
-//    ){
-//        if (bindingResult.hasErrors()) {
-//            Map<String, String> errors = new HashMap<>();
-//            bindingResult.getFieldErrors().forEach(error ->
-//                    errors.put(error.getField(), error.getDefaultMessage())
-//            );
-//            throw new ValidationException(errors);
-//        }
-//
-//        permissionService.update(id, permission);
-//
-//        String message = messageSource.getMessage("permissions.edit.success", null, locale);
-//
-//        return ResponseEntity.ok(Map.of("message", message));
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    @ResponseBody
-//    public ResponseEntity<?> deletePermission(@PathVariable Long id, Locale locale){
-//        permissionService.deleteById(id);
-//        String message = messageSource.getMessage("permissions.delete.success", null, locale);
-//        return ResponseEntity.ok(Map.of("message", message));
-//    }
 
 }
