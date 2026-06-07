@@ -54,6 +54,14 @@ The project demonstrates:
 - Grafana
 
 
+## Database ER Diagram
+
+- The diagram below shows the main database entities and their relationships.
+
+![ER Diagram](docs/screenshots/erd.png)
+
+
+
 
 ## Features
 
