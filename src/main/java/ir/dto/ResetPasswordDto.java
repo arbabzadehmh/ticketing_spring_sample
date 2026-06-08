@@ -16,6 +16,6 @@ public class ResetPasswordDto {
     private String token;
 
     @NotBlank(message = "{validation.password}", groups = OnCreate.class)
-    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}", groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}", groups = {OnCreate.class, OnUpdate.class})
     private String newPassword;
 }

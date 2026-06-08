@@ -21,11 +21,11 @@ public class ProfileUserDto {
     private Long id;
 
     @NotBlank(message = "{validation.firstName}", groups = {OnCreate.class, OnUpdate.class})
-    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}", message = "{validation.namePattern}", groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}", groups = {OnCreate.class, OnUpdate.class})
     private String firstName;
 
     @NotBlank(message = "{validation.lastName}", groups = {OnCreate.class, OnUpdate.class})
-    @Pattern(regexp = "^$|^[A-Za-z\\s'-]{2,50}", message = "{validation.namePattern}", groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^[A-Za-z\\s'-]{2,50}$", message = "{validation.namePattern}", groups = {OnCreate.class, OnUpdate.class})
     private String lastName;
 
     @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "{validation.email}", groups = {OnCreate.class, OnUpdate.class})
@@ -37,11 +37,11 @@ public class ProfileUserDto {
 
     // User fields
     @NotBlank(message = "{validation.username}", groups = OnCreate.class)
-    @Pattern(regexp = "^$|^[a-zA-Z\\\\d._-]{3,30}$", message = "{validation.usernamePattern}", groups = OnCreate.class)
+    @Pattern(regexp = "^[a-zA-Z\\\\d._-]{3,30}$", message = "{validation.usernamePattern}", groups = OnCreate.class)
     private String username;
 
     @NotBlank(message = "{validation.password}", groups = OnCreate.class)
-    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}", groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}", groups = {OnCreate.class, OnUpdate.class})
     private String password;
 
     private String profilePictureBase64;

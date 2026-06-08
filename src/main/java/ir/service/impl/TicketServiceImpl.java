@@ -73,7 +73,7 @@ public class TicketServiceImpl implements TicketService {
                         .dateTime(LocalDateTime.now())
                         .senderUsername(customer.getUsername())
                         .senderRoleName("ROLE_CUSTOMER")
-                        .ticketId(ticket.getId())
+                        .ticket(ticket)
                         .seenByCustomer(true)
                         .build();
 
@@ -166,22 +166,27 @@ public class TicketServiceImpl implements TicketService {
 
     @Transactional
     @Override
-    public void closeTicket(Long id) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+    public void closeTicket(Long id, Principal principal) {
+        Ticket ticket = ticketRepository
+                .findByIdAndCustomerUsername(id, principal.getName())
+                .orElseThrow(() ->
+                        new AccessDeniedException("Ticket not found or access denied"));
 
         if (ticket.getStatus() == TicketStatus.Closed) {
             throw new TicketIsAlreadyClosedException();
         }
+
         ticket.setStatus(TicketStatus.Closed);
         ticketRepository.save(ticket);
     }
 
     @Transactional
     @Override
-    public void scoreTicket(Long id, Integer score) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Ticket not found"));
+    public void scoreTicket(Long id, Integer score, Principal principal) {
+        Ticket ticket = ticketRepository
+                .findByIdAndCustomerUsername(id, principal.getName())
+                .orElseThrow(() ->
+                        new AccessDeniedException("Ticket not found or access denied"));
 
         if (ticket.getScore() != null) {
             throw new TicketIsAlreadyScoredException();

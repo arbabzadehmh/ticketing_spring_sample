@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -44,10 +45,12 @@ public class ApplicationBootstrap {
         createPermissions();
 
         Role adminRole = createRole("ROLE_ADMIN");
-        createRole("ROLE_MANAGER");
-        createRole("ROLE_CUSTOMER");
+        Role managerRole = createRole("ROLE_MANAGER");
+        Role customerRole = createRole("ROLE_CUSTOMER");
 
         assignAdminPermissions(adminRole);
+        assignManagerPermissions(managerRole);
+        assignCustomerPermissions(customerRole);
 
         createAdminUser(adminRole);
 
@@ -95,6 +98,50 @@ public class ApplicationBootstrap {
         );
 
         roleRepository.save(adminRole);
+    }
+
+    private void assignManagerPermissions(Role managerRole) {
+
+        Set<Permission> permissions = new HashSet<>();
+
+        permissions.add(
+                permissionRepository.findByPermissionName("BUILDING_CREATE")
+                        .orElseThrow()
+        );
+
+        permissions.add(
+                permissionRepository.findByPermissionName("BUILDING_EDIT")
+                        .orElseThrow()
+        );
+
+        permissions.add(
+                permissionRepository.findByPermissionName("BUILDING_DELETE")
+                        .orElseThrow()
+        );
+
+        permissions.add(
+                permissionRepository.findByPermissionName("TICKET_EDIT")
+                        .orElseThrow()
+        );
+
+        managerRole.setPermissionSet(permissions);
+
+        roleRepository.save(managerRole);
+
+    }
+
+    private void assignCustomerPermissions(Role customerRole) {
+
+        Set<Permission> permissions = new HashSet<>();
+
+        permissions.add(
+                permissionRepository.findByPermissionName("TICKET_CREATE")
+                        .orElseThrow()
+        );
+
+        customerRole.setPermissionSet(permissions);
+
+        roleRepository.save(customerRole);
     }
 
 

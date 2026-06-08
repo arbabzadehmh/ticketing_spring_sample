@@ -65,10 +65,11 @@ public class MessageApi {
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> closeTicket(
             @PathVariable Long ticketId,
+            Principal principal,
             Locale locale
     ) {
 
-        ticketService.closeTicket(ticketId);
+        ticketService.closeTicket(ticketId, principal);
 
         String message = messageSource.getMessage("tickets.close.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));
@@ -80,10 +81,11 @@ public class MessageApi {
     public ResponseEntity<?> scoreTicket(
             @PathVariable Long ticketId,
             @RequestBody Integer score,
+            Principal principal,
             Locale locale
     ) {
 
-        ticketService.scoreTicket(ticketId, score);
+        ticketService.scoreTicket(ticketId, score, principal);
 
         String message = messageSource.getMessage("tickets.score.success", null, locale);
         return ResponseEntity.ok(Map.of("message", message));

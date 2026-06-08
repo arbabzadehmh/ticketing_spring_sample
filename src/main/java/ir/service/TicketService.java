@@ -26,8 +26,8 @@ public interface TicketService {
     Page<Ticket> findByTitleContains(String title, Pageable pageable);
     Page<Ticket> findBySection(Long sectionId, Pageable pageable);
     Page<Ticket> findByScoreLessThan(Integer score, Pageable pageable);
-    void closeTicket(Long id);
-    void scoreTicket(Long id, Integer score);
+    void closeTicket(Long id, Principal principal);
+    void scoreTicket(Long id, Integer score, Principal principal);
     Page<Ticket> findAllById(List<Long> ids, Pageable pageable);
     long unreadTicketCount(User user);
     void markAsRead(Long ticketId, Principal principal);

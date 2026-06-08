@@ -15,6 +15,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecificationExecutor<Ticket> {
@@ -26,6 +27,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
     Page<Ticket> findByScoreIsLessThanEqualOrderByDateTime(Integer score, Pageable pageable);
     Page<Ticket> findBySectionIdOrderByDateTime(Long sectionId, Pageable pageable);
     Page<Ticket> findByIdInOrderByDateTime(List<Long> ids, Pageable pageable);
+    Optional<Ticket> findByIdAndCustomerUsername(Long id, String username);
     long countByStatus(TicketStatus status);
     long countByStatusAndCustomer(TicketStatus status, User customer);
     long countByAdminUnreadTrueAndStatusNot(TicketStatus status);
@@ -37,8 +39,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
         FROM ticketEntity t
         WHERE t.status <> :closedStatus
           AND (
-                 (SELECT MAX(m.dateTime) FROM messageEntity m WHERE m.ticketId = t.id) < :threshold
-                 OR NOT EXISTS (SELECT 1 FROM messageEntity m WHERE m.ticketId = t.id)
+                 (SELECT MAX(m.dateTime) FROM messageEntity m WHERE m.ticket.id = t.id) < :threshold
+                 OR NOT EXISTS (SELECT 1 FROM messageEntity m WHERE m.ticket.id = t.id)
           )
     """)
     List<Ticket> findTicketsToAutoClose(
@@ -55,7 +57,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>, JpaSpecif
       AND (
             SELECT MAX(m.dateTime)
             FROM messageEntity m
-            WHERE m.ticketId = t.id
+            WHERE m.ticket.id = t.id
           ) BETWEEN :start AND :end
 """)
     List<Ticket> findTicketsWithLowScoreInPeriod(

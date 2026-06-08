@@ -78,7 +78,7 @@ public class MessageServiceImpl implements MessageService {
                 .dateTime(LocalDateTime.now())
                 .senderUsername(principal.getName())
                 .senderRoleName(role)
-                .ticketId(ticketId)
+                .ticket(ticket)
                 .seenByAdmin(
                         role.equals("ROLE_ADMIN") ||
                                 role.equals("ROLE_MANAGER")
@@ -174,7 +174,7 @@ public class MessageServiceImpl implements MessageService {
                 .dateTime(LocalDateTime.now())
                 .senderUsername(principal.getName())
                 .senderRoleName(role)
-                .ticketId(ticketId)
+                .ticket(ticket)
                 .seenByAdmin(
                         role.equals("ROLE_ADMIN") ||
                                 role.equals("ROLE_MANAGER")
@@ -264,7 +264,7 @@ public class MessageServiceImpl implements MessageService {
                 Sort.by("dateTime").descending()
         );
 
-        return messageRepository.findByTicketId(ticketId, pageable);
+        return messageRepository.findByTicket_Id(ticketId, pageable);
     }
 
     @Override

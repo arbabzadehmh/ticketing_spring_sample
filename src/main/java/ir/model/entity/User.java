@@ -26,12 +26,12 @@ import java.util.Set;
 public class User extends Base {
     @Id
 //    @NotBlank(message = "{validation.username}")
-//    @Pattern(regexp = "^$|^[a-zA-Z\\d._-]{3,30}$", message = "{validation.usernamePattern}")
+//    @Pattern(regexp = "^[a-zA-Z\\d._-]{3,30}$", message = "{validation.usernamePattern}")
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
 //    @NotBlank(message = "{validation.password}")
-//    @Pattern(regexp = "^$|^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}")
+//    @Pattern(regexp = "^[a-zA-Z\\d@_]{3,15}$", message = "{validation.passwordPattern}")
     @Column(name = "password", nullable = false)
     private String password;
 

@@ -16,20 +16,18 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByOrderByDateTime();
 
-    Page<Message> findByTicketId(Long ticketId, Pageable pageable);
-
-    long countByTicketId(Long ticketId);
-
+    Page<Message> findByTicket_Id(Long ticketId, Pageable pageable);
+    long countByTicket_Id(Long ticketId);
 
 
-    @Query("select max(m.dateTime) from messageEntity m where m.ticketId = :ticketId")
+    @Query("select max(m.dateTime) from messageEntity m where m.ticket.id = :ticketId")
     LocalDateTime findLastMessageTime(Long ticketId);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("""
 update messageEntity m
 set m.seenByAdmin = true
-where m.ticketId = :ticketId
+where m.ticket.id = :ticketId
 and m.senderRoleName = 'ROLE_CUSTOMER'
 and m.seenByAdmin = false
 """)
@@ -39,7 +37,7 @@ and m.seenByAdmin = false
     @Query("""
 update messageEntity m
 set m.seenByCustomer = true
-where m.ticketId = :ticketId
+where m.ticket.id = :ticketId
 and m.senderRoleName <> 'ROLE_CUSTOMER'
 and m.seenByCustomer = false
 """)

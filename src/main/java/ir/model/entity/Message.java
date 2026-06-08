@@ -54,8 +54,12 @@ public class Message extends Base {
     @Column(name = "seen_by_customer")
     private boolean seenByCustomer = false;
 
-    @Column(name = "ticket_id", nullable = false)
-    private Long ticketId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "ticket_id",
+            foreignKey = @ForeignKey(name = "fk_message_ticket")
+    )
+    private Ticket ticket;
 
     @OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Attachment> attachments;
