@@ -6,23 +6,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
-import java.util.Map;
 
 @Aspect
 @Component
 @Slf4j
 public class ResponseAspect {
 
-    private final ExceptionWrapper exceptionWrapper;
+
     private final AsyncLogService asyncLogService;
 
-    public ResponseAspect(ExceptionWrapper exceptionWrapper, AsyncLogService asyncLogService) {
-        this.exceptionWrapper = exceptionWrapper;
+    public ResponseAspect(AsyncLogService asyncLogService) {
         this.asyncLogService = asyncLogService;
     }
 
@@ -40,28 +36,46 @@ public class ResponseAspect {
 //                    Thread.currentThread().getName()
 //            );
             return result;
-        } catch (ValidationException e) {
-            String errorMessage ="Web Controller Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors();
-            log.error(errorMessage);
-            asyncLogService.saveLog(
-                    "ERROR",
-                    joinPoint.getTarget().getClass().getSimpleName(),
-                    errorMessage,
-                    Thread.currentThread().getName()
-            );
-            return ResponseEntity.badRequest().body(e.getErrors()); // بازگرداندن خطا به صورت JSON
+
         } catch (Exception e) {
-            Locale locale = LocaleContextHolder.getLocale(); // گرفتن زبان کاربر
-            String message = exceptionWrapper.getMessage(e, locale);
-            String errorMessage = "Web Controller Error in " + joinPoint.getSignature().getName() + ": " + e.getMessage();
+            String className = joinPoint.getTarget().getClass().getSimpleName();
+            String methodName = joinPoint.getSignature().getName();
+
+            String errorMessage;
+
+            // ---------------- Validation logging ----------------
+            if (e instanceof ValidationException ve) {
+
+                errorMessage = "VALIDATION_ERROR in "
+                        + methodName
+                        + " -> "
+                        + ve.getErrors();
+
+                asyncLogService.saveLog(
+                        "VALIDATION_ERROR",
+                        className,
+                        ve.getErrors().toString(),
+                        Thread.currentThread().getName()
+                );
+
+            } else {
+
+                errorMessage = "API_ERROR in "
+                        + methodName
+                        + " -> "
+                        + e.getMessage();
+
+                asyncLogService.saveLog(
+                        "ERROR",
+                        className,
+                        e.getMessage(),
+                        Thread.currentThread().getName()
+                );
+            }
+
             log.error(errorMessage);
-            asyncLogService.saveLog(
-                    "ERROR",
-                    joinPoint.getTarget().getClass().getSimpleName(),
-                    errorMessage,
-                    Thread.currentThread().getName()
-            );
-            return ResponseEntity.status(500).body(Map.of("error", message));
+
+            throw e;
         }
     }
 
@@ -84,28 +98,46 @@ public class ResponseAspect {
 
             return ResponseEntity.ok(result);
 
-        } catch (ValidationException e) {
-            String errorMessage ="API Validation Error in " + joinPoint.getSignature().getName() + ": " + e.getErrors();
-            log.error(errorMessage);
-            asyncLogService.saveLog(
-                    "ERROR",
-                    joinPoint.getTarget().getClass().getSimpleName(),
-                    errorMessage,
-                    Thread.currentThread().getName()
-            );
-            return ResponseEntity.badRequest().body(e.getErrors()); // بازگرداندن خطا به صورت JSON
         } catch (Exception e) {
-            Locale locale = LocaleContextHolder.getLocale(); // گرفتن زبان کاربر
-            String message = exceptionWrapper.getMessage(e, locale);
-            String errorMessage = "API Error in " + joinPoint.getSignature().getName() + ": " + e.getMessage();
+            String className = joinPoint.getTarget().getClass().getSimpleName();
+            String methodName = joinPoint.getSignature().getName();
+
+            String errorMessage;
+
+            // ---------------- Validation logging ----------------
+            if (e instanceof ValidationException ve) {
+
+                errorMessage = "VALIDATION_ERROR in "
+                        + methodName
+                        + " -> "
+                        + ve.getErrors();
+
+                asyncLogService.saveLog(
+                        "VALIDATION_ERROR",
+                        className,
+                        ve.getErrors().toString(),
+                        Thread.currentThread().getName()
+                );
+
+            } else {
+
+                errorMessage = "API_ERROR in "
+                        + methodName
+                        + " -> "
+                        + e.getMessage();
+
+                asyncLogService.saveLog(
+                        "ERROR",
+                        className,
+                        e.getMessage(),
+                        Thread.currentThread().getName()
+                );
+            }
+
             log.error(errorMessage);
-            asyncLogService.saveLog(
-                    "ERROR",
-                    joinPoint.getTarget().getClass().getSimpleName(),
-                    errorMessage,
-                    Thread.currentThread().getName()
-            );
-            return ResponseEntity.status(500).body(Map.of("error", message));
+
+            throw e;
+
         }
     }
 

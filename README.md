@@ -139,11 +139,20 @@ The project demonstrates:
 - JavaScript
 - Bootstrap
 
+
 ### Other
 - Flyway
 - ShedLock
 - Tesseract OCR
 
+
+
+## Testing
+- Mocking with Mockito
+- Service layer coverage:
+    - TicketService
+    - UserService
+    - AuthService
 
 ## Performance Test Results
 
