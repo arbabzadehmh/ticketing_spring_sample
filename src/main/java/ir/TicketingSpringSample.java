@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Slf4j
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @SpringBootApplication
 @EnableFeignClients
 @EnableAsync

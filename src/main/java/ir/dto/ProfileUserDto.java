@@ -37,7 +37,7 @@ public class ProfileUserDto {
 
     // User fields
     @NotBlank(message = "{validation.username}", groups = OnCreate.class)
-    @Pattern(regexp = "^[a-zA-Z\\\\d._-]{3,30}$", message = "{validation.usernamePattern}", groups = OnCreate.class)
+    @Pattern(regexp = "^[a-zA-Z\\d._-]{3,30}$", message = "{validation.usernamePattern}", groups = OnCreate.class)
     private String username;
 
     @NotBlank(message = "{validation.password}", groups = OnCreate.class)
