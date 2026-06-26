@@ -148,13 +148,75 @@ The project demonstrates:
 
 
 ## Testing
-- Mocking with Mockito
-- Service layer coverage:
-    - TicketService
-    - UserService
-    - AuthService
+
+The project includes both unit and integration tests with real database validation using Testcontainers.
+
+Comprehensive automated test suite covering Controllers, Services and Repositories.
+
+| Category | Coverage |
+|-----------|---------:|
+| Controller & REST API Tests | 127 |
+| Service Tests | 155 |
+| Repository Tests | 53 |
+| **Total Test Methods** | **335** |
+
+### Technologies
+
+- JUnit 5
+- Mockito
+- Spring Boot Test
+- MockMvc
+- Testcontainers
+- PostgreSQL
+
+### Repository Tests
+
+Repository tests run against a real PostgreSQL database using Testcontainers instead of an in-memory database to validate:
+
+- Derived Spring Data queries
+- JPQL queries
+- Pagination
+- Sorting
+- Custom update queries
+- Entity relationships
+- Repository specifications
+
+### Service Tests
+
+Business logic is verified using mocked dependencies, including:
+
+- Validation
+- Exception handling
+- Redis Cache
+- Distributed Locking
+- Kafka messaging
+- OCR processing
+- Email service
+
+### Controller Tests
+
+Controller tests verify:
+
+- MVC Controllers
+- REST APIs
+- Spring Security
+- Request validation
+- HTTP responses
+- JSON serialization
+- Exception handling
+
+### Testing Strategy
+
+- Unit Tests
+- Integration Tests
+- Repository Tests (Testcontainers)
+- MVC Tests
+- REST API Tests
+- Security Tests
 
 ## Performance Test Results
+
+- Load tests were performed using k6.
 
 ### Load Tests
 
@@ -221,7 +283,7 @@ System remained stable under all major tests.
 
 ## Default Admin
 
-### Created automatically during first startup.
+### The default administrator account is created automatically on first startup.
 
 - Username: admin
 - Password: admin

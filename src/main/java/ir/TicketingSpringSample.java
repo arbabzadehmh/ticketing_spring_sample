@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Slf4j
-//@EnableJpaRepositories
-@SpringBootApplication
+@EnableJpaRepositories
+@SpringBootApplication     //for running controller tests, this line should be commented
 @EnableFeignClients
 @EnableAsync
 @EnableScheduling

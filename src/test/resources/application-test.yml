@@ -1,0 +1,15 @@
+spring:
+  flyway:
+    enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  data:
+    mongodb:
+      repositories:
+        enabled: false
+
+  cache:
+    type: none
